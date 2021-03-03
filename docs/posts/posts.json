@@ -38,5 +38,27 @@
     "preview": {},
     "last_modified": "2021-03-03T21:22:02+09:00",
     "input_file": {}
+  },
+  {
+    "path": "posts/2021-03-03-03-03-2021-usefulpackage/",
+    "title": "유용하거나 새로 나온 패키지(1)",
+    "description": "시각화 패키지 - g2r",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io/blog"
+      }
+    ],
+    "date": "2021-03-03",
+    "categories": [
+      "R",
+      "시각화",
+      "유용한 패키지",
+      "새로운 패키지"
+    ],
+    "contents": "\ninteractive plot 패키지로 g2r이 나왔다. 아직 완성도가 있다고 보기는 어렵지만 plotly에 비하면 훨씬 직관적이고 이해하기 좋다. ggplot에서 그 방향성은 유지된 것으로 보인다. 방법적인 측면에서 거의 유지가 되었기 때문에 ggplot을 사용하던 사람들의 입장에서 보면 일단 배우기가 쉽다고 보면 된다.\n# install.packages(\"remotes\")\nremotes::install_github(\"devOpifex/g2r\")\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-03-03T21:45:04+09:00",
+    "input_file": "03-03-2021-usefulpackage.utf8.md"
   }
 ]
