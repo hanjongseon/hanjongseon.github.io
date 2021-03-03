@@ -12,10 +12,12 @@
       <title>R 네트워크 관련 패키지 설치(ubuntu)</title>
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/blog/posts/2021-03-03-2021-03-03-rinubuntu</link>
-      <description>우분투에서 R 초기 패키지 설치 전에 만지게 되는 것들&lt;br/&gt;
-기본적인 패키지 설치 전에 먼저 설정해주면 좋음</description>
+      <description>R 네트워크 관련 패키지 설치(ubuntu)</description>
       <category>ubuntu</category>
       <category>R</category>
+      <category>rvest</category>
+      <category>httr</category>
+      <category>jsonlite</category>
       <guid>https://hanjongseon.github.io/blog/posts/2021-03-03-2021-03-03-rinubuntu</guid>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
     </item>
