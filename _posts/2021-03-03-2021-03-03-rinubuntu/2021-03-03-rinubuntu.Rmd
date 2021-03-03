@@ -9,6 +9,7 @@ description: |
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io/blog
+    orcid_id: 0000-0002-4148-9290
 date: 03-03-2021
 output:
   distill::distill_article:
@@ -17,13 +18,12 @@ output:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, class.source = "watch-out")
 ```
 
 
 - 아래 패키지들이 정확한 설치대상은 아닐 수 있음
 - jsonlite, httr, rvest, mongolite 등 네트워크 사용이 필요한 경우 설치가 꼭 제대로 안되는데 아래 내용들 먼저 설치해주면 보통 해결됨
-
 
 
 ```bash
@@ -33,7 +33,7 @@ sudo apt-get install libcurl4-openssl-dev
 sudo apt-get install libsasl2-dev
 ```
 
-<br/>
+
 <br/>
 
 
@@ -49,6 +49,3 @@ install.packages('Rcpp')
 #distill 관련
 install.packages('lattice')
 ```
-
-
-
