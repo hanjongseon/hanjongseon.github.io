@@ -22,7 +22,7 @@
   {
     "path": "posts/2021-03-03-2021-03-03-rinubuntu/",
     "title": "R 네트워크 관련 패키지 설치(ubuntu)",
-    "description": "우분투에서 R 초기 설치시 꼭 설정하게 되는 것들..",
+    "description": "우분투에서 R 초기 패키지 설치 전에 만지게 되는 것들<br/>\n기본적인 패키지 설치 전에 먼저 설정해주면 좋음",
     "author": [
       {
         "name": "Jongseon, Han",
@@ -34,9 +34,9 @@
       "ubuntu",
       "R"
     ],
-    "contents": "\n아래 패키지들이 정확한 설치대상은 아닐 수 있음\njsonlite, httr, rvest, mongolite 등 네트워크 사용이 필요한 경우 설치가 꼭 제대로 안되는데 아래 내용들 먼저 설치해주면 보통 해결됨\nsudo apt-get install -y libssl-dev\nsudo apt-get install libxml2-dev\nsudo apt-get install libcurl4-openssl-dev\nsudo apt-get install libsasl2-dev\n-추가내용\n#rcpp 설치시 에러가 나는 경우\ninstall.packages('codetools')\ninstall.packages('Rcpp')\n\n#distill 관련\ninstall.packages('lattice')\n\n\n\n",
+    "contents": "\n아래 패키지들이 정확한 설치대상은 아닐 수 있음\njsonlite, httr, rvest, mongolite 등 네트워크 사용이 필요한 경우 설치가 꼭 제대로 안되는데 아래 내용들 먼저 설치해주면 보통 해결됨\nsudo apt-get install -y libssl-dev\nsudo apt-get install libxml2-dev\nsudo apt-get install libcurl4-openssl-dev\nsudo apt-get install libsasl2-dev\n\n추가내용\n항상 그러지는 않는 것으로 보이나 다른 패키지 설치 전에 에러가 나서 먼저 설치해줘야 할 것들\n#rcpp 설치시 에러가 나는 경우\ninstall.packages('codetools')\ninstall.packages('Rcpp')\n\n#distill 관련\ninstall.packages('lattice')\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-03-03T16:04:26+09:00",
+    "last_modified": "2021-03-03T16:11:05+09:00",
     "input_file": "2021-03-03-rinubuntu.utf8.md"
   }
 ]

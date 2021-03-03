@@ -4,7 +4,8 @@ categories:
   - ubuntu
   - R
 description: |
-  우분투에서 R 초기 설치시 꼭 설정하게 되는 것들..
+  우분투에서 R 초기 패키지 설치 전에 만지게 되는 것들<br/>
+  기본적인 패키지 설치 전에 먼저 설정해주면 좋음
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io/blog
@@ -32,7 +33,12 @@ sudo apt-get install libcurl4-openssl-dev
 sudo apt-get install libsasl2-dev
 ```
 
--추가내용
+<br/>
+<br/>
+
+
+- 추가내용
+- 항상 그러지는 않는 것으로 보이나 다른 패키지 설치 전에 에러가 나서 먼저 설치해줘야 할 것들
 
 
 ```r
