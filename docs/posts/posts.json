@@ -2,7 +2,7 @@
   {
     "path": "posts/welcome/",
     "title": "첫 포스팅",
-    "description": "Welcome to our new blog, My Blog. We hope you enjoy \nreading what we have to say!",
+    "description": "한글 텍스트로 첫 포스팅",
     "author": [
       {
         "name": "Jongseon, Han",
@@ -10,10 +10,13 @@
       }
     ],
     "date": "2021-03-03",
-    "categories": [],
-    "contents": "\n\n\n\n",
+    "categories": [
+      "R",
+      "한글텍스트"
+    ],
+    "contents": "\n\n['.Rhistory', 'welcome.html', 'welcome.Rmd', 'welcome_files']\n\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-03-03T15:02:22+09:00",
-    "input_file": "welcome.utf8.md"
+    "last_modified": "2021-03-03T15:39:20+09:00",
+    "input_file": {}
   }
 ]

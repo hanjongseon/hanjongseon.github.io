@@ -1,8 +1,10 @@
 ---
 title: "첫 포스팅"
+categories:
+  - R
+  - 한글텍스트
 description: |
-  Welcome to our new blog, My Blog. We hope you enjoy 
-  reading what we have to say!
+  한글 텍스트로 첫 포스팅
 author:
   - name: Jongseon, Han 
     url: https://hanjongseon.github.io/blog
@@ -22,5 +24,11 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
+```{python}
+
+import os
+os.listdir()
+
+```
 
 
