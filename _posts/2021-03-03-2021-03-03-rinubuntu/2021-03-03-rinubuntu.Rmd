@@ -4,7 +4,7 @@ categories:
   - ubuntu
   - R
 description: |
-  A short description of the post.
+  우분투에서 R 초기 설치시 꼭 설정하게 되는 것들..
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io/blog
