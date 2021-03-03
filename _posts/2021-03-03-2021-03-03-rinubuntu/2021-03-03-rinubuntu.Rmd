@@ -1,0 +1,48 @@
+---
+title: "R 네트워크 관련 패키지 설치(ubuntu)"
+categories:
+  - ubuntu
+  - R
+description: |
+  A short description of the post.
+author:
+  - name: Jongseon, Han
+    url: https://hanjongseon.github.io/blog
+date: 03-03-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+- 아래 패키지들이 정확한 설치대상은 아닐 수 있음
+- jsonlite, httr, rvest, mongolite 등 네트워크 사용이 필요한 경우 설치가 꼭 제대로 안되는데 아래 내용들 먼저 설치해주면 보통 해결됨
+
+
+
+```bash
+sudo apt-get install -y libssl-dev
+sudo apt-get install libxml2-dev
+sudo apt-get install libcurl4-openssl-dev
+sudo apt-get install libsasl2-dev
+```
+
+-추가내용
+
+
+```r
+#rcpp 설치시 에러가 나는 경우
+install.packages('codetools')
+install.packages('Rcpp')
+
+#distill 관련
+install.packages('lattice')
+```
+
+
+
