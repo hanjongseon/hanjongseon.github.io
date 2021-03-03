@@ -1,6 +1,6 @@
 {
     "id": "4730CCAD",
-    "path": "~/distill/blong3/_site.yml",
+    "path": "~/distill/blong3/blog/_site.yml",
     "project_path": "_site.yml",
     "type": "yaml",
     "hash": "0",
@@ -16,11 +16,11 @@
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1614749879,
+    "lastKnownWriteTime": 1614751051,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1614749879018,
+    "last_content_update": 1614751051,
     "read_only": false,
     "read_only_alternatives": []
 }
