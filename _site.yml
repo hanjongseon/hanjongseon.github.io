@@ -14,6 +14,6 @@ output: distill::distill_article
 base_url: https://hanjongseon.github.io
 collections:
   posts:
-    disqus:
-      shortname: hanjongseon-github-io
+    disqus: hanjongseon-github-io
+#      shortname: hanjongseon-github-io
     share: [facebook, twitter, linkedin]
