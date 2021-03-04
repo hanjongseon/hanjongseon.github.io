@@ -1,11 +1,33 @@
 ---
-title: "Contact"
-description: |
-  zhrenlzkswnl@gmail.com
+title: "Jongseon Han"
+image: "https://user-images.githubusercontent.com/24967549/109951610-3e724100-7d21-11eb-9152-11c2385d1cf7.jpeg"
+links:
+  - label: GitHub
+    url: "https://github.com/hanjongseon"
+  - label: Facebook
+    url: "https://www.facebook.com/profile.php?id=100019657323860"
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/종선-한-7437391a1/"
+  - label: Email
+    url: "mailto:jayra85@gmail.com"
+#  - label: Blog
+#    url: "https://hanjongseon.github.io"
+output:
+  postcards::trestles
 ---
+ 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+**R**과 **Python**을 main tool로 사용하고 있습니다.    
+**Data**로 할 수 있는 실용적인 분석에 전반적으로 관심이 있습니다.    
+최근에는 **심리학**이나 **행동경제학** 도메인에서 무언가 만들어보고 싶은 욕심이 있습니다.
+보다 쉽고, 편하고, 빠르게 분석하는 방향을 선호하며 기계적인 자동화를 목적으로 하는 머신러닝보다는
+사회과학 분야의 머신러닝 분야에서 결과물을 내고 싶어합니다.    
 
-zhrenlzkswnl@gmail.com
+***
+
+- 산업심리학, 소비자심리학 전공
+- 공군 장교 만기 전역
+- 마케팅 관련 업무, 텍스트 분석 경력
+- 현재 [공감랩](https://howsmuch.com/www/service/landing.php) 부동산 데이터 분석 담당(선임)
+
+***
