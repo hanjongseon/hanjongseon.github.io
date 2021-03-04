@@ -12,6 +12,7 @@ navbar:
     - search: true
 output: distill::distill_article
 base_url: https://hanjongseon.github.io
+google_analytics: "UA-74114097-1"
 collections:
   posts:
     disqus:

@@ -20,7 +20,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, class.source = "watch-out")
+knitr::opts_chunk$set(echo = TRUE, class.source="bg-primary")
 ```
 
 
