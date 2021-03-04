@@ -6,14 +6,14 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-03-04T08:58:44+09:00"
+      "last_modified": "2021-03-04T09:59:23+09:00"
     },
     {
       "path": "index.html",
       "title": "DATA BOARD",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-03-04T08:56:57+09:00"
+      "last_modified": "2021-03-04T09:59:23+09:00"
     }
   ],
   "collections": ["posts/posts.json"]

@@ -1,12 +1,10 @@
 ---
-title: "유용하거나 새로 나온 패키지(1)"
+title: "g2r"
 description: |
-  시각화 패키지 - g2r
+  New and useful visualization packages
 categories:
   - R
-  - 시각화
-  - 유용한 패키지
-  - 새로운 패키지
+  - Visualization
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io/blog
@@ -24,10 +22,29 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-https://g2r.opifex.org/index.html?fbclid=IwAR3NrNikgTn-9xIeNdCAkPkZGcqierfL2gZMJ7879sjiFjOSuBWdk9VDDaE
+- 아래는 해당 패키지의 [`공개 예제`](https://g2r.opifex.org/index.html?fbclid=IwAR3NrNikgTn-9xIeNdCAkPkZGcqierfL2gZMJ7879sjiFjOSuBWdk9VDDaE)이다.
 
 ```r
 # install.packages("remotes")
 remotes::install_github("devOpifex/g2r")
+```
+
+```{r}
+library(g2r)
+json <- jsonlite::fromJSON(
+  "https://gw.alipayobjects.com/os/antvdemo/assets/data/baby-names.json"
+)
+
+json %>%
+  dplyr::group_by(name, year) %>%
+  dplyr::summarise(n = sum(n)) %>%  
+  g2(asp(year, n, color = name, shape = "smooth")) %>% 
+  fig_area(
+    adjust("stack"), adjust("symmetric"),
+    fillOpacity = .85
+  ) %>% 
+  gauge_x_linear(tickInterval = 20) %>% 
+  legend_color(position = "right")
+
 ```
 

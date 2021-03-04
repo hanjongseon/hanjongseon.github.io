@@ -7,40 +7,28 @@
     <description>My Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 03 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 04 Mar 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>R 네트워크 관련 패키지 설치(ubuntu)</title>
       <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/blog/posts/2021-03-03-2021-03-03-rinubuntu</link>
-      <description>R 네트워크 관련 패키지 설치(ubuntu)</description>
+      <link>https://hanjongseon.github.io/blog/posts/2021-03-04-test</link>
+      <description>Things to install before installing R.</description>
       <category>ubuntu</category>
       <category>R</category>
       <category>rvest</category>
       <category>httr</category>
       <category>jsonlite</category>
-      <guid>https://hanjongseon.github.io/blog/posts/2021-03-03-2021-03-03-rinubuntu</guid>
-      <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>https://hanjongseon.github.io/blog/posts/2021-03-04-test</guid>
+      <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>첫 포스팅</title>
+      <title>g2r</title>
       <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/blog/posts/welcome</link>
-      <description>한글 텍스트로 첫 포스팅</description>
+      <link>https://hanjongseon.github.io/blog/posts/2021-03-04-usefulnewpack</link>
+      <description>New and useful visualization packages</description>
       <category>R</category>
-      <category>한글텍스트</category>
-      <guid>https://hanjongseon.github.io/blog/posts/welcome</guid>
-      <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>유용하거나 새로 나온 패키지(1)</title>
-      <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/blog/posts/2021-03-03-03-03-2021-usefulpackage</link>
-      <description>시각화 패키지 - g2r</description>
-      <category>R</category>
-      <category>시각화</category>
-      <category>유용한 패키지</category>
-      <category>새로운 패키지</category>
-      <guid>https://hanjongseon.github.io/blog/posts/2021-03-03-03-03-2021-usefulpackage</guid>
+      <category>Visualization</category>
+      <guid>https://hanjongseon.github.io/blog/posts/2021-03-04-usefulnewpack</guid>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>
