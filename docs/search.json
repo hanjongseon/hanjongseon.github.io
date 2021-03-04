@@ -2,18 +2,18 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "title": "About me",
+      "description": "Some about me",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-03-04T09:59:23+09:00"
+      "last_modified": "2021-03-04T11:06:04+09:00"
     },
     {
       "path": "index.html",
       "title": "DATA BOARD",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-03-04T09:59:23+09:00"
+      "last_modified": "2021-03-04T11:01:24+09:00"
     }
   ],
   "collections": ["posts/posts.json"]

@@ -1,4 +1,4 @@
-name: "first_test"
+name: "hanjongseon.github.io"
 title: "UNDERDOG"
 description: |
   My Blog
@@ -11,7 +11,7 @@ navbar:
       href: about.html
     - search: true
 output: distill::distill_article
-base_url: https://hanjongseon.github.io/blog
+base_url: https://hanjongseon.github.io
 collections:
   posts:
     disqus:
