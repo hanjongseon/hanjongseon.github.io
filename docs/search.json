@@ -2,18 +2,18 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "About me",
-      "description": "Some about me",
+      "title": "Contact",
+      "description": "zhrenlzkswnl@gmail.com",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2021-03-04T16:10:35+09:00"
+      "contents": "\nzhrenlzkswnl@gmail.com\n\n\n\n",
+      "last_modified": "2021-03-04T16:16:54+09:00"
     },
     {
       "path": "index.html",
-      "title": "Untitled0.py",
+      "title": "Post *RL*ist",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-03-04T16:10:36+09:00"
+      "last_modified": "2021-03-04T16:19:15+09:00"
     }
   ],
   "collections": ["posts/posts.json"]
