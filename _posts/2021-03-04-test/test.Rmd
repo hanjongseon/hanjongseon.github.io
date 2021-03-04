@@ -10,7 +10,7 @@ description: |
   Things to install before installing R.
 author:
   - name: "Jongseon, Han"
-    url: https://hanjongseon.github.io/blog
+    url: https://hanjongseon.github.io
     orcid_id: 0000-0002-4148-9290
 date: 03-04-2021
 output:

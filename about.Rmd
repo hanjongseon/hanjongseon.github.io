@@ -1,11 +1,33 @@
 ---
-title: "Contact"
-description: |
-  zhrenlzkswnl@gmail.com
+title: "Jongseon Han"
+image: "https://user-images.githubusercontent.com/24967549/109951610-3e724100-7d21-11eb-9152-11c2385d1cf7.jpeg"
+links:
+  - label: GitHub
+    url: "https://github.com/hanjongseon"
+  - label: Facebook
+    url: "https://www.facebook.com/profile.php?id=100019657323860"
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/종선-한-7437391a1/"
+  - label: Email
+    url: "mailto:jayra85@gmail.com"
+#  - label: Blog
+#    url: "https://hanjongseon.github.io"
+output:
+  postcards::trestles
 ---
+ 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+**R** and **Python** are used as main tools.<br/>
+I'm interested in practical analysis that can be done with **Data**.<br/>
+Recently, I have a desire to create something in the **psychology** or **behavioral economics** domains.<br/>
+Rather than machine learning for mechanical automation, preferring easier, easier, faster analysis.<br/>
+I want to produce results in the field of machine learning in the field of social science.
 
-zhrenlzkswnl@gmail.com
+***
+
+- Bachelor of Science in Industrial Psychology and Master of Consumer Psychology
+- Air Force Officers Expired Out
+- Marketing related work, text analysis experience
+- Current [공감랩](https://howsmuch.com/www/service/landing.php) Responsible for Real Estate Data Analysis (Senior)
+
+***

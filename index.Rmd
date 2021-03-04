@@ -1,5 +1,5 @@
 ---
-title: "Post *RL*ist"
+title: "Data PSYentist"
 site: distill::distill_website
 listing: posts
 ---
