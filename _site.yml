@@ -16,5 +16,4 @@ collections:
   posts:
     disqus:
       shortname: hanjongseon-github-io
-      hidden: false
     share: [facebook, twitter, linkedin]
