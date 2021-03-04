@@ -1,5 +1,5 @@
 ---
-title: "DATA BOARD"
+title: "Footprints for data analysis"
 site: distill::distill_website
 listing: posts
 ---
