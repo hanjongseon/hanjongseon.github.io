@@ -22,6 +22,19 @@
       <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
+      <title>확률 가중 함수와 가치함수_작성중</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-03-05-wtvaluef</link>
+      <description>Behavioral economics:Probability-weighted and value functions</description>
+      <category>Probability Weighted Function</category>
+      <category>Value function</category>
+      <category>Behavioral economics</category>
+      <category>R</category>
+      <guid>https://hanjongseon.github.io/posts/2021-03-05-wtvaluef</guid>
+      <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://hanjongseon.github.io/posts/2021-03-05-wtvaluef/wtvaluef_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
       <title>g2r</title>
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2021-03-04-usefulnewpack</link>

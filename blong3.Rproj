@@ -13,3 +13,7 @@ RnwWeave: Sweave
 LaTeX: pdfLaTeX
 
 BuildType: Website
+
+PythonType: conda
+PythonVersion: 3.8.8
+PythonPath: ~/miniforge3/bin/python

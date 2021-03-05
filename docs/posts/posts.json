@@ -23,6 +23,30 @@
     "input_file": {}
   },
   {
+    "path": "posts/2021-03-05-wtvaluef/",
+    "title": "확률 가중 함수와 가치함수_작성중",
+    "description": "Behavioral economics:Probability-weighted and value functions",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io"
+      }
+    ],
+    "date": "2021-03-05",
+    "categories": [
+      "Probability Weighted Function",
+      "Value function",
+      "Behavioral economics",
+      "R"
+    ],
+    "contents": "\n행동 경제학에는 확률가중함수와 가치함수라는 것이 존재한다. 자세한 내용들은 서적이나 검색을 통해 알 수 있겠지만, 간단히 설명하면 아래와 같다.\n\n확률가중함수확률에 대해 사람들이 가중치를 두어 생각한다는 것을 보여주는 함수가치함수사람의 손실회피 성향을 보여주는 것으로, 손실에 대해서 더 많은 가치 부여를 보이는 경향을 보임\n\n\n\n#확률 가중 함수\nw_p = function(p,r=0.65){\n  if(p<0){\n    k = p * (-1)\n    return((k**r)/((k**r)+(1-k)**r)**(1/r)*(-1) * 2.25)\n  }\n  if(p>0){\n    return((p**r)/((p**r)+(1-p)**r)**(1/r))\n  }\n  if(p==0){\n    return(0)\n  }\n}\n\n# 가치 함수\nvalue_f = function(x){\n    if(x>=0){\n        y = x**0.88\n    }\n    if(x<0){\n        y = -2.25*(-x)**0.88\n    }\n    return(y)\n}\n\n#확률리스트 생성\np_list = seq(0,1,by=0.01)\np_df = data.frame(p_list)\np_df$W_P = unlist(Map(w_p, p_list))\nhead(p_df)\n\n\n  p_list        W_P\n1   0.00 0.00000000\n2   0.01 0.04693333\n3   0.02 0.07132103\n4   0.03 0.09057428\n5   0.04 0.10699114\n6   0.05 0.12152793\n\nlibrary(ggplot2)\nggplot() + geom_point(data=p_df, aes(x=1:nrow(p_df), y=p_list), col='blue')+\n  geom_point(data=p_df, aes(x=1:nrow(p_df), y=W_P), col='red')+\n  xlab('real prob(%)')+\n  ylab('Probability of feeling') + theme_bw()\n\n\n\n\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": "posts/2021-03-05-wtvaluef/wtvaluef_files/figure-html5/unnamed-chunk-1-1.png",
+    "last_modified": "2021-03-05T09:58:31+09:00",
+    "input_file": "wtvaluef.utf8.md",
+    "preview_width": 1248,
+    "preview_height": 768
+  },
+  {
     "path": "posts/2021-03-04-usefulnewpack/",
     "title": "g2r",
     "description": "New and useful visualization packages",
