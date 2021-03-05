@@ -10,6 +10,7 @@ categories:
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io
+    orcid_id: 0000-0002-4148-9290
 date: 03-05-2021
 output:
   distill::distill_article:
@@ -69,11 +70,5 @@ ggplot() + geom_point(data=p_df, aes(x=1:nrow(p_df), y=p_list), col='blue')+
   ylab('Probability of feeling') + theme_bw()
 
 ```
-
-
-
-Distill is a publication format for scientific and technical writing, native to the web.
-
-Learn more about using Distill at <https://rstudio.github.io/distill>.
 
 
