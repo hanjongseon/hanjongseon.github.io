@@ -1,0 +1,488 @@
+---
+title: "업비트 자동거래 코드 만들기(R 버전)"
+categories:
+  - UPBIT
+  - CRYPTO
+  - BITCOIN
+  - R
+  - SYSTEM TRADE
+description: |
+  파이썬으로는 어차피 많을테니 R로 업비트 자동거래 코드 만들기
+author:
+  - name: Jongseon, Han
+    url: https://hanjongseon.github.io
+    orcid_id: 0000-0002-4148-9290
+date: 03-09-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+- 개인적으로 시스템 트레이딩의 알고리즘을 공개하는 것은 바보짓이라고 생각한다. 다만, 자동거래 수준의 내용은 얼마든지 공개되어도 문제가 없다고 생각했으며 많이들 사용할수록 좋다고 생각한다. 나는 자동화 거래가 대중화되어야 가상화폐 시장이 안정화된다고 생각하고 있다.
+
+- 사실 업비트에서 자동거래가 그렇게 크게 중요하지 않다. 변동성도 약하고 수수료가 너무 쎄다. 파이썬에서 더 쉽게 짤 수 있는 것으로도 알고 있기도 하고.. 하지만 굳이 이렇게 만들었기에 당시에는 꽤 재밌게 놀았던 것 같다.
+
+- 중간중간에 있는 알고리즘(?)은 실패한 것들이니 따라하지 말 것, 업비트의 방식이 바뀌었다고 해도 크게 바뀌진 않았을 듯하다. 조금만 수정해서 사용하면 되지 않을까 싶다.
+
+- 어줍짢게 순서를 변경하면 이해하기 힘드니, 아무리 코드가 지저분하더라도 수정없이 그대로 써보고자 한다.
+
+```r
+#Sys.sleep(15*60)
+mise::mise()
+options(timeout = 1000000)
+gc()
+
+LAST_PRICE = NULL
+Total_PRICE = 5 #총 예산
+BETA_SIZE = 0.001
+RPST_COUNT = 4
+
+#최소 USDT 단위 보유량
+minimum_price = Total_PRICE*BETA_SIZE
+
+#비트코인 기준 구매단위 물량
+minimum_satoshi = 0.001
+
+
+
+#비트코인 최소기준(미만시 추가 비트코인 구매)
+
+upper_satoshi = 10000*BETA_SIZE
+
+#비트코인 추가매수시 최소단위
+
+minimum_cutline = minimum_satoshi
+
+ALPHA_LINE = 0.2
+```
+
+- 자동거래 코드가 생각보다 미리세팅해야 할 조건들이 많았다. 물론 R로 짠 코드라 더 했을 수도 있다.단순히 사고 파는 문제가 아니라 예산에 맞춰서 사고 팔아야 했기 때문인데 사는 패턴을 적용하는 것보다 이러한 것들이 훨씬 골치 아팠다.
+
+```r
+library(purrr)
+library(anomalize)
+library(jsonlite)
+library(httr)
+library(rvest)
+library(dplyr)
+library(data.table)
+library(jose)
+library(stringr)
+library(telegram.bot)
+library(tibble)
+library(scales)
+library(keras)
+library(lubridate)
+library(stringr)
+library(jsonlite)
+library(htmlwidgets)
+library(webshot)
+```
+
+- 사실 지금은 쓰고 있지 않기도 하고, 중간중고 알고리즘이 바뀌었었다. jose는 반드시 필요한 패키지였던 것으로 기억하며 케라스도 사실 실패했어서 불러들일 필요는 없다. 수정전이든 수정후이든 패키지를 따로 빼지는 않았기 때문에 일단 다시 되돌아보고 정리하진 않았고 그당시에 설치했던 패키지를 그대로 놔두었다.
+
+
+```
+options(scipen = 100)
+
+
+model <- keras_model_sequential()
+datalags = 10
+batch.size = 50
+model %>%
+  layer_lstm(units = 100,
+             input_shape = c(datalags, 2),
+             batch_size = batch.size,
+             return_sequences = TRUE,
+             stateful = TRUE) %>%
+  layer_dropout(rate = 0.5) %>%
+  layer_lstm(units = 50,
+             return_sequences = FALSE,
+             stateful = TRUE) %>%
+  layer_dropout(rate = 0.5) %>%
+  layer_dense(units = 1)
+
+model %>%
+  compile(loss = 'mae', optimizer = 'adam')
+
+model
+
+model = load_model_hdf5('/home/LSTM_연습6번.h5')
+load_model_weights_hdf5(model, "/home/LSTM_연습6번_weights.h5")
+
+
+bot <- Bot(token = '99999:EFLJFESLII#ilgiwlejewil')
+
+print(bot$getMe())
+
+#메시지 상황
+
+Updater <- bot$getUpdates()
+
+K = setDT(Updater$message$chat)
+
+CHAT_ID = "99999"
+
+
+aa.list = GET('https://api.binance.com/api/v1/exchangeInfo')
+
+dd = fromJSON(html_text(read_html(aa.list)))
+
+symbollist = dd$symbols$symbol
+
+dl = dd$symbols$filters
+
+i = 1
+
+DLS = NULL
+
+for(i in 1:length(dl)){
+  DLS[[i]] = data.frame(symbollist = symbollist[i], LOT_SIZE = dl[[i]][dl[[i]]$filterType=="LOT_SIZE",]$stepSize)
+}
+DLS = bind_rows(DLS)
+
+symbollist = symbollist[grepl("(ETHUSDT$)", symbollist)]
+symbollist
+t = 1
+L = 1
+
+ID = "******"
+PASSWORD = "******"
+
+KAL = readLines("KAL.txt")
+KAL = KAL[KAL %in% symbollist]
+
+bot <- Bot(token = '******')
+print(bot$getMe())
+CHAT_ID =  "******"
+bot$sendMessage(chat_id =  "******", text = "CHAT BOT SERVICE BOOTED")
+BUY_MAX_PRICE = 100000000
+SELL_MIN_PRICE = 1000
+aa = GET('https://api.upbit.com/v1/candles/minutes/15?market=KRW-BTC&count=500')
+KL = fromJSON(html_text(read_html(aa)))
+KL = data.frame(KL)
+KL = na.omit(KL)
+KL = KL %>% arrange(candle_date_time_kst)
+ncol(KL)
+KL = mutate_if(KL, is.factor, as.character.factor)
+KL = mutate_if(KL, is.character, as.numeric)
+setDT(KL)
+options(scipen=1000)
+# KL$CUMSUM = ((KL$High/KL$Open)-1)+((KL$Low/KL$Open)-1)
+# KL$CUMSUM = cumsum(KL$CUMSUM)
+KL$DATE = as.Date(1:nrow(KL), origin = "1900-01-01")
+KL = KL %>% tail(50)
+BUY_FIRST_RATIO = round(mean(sd(KL$trade_price)/KL$trade_price)/2,3)
+BUY_FIRST_RATIO = ifelse(BUY_FIRST_RATIO<0.02, 0.02, ifelse(
+  BUY_FIRST_RATIO>0.9, 0.1, BUY_FIRST_RATIO
+))
+SELL_FIRST_RATIO = round(mean(sd(KL$trade_price)/KL$trade_price)/2,3)
+SELL_FIRST_RATIO = ifelse(SELL_FIRST_RATIO<0.02, 0.02, ifelse(
+  SELL_FIRST_RATIO>0.9, 0.1, SELL_FIRST_RATIO
+))
+
+KAL = 'KRW-BTC'
+
+
+budget = 1000000
+btc_budget = 0
+btc_volume = 0
+BUY_MAX_PRICE2 = 0
+SELL_MIN_PRICE2 = 0
+
+while(2<3){
+  gc()
+  message(Sys.time())
+  #KAL = readLines("KAL.txt")
+  gc()
+  if(!"KRW-BTC" %in% KAL) KAL = c(KAL, "KRW-BTC")
+  Updater <- bot$getUpdates()
+  Updater$message$text
+  TUSD_OPTION = "BUY"
+  symbollist = "KRW-BTC"
+  LIST_AUCTION = NULL
+  time_sleep = Sys.time()
+  
+  RPST = 0
+  ROSES = NULL
+  FLOWER = 1
+  
+  for(t in 1:length(symbollist)){
+    apikey = ID
+    apisecret = PASSWORD
+    nonce = uuid::UUIDgenerate()
+    
+    #자산 체크
+    query = list(
+      market='BTC',
+      side='bid',
+      volume='1',
+      price='100',
+      ord_type='price'
+    )
+    wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, 
+                                       nonce = uuid::UUIDgenerate(),
+                                       query=paste(names(query), query, sep='=',collapse = '&')),
+                             secret = apisecret, 
+                             size=512)
+    
+    aa=GET('https://api.upbit.com/v1/accounts',
+           add_headers("Authorization"=paste0("Bearer ", wt_key)),
+           query=query)
+    ROS = fromJSON(html_text(read_html(aa)))
+    setDT(ROS)
+    ROS[currency=='KRW']$balance = budget
+    #화폐가 없다면 가상으로 생성
+    if(nrow(ROS[currency=='BTC'])==0) {
+      ROS = bind_rows(ROS, data.table(currency='BTC', balance = "0"))
+    }
+    if(nrow(ROS[currency=='KRW'])==0) {
+      ROS = bind_rows(ROS, data.table(currency='KRW', balance = "0"))
+    }
+    ROS[currency=='KRW']$balance = budget
+    ROS[currency=='BTC']$balance = btc_volume
+    ROS[currency=='BTC']$avg_buy_price = btc_budget/btc_volume
+    message(t, "/", length(symbollist))
+    message(symbollist[t])
+    
+    aa = GET('https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=500')
+    #aa = GET('https://api.upbit.com/v1/candles/minutes/1?market=KRW-ETH&count=500')
+    KL = fromJSON(html_text(read_html(aa)))
+    KL = data.frame(KL)
+    KL = na.omit(KL)
+    KL = KL %>% arrange(candle_date_time_kst)
+    ncol(KL)
+    KL = mutate_if(KL, is.factor, as.character.factor)
+    KL = mutate_if(KL, is.character, as.numeric)
+    setDT(KL)
+    options(scipen=1000)
+    KL$DATE = as.Date(1:nrow(KL), origin = "1900-01-01")
+    samsung = KL[candle_acc_trade_volume!=0]
+    myts = data.frame(index = samsung$DATE, price = samsung$trade_price, vol = samsung$candle_acc_trade_volume, open_shift=shift(samsung$opening_price,-1))
+    myts = na.omit(myts)
+    if(nrow(myts)<100){
+      next()
+    }
+    myts$index = seq(nrow(myts))
+    #myts$price = as.character.factor(myts$price) %>% as.numeric()
+    #myts$vol = as.character.factor(myts$vol) %>% as.numeric()
+    result1 = loess(myts$price~myts$index, span = 0.2)$fitted
+    result2 = loess(myts$vol~myts$index, span = 0.2)$fitted
+    myts$price2 = myts$price/result1
+    myts$vol2 = myts$vol/result2
+    myts$price2 = rescale(myts$price2, range(0,100), range(myts$price2))
+    myts2 = data.table(myts) %>% tail(max((1:nrow(myts))[((1:nrow(myts))%%50)==0]))
+    myts2 = tail(myts2,3000)
+    test_data = array(data = cbind(myts2$price2, myts2$vol2), dim = c(nrow(myts2), 10, 2))
+    pred_out <- model %>% predict(test_data, batch_size = 50) %>% .[,1]  
+    quantile_list = quantile(pred_out, c(0.33, 0.66))
+    pred_out = ifelse(pred_out<quantile_list[1], 0, ifelse(
+      pred_out>quantile_list[2],2,1
+    ))
+    OPTION = 'NEUTRAL'
+    
+    if((pred_out %>% tail(1))==0){
+      OPTION = 'BUY'
+    }
+    if((pred_out %>% tail(1))==2){
+      OPTION = 'SELL'
+    }
+    print(OPTION)
+    if(OPTION == 'NEUTRAL'){
+      TIME_SLEEP = 60*60*24
+    }
+    BUY_PRICE = ((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)
+    if(length(BUY_PRICE)==0){
+      BUY_PRICE = 0
+    }
+    if(BUY_PRICE<1000) {
+      BUY_PRICE = 1000
+    }
+    if(OPTION=="BUY"){
+      TIME_SLEEP = 60*60*24
+      UT = "적극매수"
+      #RPST = 100
+      if(as.numeric(ROS[currency=='KRW']$balance)<((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)){
+        Sys.sleep(TIME_SLEEP)
+        next()
+      }
+      BUY_PRICE = ((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)
+      if(BUY_PRICE<((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)) {
+        BUY_PRICE = as.numeric(ROS[currency=='KRW']$balance)
+      }
+      BUY_PRICE = BUY_PRICE/tail(KL$high_price,1)
+      message(symbollist[t],"  적극매수")
+      message_R = paste0("추천항목은 ", symbollist[t], "입니다.\n",
+                         tail(KL$high_price,1), "가격으로\n",
+                         BUY_PRICE, "개 매수")
+      bot$sendMessage(chat_id = CHAT_ID, text = message_R)
+      KAL = 'KRW-BTC'
+      write(KAL, "c:/work/KAL.txt")
+      BUY_PRICE = BUY_PRICE
+      BUY_PRICE = floor(BUY_PRICE*100000000)/100000000
+      AMOUNT = BUY_PRICE
+      
+      query = list(
+        market='KRW-BTC',
+        side='bid',
+        volume=as.character(AMOUNT),
+        price=as.character(tail(KL$high_price,1)),
+        ord_type='limit'
+      )
+      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, 
+                                         nonce = uuid::UUIDgenerate(),
+                                         query=paste(names(query), query, sep='=',collapse = '&')),
+                               secret = apisecret, 
+                               size=512)
+      #if(2>3){
+      aa=POST('https://api.upbit.com/v1/orders',
+              add_headers("Authorization"=paste0("Bearer ", wt_key)),
+              query=query)
+      #}
+      
+      Sys.sleep(3)
+      budget = budget-tail(KL$trade_price,1)*1.003*AMOUNT
+      btc_budget = btc_budget + tail(KL$trade_price,1)*1.003*AMOUNT
+      btc_volume = btc_volume + AMOUNT
+      nonce = uuid::UUIDgenerate()
+      query = list(
+        market='BTC',
+        side='bid',
+        volume="1",
+        price='100',
+        ord_type='price'
+      )
+      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, 
+                                         nonce = uuid::UUIDgenerate(),
+                                         query=paste(names(query), query, sep='=',collapse = '&')),
+                               secret = apisecret, 
+                               size=512)
+      
+      aa=GET('https://api.upbit.com/v1/accounts',
+             add_headers("Authorization"=paste0("Bearer ", wt_key)),
+             query=query)
+      
+      ROS = fromJSON(html_text(read_html(aa)))
+      setDT(ROS)
+      if(nrow(ROS[currency=='BTC'])==0) {
+        ROS = bind_rows(ROS, data.table(currency='BTC', balance = "0"))
+      }
+      if(nrow(ROS[currency=='KRW'])==0) {
+        ROS = bind_rows(ROS, data.table(currency='KRW', balance = "0"))
+      }
+      ROS[currency=='KRW']$balance = budget
+      ROS[currency=='BTC']$balance = btc_volume
+      ROS[currency=='BTC']$avg_buy_price = btc_budget/btc_volume
+      #budget = budget-tail(KL$trade_price,1)*1.003
+      
+      #print(fromJSON(html_text(read_html(aa))))
+      Sys.sleep(5)
+    }
+    
+    if(OPTION=="SELL"){
+      TIME_SLEEP = 60 * 60 * 24
+      UT = "적극매도"
+      BUY_PRICE = ((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)
+      if(length(BUY_PRICE)==0){
+        BUY_PRICE = 0
+      }
+      if(as.numeric(ROS[currency=='BTC']$balance)*tail(KL$low_price,1)<((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)) {
+        if(BUY_PRICE!=0){
+          BUY_PRICE = as.numeric(ROS[currency=='BTC']$balance)
+        }
+      }else{
+        BUY_PRICE = as.numeric(BUY_PRICE)
+        BUY_PRICE = BUY_PRICE/tail(KL$high_price,1)
+      }
+      BUY_PRICE = floor(BUY_PRICE*100000000)/100000000
+      AMOUNT = BUY_PRICE
+      query = list(
+        market='KRW-BTC',
+        side='ask',
+        volume=AMOUNT,
+        price=tail(KL$low_price,1),
+        ord_type='limit'
+      )
+      
+      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, 
+                                         nonce = uuid::UUIDgenerate(),
+                                         query=paste(names(query), query, sep='=',collapse = '&')),
+                               secret = apisecret, 
+                               size=512)
+      #if(2>3){
+      aa=POST('https://api.upbit.com/v1/orders',
+              add_headers("Authorization"=paste0("Bearer ", wt_key)),
+              query=query)
+      #}
+      Sys.sleep(3)
+      budget = budget+tail(KL$trade_price,1)*1.003*AMOUNT
+      btc_budget = btc_budget - tail(KL$trade_price,1)*1.003*AMOUNT
+      btc_volume = btc_volume - AMOUNT
+      nonce = uuid::UUIDgenerate()
+      query = list(
+        market='BTC',
+        side='bid',
+        volume='1',
+        price='100',
+        ord_type='price'
+      )
+      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, 
+                                         nonce = uuid::UUIDgenerate(),
+                                         query=paste(names(query), query, sep='=',collapse = '&')),
+                               secret = apisecret, 
+                               size=512)
+      
+      aa=GET('https://api.upbit.com/v1/accounts',
+             add_headers("Authorization"=paste0("Bearer ", wt_key)),
+             query=query)
+      ROS = fromJSON(html_text(read_html(aa)))
+      setDT(ROS)
+      if(nrow(ROS[currency=='BTC'])==0) {
+        ROS = bind_rows(ROS, data.table(currency='BTC', balance = "0"))
+      }
+      if(nrow(ROS[currency=='KRW'])==0) {
+        ROS = bind_rows(ROS, data.table(currency='KRW', balance = "0"))
+      }
+      ROS[currency=='KRW']$balance = budget
+      ROS[currency=='BTC']$balance = btc_volume
+      ROS[currency=='BTC']$avg_buy_price = btc_budget/btc_volume
+      
+      message_R = paste0(symbollist[t], "의 가격이 추세를 넘어섰습니다.\n\n",
+                         tail(KL$low_price,1), "가격으로\n",
+                         AMOUNT, " 개를 매도합니다.")
+      bot$sendMessage(chat_id = CHAT_ID, text = message_R)
+      
+      if(aa$status_code!=400){
+        KAL = KAL[!KAL %in% symbollist[t]]
+      }
+      
+      write(KAL, "KAL.txt")
+    }
+    
+    print(paste0('현재 가격은 ', tail(KL$trade_price,1), ' 입니다'))
+    
+    if(symbollist[t]=="KRW-BTC"){
+      RPST = 15
+    }
+  }
+  Total_PRICE = as.numeric(ROS[currency=='KRW']$balance) + as.numeric(ROS[currency=='BTC']$balance) * tail(samsung$trade_price,1)
+  #as.numeric(ROS[currency=='KRW']$balance)
+  LAST_PRICE = NULL
+  BETA_SIZE = Total_PRICE
+  #최소 USDT 단위 보유량
+  minimum_price = floor((Total_PRICE/10)/tail(KL$high_price,1)*100000000)/100000000
+  message(Total_PRICE)
+  message(minimum_price)
+  print("cycle ended")
+  KAL = 'KRW-BTC'
+  write(KAL, "KAL.txt")
+  #K = Sys.time()-time_sleep
+  Sys.sleep(60*60*24)
+}
+```
+

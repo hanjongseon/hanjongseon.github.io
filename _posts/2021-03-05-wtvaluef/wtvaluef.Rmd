@@ -1,5 +1,5 @@
 ---
-title: "확률 가중 함수와 가치함수_작성중"
+title: "확률 가중 함수와 가치함수"
 description: |
   Behavioral economics:Probability-weighted and value functions
 categories:
@@ -71,4 +71,4 @@ ggplot() + geom_point(data=p_df, aes(x=1:nrow(p_df), y=p_list), col='blue')+
 
 ```
 
-
+- 간단한 그래프이다. 실제 확률에 대해서 체감하는 확률이다. 사회현상에 대하여 이것을 알고리즘이나 휴리스틱으로 연구하는 코드를 보고 싶은데 아직은 보지 못했다. 내가 할 수 있다면(이것이 효용이 있다는 것이 증명되면) 한번 나중에 그 내용을 올려보고자 한다.
