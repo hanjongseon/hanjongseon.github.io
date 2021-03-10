@@ -1,5 +1,5 @@
 ---
-title: "확률 가중 함수와 가치함수_작성중"
+title: "확률 가중 함수와 가치함수"
 description: |
   Behavioral economics:Probability-weighted and value functions
 categories:
@@ -10,6 +10,7 @@ categories:
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io
+    orcid_id: 0000-0002-4148-9290
 date: 03-05-2021
 output:
   distill::distill_article:
@@ -103,6 +104,7 @@ ggplot() +
   ylab('Probability of feeling') + theme_bw()
 ```
 
+<<<<<<< HEAD
 sample_data2 = 
   sample_data2 %>% 
   mutate(
@@ -129,3 +131,6 @@ Distill is a publication format for scientific and technical writing, native to 
 Learn more about using Distill at <https://rstudio.github.io/distill>.
 
 
+=======
+- 간단한 그래프이다. 실제 확률에 대해서 체감하는 확률이다. 사회현상에 대하여 이것을 알고리즘이나 휴리스틱으로 연구하는 코드를 보고 싶은데 아직은 보지 못했다. 내가 할 수 있다면(이것이 효용이 있다는 것이 증명되면) 한번 나중에 그 내용을 올려보고자 한다.
+>>>>>>> 69eec3ac01e912f19d7cd0dd473791df2688b303

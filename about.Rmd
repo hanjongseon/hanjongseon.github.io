@@ -8,6 +8,8 @@ links:
     url: "https://www.facebook.com/profile.php?id=100019657323860"
   - label: LinkedIn
     url: "https://www.linkedin.com/in/종선-한-7437391a1/"
+  - label : Blog
+    url: 'https://jayra85.medium.com'
   - label: Email
     url: "mailto:jayra85@gmail.com"
 #  - label: Blog

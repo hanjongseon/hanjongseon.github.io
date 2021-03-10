@@ -1,5 +1,71 @@
 [
   {
+    "path": "posts/2021-03-10-modinpackage/",
+    "title": "pandas를 병렬처리로",
+    "description": "Let's use Pandas as a multicore from single-core.",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io"
+      }
+    ],
+    "date": "2021-03-10",
+    "categories": [
+      "pandas",
+      "python",
+      "modin"
+    ],
+    "contents": "\n파이썬 내에서 작동하는 다양한 병렬처리 방식이 있지만, pandas에서 사용하기에 부적절한 것들이 많다. 당장 pyspark만 해도 그렇고, 기존 사용자 입장에서 직관적으로 사용하기가 힘든 경우가 많은 것을 확인할 수 있다. modin 패키지는 이 부분에서 장점이 많다. 아직 불안정하다는 말도 많지만 같은 인터페이스로 이용가능하다는 것 자체에 큰 강점이 있다.\n먼저 설치방법은 매우 간단하다. 하단코드에서 [dask] 부분을 [ray]로 하여 ray 기반의 modin을 설치할 수 있는데, 제대로 작동하는 것을 본적이 없기 때문에 dask 버전으로 설치하였다. 버전문제도 있고 ray를 사용하기는 생각보다 껄끄럽다.\npip install modin[dask]\n설치 후, 아래와 같이 import 시킨 후에 기존에 쓰던 방식대로 사용하면 된다. 물론, 전체 코드를 확인한 것이 아니기에 모든 기능이 제대로 작동할 것이라 기대하지는 않는다. 해당파일은 kaggle에서 credit-card 데이터셋을 이용했다.\nimport modin.pandas as pd\n#import pandas as pd\nabc=pd.read_csv(\"/home/work/credit-card/application_data.csv\")\nCONTRACT_TYPE의 텍스트를 아주 살짝 수정하는 방식으로 결과는 아래와 같다.\n#modin 방식\n%%time\nabc.NAME_CONTRACT_TYPE.str.replace('^C', \"\")\nCPU times: user 32.7 ms, sys: 0 ns, total: 32.7 ms\nWall time: 29.2 ms\n\n\n0               ash loans\n1               ash loans\n2         Revolving loans\n3               ash loans\n4               ash loans\n               ...       \n307506          ash loans\n307507          ash loans\n307508          ash loans\n307509          ash loans\n307510          ash loans\nName: NAME_CONTRACT_TYPE, Length: 307511, dtype: object\n#import modin.pandas as pd\nimport pandas as pd\nabc=pd.read_csv(\"/home/work/credit-card/application_data.csv\")\n#기존 pandas 기반\n%%time\nabc.NAME_CONTRACT_TYPE.str.replace('^C', \"\")\nCPU times: user 179 ms, sys: 22.3 ms, total: 201 ms\nWall time: 194 ms\n\n0               ash loans\n1               ash loans\n2         Revolving loans\n3               ash loans\n4               ash loans\n               ...       \n307506          ash loans\n307507          ash loans\n307508          ash loans\n307509          ash loans\n307510          ash loans\nName: NAME_CONTRACT_TYPE, Length: 307511, dtype: object\nmodin.pandas를 이용하는 경우, 속도가 훨씬 빠른 것으로 알 수 있다. 파이썬에서 전처리를 할 때, 데이터프레임 폼을 유지하면서 하기가 쉽지 않았는데 지금은 물론 완벽하지 않겠지만 앞으로 더 나아질 것으로 기대한다.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-03-10T11:39:23+09:00",
+    "input_file": "modinpackage.utf8.md"
+  },
+  {
+    "path": "posts/2021-03-07-kaggleinstall/",
+    "title": "리눅스나 맥에서 kaggle json 등록하기",
+    "description": "R,python에 kaggle 연동하는 과정에서...",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io"
+      }
+    ],
+    "date": "2021-03-07",
+    "categories": [
+      "kaggle",
+      "python",
+      "R"
+    ],
+    "contents": "\n난 그냥 R로 데이터분석을 하려고 했을 뿐이었다. 지금은 파이썬을 손대고 운영체제까지 바꿔가면서 DB를 설치하고….. 그냥 불편한 것들이 생겨서 그걸 고치려 했을뿐인데 여기저기 손을 대고 있다.\n개인적으로 kaggle 데이터셋이 워낙 깨끗하니 그걸로 연습하는 것을 좋아하는데, 사이트에서 집접 코드를 만지다보니 생각보다 불편한 경우가 많이 생긴다.\nKaggle과 내 컴퓨터의 R이나 파이썬을 연동해주려고 하면 생각보다 어려움을 겪게 되는 부분이 생긴다. 윈도우에서는 어려움이 없는데 WSL이나 MAC을 쓸데 골치 아프다. kaggle 파이썬 연동을 구글에서 검색하면 일단 kaggle을 pip로 설치하면 된다.\npip install kaggle\n다음이 문제가 되는데, 바로 .kaggle 폴더가 보이지 않는다는 점이다. 억지로 폴더로 만들어서 하다보면 또 형식이 맞지 않는다면서 문제가 생기기도 했다. json 파일에 영어텍스트인데 왜 그런지까지는 잘 모르겠다. 어쨋든 json파일을 복사하려고 하면 권한 문제든 뭐든 제대로 안된다.\n아무래도 나같이 터미널을 그냥 패키지 설치할 때 에러나면 찾아보는 수준으로 쓰거나 아예 써보지 않은 무경험자일 때 생기는 문제일 것 같다. 이 경우에 아래 방식으로 진행하면 된다.\n#kaggle 패키지 설치\n1.pip install kaggle\n# 자기 홈디렉토리의 .kaggle로 이동\n# ~/과 ./를 볼수 있는데 ~인 경우는 기본적인 홈디렉토리를 의미하고 .의 경우는 현디렉토리를 의미한다.\n2.cd ~/.kaggle\n#홈페이지에가서 key를 받고..\n3.homepage www.kaggle.com -> Your Account -> Create New API token\n#다운받은 json 파일을 옮긴다.당연히 mv는 이동을 하고자 할떄 쓰는 명령어이다.\n#패키지 설치할 떄 종종 쓰이니 알아두면 괜찮다.\n4.mv ~/Downloads/kaggle.json ./\n#이후 권한을 설정해준다. chmod는 권한설정 명령어이다. \n5.chmod 600 ./kaggle.json\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-03-10T11:17:18+09:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/2021-03-05-wtvaluef/",
+    "title": "확률 가중 함수와 가치함수",
+    "description": "Behavioral economics:Probability-weighted and value functions",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io"
+      }
+    ],
+    "date": "2021-03-05",
+    "categories": [
+      "Probability Weighted Function",
+      "Value function",
+      "Behavioral economics",
+      "R"
+    ],
+    "contents": "\n행동 경제학에는 확률가중함수와 가치함수라는 것이 존재한다. 자세한 내용들은 서적이나 검색을 통해 알 수 있겠지만, 간단히 설명하면 아래와 같다.\n\n확률가중함수확률에 대해 사람들이 가중치를 두어 생각한다는 것을 보여주는 함수가치함수사람의 손실회피 성향을 보여주는 것으로, 손실에 대해서 더 많은 가치 부여를 보이는 경향을 보임\n\n\n\n#확률 가중 함수\nw_p = function(p,r=0.65){\n  if(p<0){\n    k = p * (-1)\n    return((k**r)/((k**r)+(1-k)**r)**(1/r)*(-1) * 2.25)\n  }\n  if(p>0){\n    return((p**r)/((p**r)+(1-p)**r)**(1/r))\n  }\n  if(p==0){\n    return(0)\n  }\n}\n\n# 가치 함수\nvalue_f = function(x){\n    if(x>=0){\n        y = x**0.88\n    }\n    if(x<0){\n        y = -2.25*(-x)**0.88\n    }\n    return(y)\n}\n\n#확률리스트 생성\np_list = seq(-1,1,by=0.01)\np_df = data.frame(p_list)\np_df$W_P = unlist(Map(w_p, abs(p_list)))\np_df$VALUE_F = unlist(Map(w_p, p_list))\np_df$FELL_VALUE = p_df$W_P*p_df$VALUE_F\n#head(p_df)\n\nlibrary(ggplot2)\nggplot() + geom_point(data=p_df, aes(x=1:nrow(p_df), y=p_list), col='blue')+\n  #geom_point(data=p_df, aes(x=1:nrow(p_df), y=W_P), col='red')+\n  geom_point(data=p_df, aes(x=1:nrow(p_df), y=VALUE_F), col='green')+\n  geom_point(data=p_df, aes(x=1:nrow(p_df), y=FELL_VALUE), col='grey')+\n  xlab('real prob(%)')+\n  ylab('Probability of feeling') + theme_bw()\n\n\n\n\n<<<<<<< HEAD\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n=======\n간단한 그래프이다. 실제 확률에 대해서 체감하는 확률이다. 사회현상에 대하여 이것을 알고리즘이나 휴리스틱으로 연구하는 코드를 보고 싶은데 아직은 보지 못했다. 내가 할 수 있다면(이것이 효용이 있다는 것이 증명되면) 한번 나중에 그 내용을 올려보고자 한다.\n\n>>>>>>> 69eec3ac01e912f19d7cd0dd473791df2688b303\n\n\n",
+    "preview": "posts/2021-03-05-wtvaluef/wtvaluef_files/figure-html5/unnamed-chunk-1-1.png",
+    "last_modified": "2021-03-10T11:17:18+09:00",
+    "input_file": {},
+    "preview_width": 1248,
+    "preview_height": 768
+  },
+  {
     "path": "posts/2021-03-04-test/",
     "title": "R 네트워크 관련 패키지 설치(ubuntu)",
     "description": "Things to install before installing R.",
@@ -23,30 +89,6 @@
     "input_file": {}
   },
   {
-    "path": "posts/2021-03-05-wtvaluef/",
-    "title": "확률 가중 함수와 가치함수_작성중",
-    "description": "Behavioral economics:Probability-weighted and value functions",
-    "author": [
-      {
-        "name": "Jongseon, Han",
-        "url": "https://hanjongseon.github.io"
-      }
-    ],
-    "date": "2021-03-05",
-    "categories": [
-      "Probability Weighted Function",
-      "Value function",
-      "Behavioral economics",
-      "R"
-    ],
-    "contents": "\n행동 경제학에는 확률가중함수와 가치함수라는 것이 존재한다. 자세한 내용들은 서적이나 검색을 통해 알 수 있겠지만, 간단히 설명하면 아래와 같다.\n\n확률가중함수확률에 대해 사람들이 가중치를 두어 생각한다는 것을 보여주는 함수가치함수사람의 손실회피 성향을 보여주는 것으로, 손실에 대해서 더 많은 가치 부여를 보이는 경향을 보임\n\n\n\n#확률 가중 함수\nw_p = function(p,r=0.65){\n  if(p<0){\n    k = p * (-1)\n    return((k**r)/((k**r)+(1-k)**r)**(1/r)*(-1) * 2.25)\n  }\n  if(p>0){\n    return((p**r)/((p**r)+(1-p)**r)**(1/r))\n  }\n  if(p==0){\n    return(0)\n  }\n}\n\n# 가치 함수\nvalue_f = function(x){\n    if(x>=0){\n        y = x**0.88\n    }\n    if(x<0){\n        y = -2.25*(-x)**0.88\n    }\n    return(y)\n}\n\n#확률리스트 생성\np_list = seq(-1,1,by=0.01)\np_df = data.frame(p_list)\np_df$W_P = unlist(Map(w_p, abs(p_list)))\np_df$VALUE_F = unlist(Map(w_p, p_list))\np_df$FELL_VALUE = p_df$W_P*p_df$VALUE_F\n#head(p_df)\n\nlibrary(ggplot2)\nggplot() + geom_point(data=p_df, aes(x=1:nrow(p_df), y=p_list), col='blue')+\n  #geom_point(data=p_df, aes(x=1:nrow(p_df), y=W_P), col='red')+\n  geom_point(data=p_df, aes(x=1:nrow(p_df), y=VALUE_F), col='green')+\n  geom_point(data=p_df, aes(x=1:nrow(p_df), y=FELL_VALUE), col='grey')+\n  xlab('real prob(%)')+\n  ylab('Probability of feeling') + theme_bw()\n\n\n\n\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
-    "preview": "posts/2021-03-05-wtvaluef/wtvaluef_files/figure-html5/unnamed-chunk-1-1.png",
-    "last_modified": "2021-03-05T11:44:49+09:00",
-    "input_file": "wtvaluef.utf8.md",
-    "preview_width": 1248,
-    "preview_height": 768
-  },
-  {
     "path": "posts/2021-03-04-usefulnewpack/",
     "title": "g2r",
     "description": "New and useful visualization packages",
@@ -65,5 +107,28 @@
     "preview": {},
     "last_modified": "2021-03-05T08:17:27+09:00",
     "input_file": {}
+  },
+  {
+    "path": "posts/2020-06-01-upbitautotrade/",
+    "title": "업비트 자동거래 코드 만들기(R 버전)",
+    "description": "파이썬으로는 어차피 많을테니 R로 업비트 자동거래 코드 만들기",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io"
+      }
+    ],
+    "date": "2020-06-01",
+    "categories": [
+      "UPBIT",
+      "CRYPTO",
+      "BITCOIN",
+      "R",
+      "SYSTEM TRADE"
+    ],
+    "contents": "\n개인적으로 시스템 트레이딩의 알고리즘을 공개하는 것은 바보짓이라고 생각한다. 다만, 자동거래 수준의 내용은 얼마든지 공개되어도 문제가 없다고 생각했으며 많이들 사용할수록 좋다고 생각한다. 나는 자동화 거래가 대중화되어야 가상화폐 시장이 안정화된다고 생각하고 있다.\n사실 업비트에서 자동거래가 그렇게 크게 중요하지 않다. 변동성도 약하고 수수료가 너무 쎄다. 파이썬에서 더 쉽게 짤 수 있는 것으로도 알고 있기도 하고.. 하지만 굳이 이렇게 만들었기에 당시에는 꽤 재밌게 놀았던 것 같다.\n중간중간에 있는 알고리즘(?)은 실패한 것들이니 따라하지 말 것, 업비트의 방식이 바뀌었다고 해도 크게 바뀌진 않았을 듯하다. 조금만 수정해서 사용하면 되지 않을까 싶다.\n어줍짢게 순서를 변경하면 이해하기 힘드니, 아무리 코드가 지저분하더라도 수정없이 그대로 써보고자 한다.\n#Sys.sleep(15*60)\nmise::mise()\noptions(timeout = 1000000)\ngc()\n\nLAST_PRICE = NULL\nTotal_PRICE = 5 #총 예산\nBETA_SIZE = 0.001\nRPST_COUNT = 4\n\n#최소 USDT 단위 보유량\nminimum_price = Total_PRICE*BETA_SIZE\n\n#비트코인 기준 구매단위 물량\nminimum_satoshi = 0.001\n\n\n\n#비트코인 최소기준(미만시 추가 비트코인 구매)\n\nupper_satoshi = 10000*BETA_SIZE\n\n#비트코인 추가매수시 최소단위\n\nminimum_cutline = minimum_satoshi\n\nALPHA_LINE = 0.2\n자동거래 코드가 생각보다 미리세팅해야 할 조건들이 많았다. 물론 R로 짠 코드라 더 했을 수도 있다.단순히 사고 파는 문제가 아니라 예산에 맞춰서 사고 팔아야 했기 때문인데 사는 패턴을 적용하는 것보다 이러한 것들이 훨씬 골치 아팠다.\nlibrary(purrr)\nlibrary(anomalize)\nlibrary(jsonlite)\nlibrary(httr)\nlibrary(rvest)\nlibrary(dplyr)\nlibrary(data.table)\nlibrary(jose)\nlibrary(stringr)\nlibrary(telegram.bot)\nlibrary(tibble)\nlibrary(scales)\nlibrary(keras)\nlibrary(lubridate)\nlibrary(stringr)\nlibrary(jsonlite)\nlibrary(htmlwidgets)\nlibrary(webshot)\n사실 지금은 쓰고 있지 않기도 하고, 중간중고 알고리즘이 바뀌었었다. jose는 반드시 필요한 패키지였던 것으로 기억하며 케라스도 사실 실패했어서 불러들일 필요는 없다. 수정전이든 수정후이든 패키지를 따로 빼지는 않았기 때문에 일단 다시 되돌아보고 정리하진 않았고 그당시에 설치했던 패키지를 그대로 놔두었다.\noptions(scipen = 100)\n\n\nmodel <- keras_model_sequential()\ndatalags = 10\nbatch.size = 50\nmodel %>%\n  layer_lstm(units = 100,\n             input_shape = c(datalags, 2),\n             batch_size = batch.size,\n             return_sequences = TRUE,\n             stateful = TRUE) %>%\n  layer_dropout(rate = 0.5) %>%\n  layer_lstm(units = 50,\n             return_sequences = FALSE,\n             stateful = TRUE) %>%\n  layer_dropout(rate = 0.5) %>%\n  layer_dense(units = 1)\n\nmodel %>%\n  compile(loss = 'mae', optimizer = 'adam')\n\nmodel\n\nmodel = load_model_hdf5('/home/LSTM_연습6번.h5')\nload_model_weights_hdf5(model, \"/home/LSTM_연습6번_weights.h5\")\n\n\nbot <- Bot(token = '99999:EFLJFESLII#ilgiwlejewil')\n\nprint(bot$getMe())\n\n#메시지 상황\n\nUpdater <- bot$getUpdates()\n\nK = setDT(Updater$message$chat)\n\nCHAT_ID = \"99999\"\n\n\naa.list = GET('https://api.binance.com/api/v1/exchangeInfo')\n\ndd = fromJSON(html_text(read_html(aa.list)))\n\nsymbollist = dd$symbols$symbol\n\ndl = dd$symbols$filters\n\ni = 1\n\nDLS = NULL\n\nfor(i in 1:length(dl)){\n  DLS[[i]] = data.frame(symbollist = symbollist[i], LOT_SIZE = dl[[i]][dl[[i]]$filterType==\"LOT_SIZE\",]$stepSize)\n}\nDLS = bind_rows(DLS)\n\nsymbollist = symbollist[grepl(\"(ETHUSDT$)\", symbollist)]\nsymbollist\nt = 1\nL = 1\n\nID = \"******\"\nPASSWORD = \"******\"\n\nKAL = readLines(\"KAL.txt\")\nKAL = KAL[KAL %in% symbollist]\n\nbot <- Bot(token = '******')\nprint(bot$getMe())\nCHAT_ID =  \"******\"\nbot$sendMessage(chat_id =  \"******\", text = \"CHAT BOT SERVICE BOOTED\")\nBUY_MAX_PRICE = 100000000\nSELL_MIN_PRICE = 1000\naa = GET('https://api.upbit.com/v1/candles/minutes/15?market=KRW-BTC&count=500')\nKL = fromJSON(html_text(read_html(aa)))\nKL = data.frame(KL)\nKL = na.omit(KL)\nKL = KL %>% arrange(candle_date_time_kst)\nncol(KL)\nKL = mutate_if(KL, is.factor, as.character.factor)\nKL = mutate_if(KL, is.character, as.numeric)\nsetDT(KL)\noptions(scipen=1000)\n# KL$CUMSUM = ((KL$High/KL$Open)-1)+((KL$Low/KL$Open)-1)\n# KL$CUMSUM = cumsum(KL$CUMSUM)\nKL$DATE = as.Date(1:nrow(KL), origin = \"1900-01-01\")\nKL = KL %>% tail(50)\nBUY_FIRST_RATIO = round(mean(sd(KL$trade_price)/KL$trade_price)/2,3)\nBUY_FIRST_RATIO = ifelse(BUY_FIRST_RATIO<0.02, 0.02, ifelse(\n  BUY_FIRST_RATIO>0.9, 0.1, BUY_FIRST_RATIO\n))\nSELL_FIRST_RATIO = round(mean(sd(KL$trade_price)/KL$trade_price)/2,3)\nSELL_FIRST_RATIO = ifelse(SELL_FIRST_RATIO<0.02, 0.02, ifelse(\n  SELL_FIRST_RATIO>0.9, 0.1, SELL_FIRST_RATIO\n))\n\nKAL = 'KRW-BTC'\n\n\nbudget = 1000000\nbtc_budget = 0\nbtc_volume = 0\nBUY_MAX_PRICE2 = 0\nSELL_MIN_PRICE2 = 0\n\nwhile(2<3){\n  gc()\n  message(Sys.time())\n  #KAL = readLines(\"KAL.txt\")\n  gc()\n  if(!\"KRW-BTC\" %in% KAL) KAL = c(KAL, \"KRW-BTC\")\n  Updater <- bot$getUpdates()\n  Updater$message$text\n  TUSD_OPTION = \"BUY\"\n  symbollist = \"KRW-BTC\"\n  LIST_AUCTION = NULL\n  time_sleep = Sys.time()\n  \n  RPST = 0\n  ROSES = NULL\n  FLOWER = 1\n  \n  for(t in 1:length(symbollist)){\n    apikey = ID\n    apisecret = PASSWORD\n    nonce = uuid::UUIDgenerate()\n    \n    #자산 체크\n    query = list(\n      market='BTC',\n      side='bid',\n      volume='1',\n      price='100',\n      ord_type='price'\n    )\n    wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, \n                                       nonce = uuid::UUIDgenerate(),\n                                       query=paste(names(query), query, sep='=',collapse = '&')),\n                             secret = apisecret, \n                             size=512)\n    \n    aa=GET('https://api.upbit.com/v1/accounts',\n           add_headers(\"Authorization\"=paste0(\"Bearer \", wt_key)),\n           query=query)\n    ROS = fromJSON(html_text(read_html(aa)))\n    setDT(ROS)\n    ROS[currency=='KRW']$balance = budget\n    #화폐가 없다면 가상으로 생성\n    if(nrow(ROS[currency=='BTC'])==0) {\n      ROS = bind_rows(ROS, data.table(currency='BTC', balance = \"0\"))\n    }\n    if(nrow(ROS[currency=='KRW'])==0) {\n      ROS = bind_rows(ROS, data.table(currency='KRW', balance = \"0\"))\n    }\n    ROS[currency=='KRW']$balance = budget\n    ROS[currency=='BTC']$balance = btc_volume\n    ROS[currency=='BTC']$avg_buy_price = btc_budget/btc_volume\n    message(t, \"/\", length(symbollist))\n    message(symbollist[t])\n    \n    aa = GET('https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=500')\n    #aa = GET('https://api.upbit.com/v1/candles/minutes/1?market=KRW-ETH&count=500')\n    KL = fromJSON(html_text(read_html(aa)))\n    KL = data.frame(KL)\n    KL = na.omit(KL)\n    KL = KL %>% arrange(candle_date_time_kst)\n    ncol(KL)\n    KL = mutate_if(KL, is.factor, as.character.factor)\n    KL = mutate_if(KL, is.character, as.numeric)\n    setDT(KL)\n    options(scipen=1000)\n    KL$DATE = as.Date(1:nrow(KL), origin = \"1900-01-01\")\n    samsung = KL[candle_acc_trade_volume!=0]\n    myts = data.frame(index = samsung$DATE, price = samsung$trade_price, vol = samsung$candle_acc_trade_volume, open_shift=shift(samsung$opening_price,-1))\n    myts = na.omit(myts)\n    if(nrow(myts)<100){\n      next()\n    }\n    myts$index = seq(nrow(myts))\n    #myts$price = as.character.factor(myts$price) %>% as.numeric()\n    #myts$vol = as.character.factor(myts$vol) %>% as.numeric()\n    result1 = loess(myts$price~myts$index, span = 0.2)$fitted\n    result2 = loess(myts$vol~myts$index, span = 0.2)$fitted\n    myts$price2 = myts$price/result1\n    myts$vol2 = myts$vol/result2\n    myts$price2 = rescale(myts$price2, range(0,100), range(myts$price2))\n    myts2 = data.table(myts) %>% tail(max((1:nrow(myts))[((1:nrow(myts))%%50)==0]))\n    myts2 = tail(myts2,3000)\n    test_data = array(data = cbind(myts2$price2, myts2$vol2), dim = c(nrow(myts2), 10, 2))\n    pred_out <- model %>% predict(test_data, batch_size = 50) %>% .[,1]  \n    quantile_list = quantile(pred_out, c(0.33, 0.66))\n    pred_out = ifelse(pred_out<quantile_list[1], 0, ifelse(\n      pred_out>quantile_list[2],2,1\n    ))\n    OPTION = 'NEUTRAL'\n    \n    if((pred_out %>% tail(1))==0){\n      OPTION = 'BUY'\n    }\n    if((pred_out %>% tail(1))==2){\n      OPTION = 'SELL'\n    }\n    print(OPTION)\n    if(OPTION == 'NEUTRAL'){\n      TIME_SLEEP = 60*60*24\n    }\n    BUY_PRICE = ((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)\n    if(length(BUY_PRICE)==0){\n      BUY_PRICE = 0\n    }\n    if(BUY_PRICE<1000) {\n      BUY_PRICE = 1000\n    }\n    if(OPTION==\"BUY\"){\n      TIME_SLEEP = 60*60*24\n      UT = \"적극매수\"\n      #RPST = 100\n      if(as.numeric(ROS[currency=='KRW']$balance)<((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)){\n        Sys.sleep(TIME_SLEEP)\n        next()\n      }\n      BUY_PRICE = ((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)\n      if(BUY_PRICE<((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)) {\n        BUY_PRICE = as.numeric(ROS[currency=='KRW']$balance)\n      }\n      BUY_PRICE = BUY_PRICE/tail(KL$high_price,1)\n      message(symbollist[t],\"  적극매수\")\n      message_R = paste0(\"추천항목은 \", symbollist[t], \"입니다.\\n\",\n                         tail(KL$high_price,1), \"가격으로\\n\",\n                         BUY_PRICE, \"개 매수\")\n      bot$sendMessage(chat_id = CHAT_ID, text = message_R)\n      KAL = 'KRW-BTC'\n      write(KAL, \"c:/work/KAL.txt\")\n      BUY_PRICE = BUY_PRICE\n      BUY_PRICE = floor(BUY_PRICE*100000000)/100000000\n      AMOUNT = BUY_PRICE\n      \n      query = list(\n        market='KRW-BTC',\n        side='bid',\n        volume=as.character(AMOUNT),\n        price=as.character(tail(KL$high_price,1)),\n        ord_type='limit'\n      )\n      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, \n                                         nonce = uuid::UUIDgenerate(),\n                                         query=paste(names(query), query, sep='=',collapse = '&')),\n                               secret = apisecret, \n                               size=512)\n      #if(2>3){\n      aa=POST('https://api.upbit.com/v1/orders',\n              add_headers(\"Authorization\"=paste0(\"Bearer \", wt_key)),\n              query=query)\n      #}\n      \n      Sys.sleep(3)\n      budget = budget-tail(KL$trade_price,1)*1.003*AMOUNT\n      btc_budget = btc_budget + tail(KL$trade_price,1)*1.003*AMOUNT\n      btc_volume = btc_volume + AMOUNT\n      nonce = uuid::UUIDgenerate()\n      query = list(\n        market='BTC',\n        side='bid',\n        volume=\"1\",\n        price='100',\n        ord_type='price'\n      )\n      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, \n                                         nonce = uuid::UUIDgenerate(),\n                                         query=paste(names(query), query, sep='=',collapse = '&')),\n                               secret = apisecret, \n                               size=512)\n      \n      aa=GET('https://api.upbit.com/v1/accounts',\n             add_headers(\"Authorization\"=paste0(\"Bearer \", wt_key)),\n             query=query)\n      \n      ROS = fromJSON(html_text(read_html(aa)))\n      setDT(ROS)\n      if(nrow(ROS[currency=='BTC'])==0) {\n        ROS = bind_rows(ROS, data.table(currency='BTC', balance = \"0\"))\n      }\n      if(nrow(ROS[currency=='KRW'])==0) {\n        ROS = bind_rows(ROS, data.table(currency='KRW', balance = \"0\"))\n      }\n      ROS[currency=='KRW']$balance = budget\n      ROS[currency=='BTC']$balance = btc_volume\n      ROS[currency=='BTC']$avg_buy_price = btc_budget/btc_volume\n      #budget = budget-tail(KL$trade_price,1)*1.003\n      \n      #print(fromJSON(html_text(read_html(aa))))\n      Sys.sleep(5)\n    }\n    \n    if(OPTION==\"SELL\"){\n      TIME_SLEEP = 60 * 60 * 24\n      UT = \"적극매도\"\n      BUY_PRICE = ((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)\n      if(length(BUY_PRICE)==0){\n        BUY_PRICE = 0\n      }\n      if(as.numeric(ROS[currency=='BTC']$balance)*tail(KL$low_price,1)<((as.numeric(ROS[currency=='KRW']$balance)+as.numeric(ROS[currency=='BTC']$balance)*tail(KL$trade_price,1))/10)) {\n        if(BUY_PRICE!=0){\n          BUY_PRICE = as.numeric(ROS[currency=='BTC']$balance)\n        }\n      }else{\n        BUY_PRICE = as.numeric(BUY_PRICE)\n        BUY_PRICE = BUY_PRICE/tail(KL$high_price,1)\n      }\n      BUY_PRICE = floor(BUY_PRICE*100000000)/100000000\n      AMOUNT = BUY_PRICE\n      query = list(\n        market='KRW-BTC',\n        side='ask',\n        volume=AMOUNT,\n        price=tail(KL$low_price,1),\n        ord_type='limit'\n      )\n      \n      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, \n                                         nonce = uuid::UUIDgenerate(),\n                                         query=paste(names(query), query, sep='=',collapse = '&')),\n                               secret = apisecret, \n                               size=512)\n      #if(2>3){\n      aa=POST('https://api.upbit.com/v1/orders',\n              add_headers(\"Authorization\"=paste0(\"Bearer \", wt_key)),\n              query=query)\n      #}\n      Sys.sleep(3)\n      budget = budget+tail(KL$trade_price,1)*1.003*AMOUNT\n      btc_budget = btc_budget - tail(KL$trade_price,1)*1.003*AMOUNT\n      btc_volume = btc_volume - AMOUNT\n      nonce = uuid::UUIDgenerate()\n      query = list(\n        market='BTC',\n        side='bid',\n        volume='1',\n        price='100',\n        ord_type='price'\n      )\n      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, \n                                         nonce = uuid::UUIDgenerate(),\n                                         query=paste(names(query), query, sep='=',collapse = '&')),\n                               secret = apisecret, \n                               size=512)\n      \n      aa=GET('https://api.upbit.com/v1/accounts',\n             add_headers(\"Authorization\"=paste0(\"Bearer \", wt_key)),\n             query=query)\n      ROS = fromJSON(html_text(read_html(aa)))\n      setDT(ROS)\n      if(nrow(ROS[currency=='BTC'])==0) {\n        ROS = bind_rows(ROS, data.table(currency='BTC', balance = \"0\"))\n      }\n      if(nrow(ROS[currency=='KRW'])==0) {\n        ROS = bind_rows(ROS, data.table(currency='KRW', balance = \"0\"))\n      }\n      ROS[currency=='KRW']$balance = budget\n      ROS[currency=='BTC']$balance = btc_volume\n      ROS[currency=='BTC']$avg_buy_price = btc_budget/btc_volume\n      \n      message_R = paste0(symbollist[t], \"의 가격이 추세를 넘어섰습니다.\\n\\n\",\n                         tail(KL$low_price,1), \"가격으로\\n\",\n                         AMOUNT, \" 개를 매도합니다.\")\n      bot$sendMessage(chat_id = CHAT_ID, text = message_R)\n      \n      if(aa$status_code!=400){\n        KAL = KAL[!KAL %in% symbollist[t]]\n      }\n      \n      write(KAL, \"KAL.txt\")\n    }\n    \n    print(paste0('현재 가격은 ', tail(KL$trade_price,1), ' 입니다'))\n    \n    if(symbollist[t]==\"KRW-BTC\"){\n      RPST = 15\n    }\n  }\n  Total_PRICE = as.numeric(ROS[currency=='KRW']$balance) + as.numeric(ROS[currency=='BTC']$balance) * tail(samsung$trade_price,1)\n  #as.numeric(ROS[currency=='KRW']$balance)\n  LAST_PRICE = NULL\n  BETA_SIZE = Total_PRICE\n  #최소 USDT 단위 보유량\n  minimum_price = floor((Total_PRICE/10)/tail(KL$high_price,1)*100000000)/100000000\n  message(Total_PRICE)\n  message(minimum_price)\n  print(\"cycle ended\")\n  KAL = 'KRW-BTC'\n  write(KAL, \"KAL.txt\")\n  #K = Sys.time()-time_sleep\n  Sys.sleep(60*60*24)\n}\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-03-10T11:38:29+09:00",
+    "input_file": "upbitautotrade.utf8.md"
   }
 ]

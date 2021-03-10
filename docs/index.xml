@@ -7,7 +7,42 @@
     <description>My Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 04 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>pandas를 병렬처리로</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-03-10-modinpackage</link>
+      <description>Let's use Pandas as a multicore from single-core.</description>
+      <category>pandas</category>
+      <category>python</category>
+      <category>modin</category>
+      <guid>https://hanjongseon.github.io/posts/2021-03-10-modinpackage</guid>
+      <pubDate>Tue, 09 Mar 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>리눅스나 맥에서 kaggle json 등록하기</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-03-07-kaggleinstall</link>
+      <description>R,python에 kaggle 연동하는 과정에서...</description>
+      <category>kaggle</category>
+      <category>python</category>
+      <category>R</category>
+      <guid>https://hanjongseon.github.io/posts/2021-03-07-kaggleinstall</guid>
+      <pubDate>Sun, 07 Mar 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>확률 가중 함수와 가치함수</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-03-05-wtvaluef</link>
+      <description>Behavioral economics:Probability-weighted and value functions</description>
+      <category>Probability Weighted Function</category>
+      <category>Value function</category>
+      <category>Behavioral economics</category>
+      <category>R</category>
+      <guid>https://hanjongseon.github.io/posts/2021-03-05-wtvaluef</guid>
+      <pubDate>Fri, 05 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://hanjongseon.github.io/posts/2021-03-05-wtvaluef/wtvaluef_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>R 네트워크 관련 패키지 설치(ubuntu)</title>
       <dc:creator>Jongseon, Han</dc:creator>
@@ -22,19 +57,6 @@
       <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>확률 가중 함수와 가치함수_작성중</title>
-      <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/posts/2021-03-05-wtvaluef</link>
-      <description>Behavioral economics:Probability-weighted and value functions</description>
-      <category>Probability Weighted Function</category>
-      <category>Value function</category>
-      <category>Behavioral economics</category>
-      <category>R</category>
-      <guid>https://hanjongseon.github.io/posts/2021-03-05-wtvaluef</guid>
-      <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://hanjongseon.github.io/posts/2021-03-05-wtvaluef/wtvaluef_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
       <title>g2r</title>
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2021-03-04-usefulnewpack</link>
@@ -43,6 +65,19 @@
       <category>Visualization</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-04-usefulnewpack</guid>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>업비트 자동거래 코드 만들기(R 버전)</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2020-06-01-upbitautotrade</link>
+      <description>파이썬으로는 어차피 많을테니 R로 업비트 자동거래 코드 만들기</description>
+      <category>UPBIT</category>
+      <category>CRYPTO</category>
+      <category>BITCOIN</category>
+      <category>R</category>
+      <category>SYSTEM TRADE</category>
+      <guid>https://hanjongseon.github.io/posts/2020-06-01-upbitautotrade</guid>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>

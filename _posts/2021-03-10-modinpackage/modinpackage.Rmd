@@ -1,0 +1,100 @@
+---
+title: "pandas를 병렬처리로"
+description: |
+  Let's use Pandas as a multicore from single-core.
+categories:
+  - pandas
+  - python
+  - modin
+author:
+  - name: Jongseon, Han
+    url: https://hanjongseon.github.io
+    orcid_id: 0000-0002-4148-9290
+date: 03-10-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+- 파이썬 내에서 작동하는 다양한 병렬처리 방식이 있지만, pandas에서 사용하기에 부적절한 것들이 많다. 당장 pyspark만 해도 그렇고, 기존 사용자 입장에서 직관적으로 사용하기가 힘든 경우가 많은 것을 확인할 수 있다. modin 패키지는 이 부분에서 장점이 많다.<br/>
+아직 불안정하다는 말도 많지만 같은 인터페이스로 이용가능하다는 것 자체에 큰 강점이 있다. 
+
+- 먼저 설치방법은 매우 간단하다.<br/>
+하단코드에서 [dask] 부분을 [ray]로 하여 ray 기반의 modin을 설치할 수 있는데, 제대로 작동하는 것을 본적이 없기 때문에 dask 버전으로 설치하였다. 버전문제도 있고 ray를 사용하기는 생각보다 껄끄럽다.
+
+```bash
+pip install modin[dask]
+```
+
+- 설치 후, 아래와 같이 import 시킨 후에 기존에 쓰던 방식대로 사용하면 된다. 물론, 전체 코드를 확인한 것이 아니기에 모든 기능이 제대로 작동할 것이라 기대하지는 않는다. 해당파일은 kaggle에서 credit-card 데이터셋을 이용했다.
+
+```python
+import modin.pandas as pd
+#import pandas as pd
+abc=pd.read_csv("/home/work/credit-card/application_data.csv")
+```
+- CONTRACT_TYPE의 텍스트를 아주 살짝 수정하는 방식으로 결과는 아래와 같다.
+
+```python
+#modin 방식
+%%time
+abc.NAME_CONTRACT_TYPE.str.replace('^C', "")
+```
+
+    CPU times: user 32.7 ms, sys: 0 ns, total: 32.7 ms
+    Wall time: 29.2 ms
+
+
+    0               ash loans
+    1               ash loans
+    2         Revolving loans
+    3               ash loans
+    4               ash loans
+                   ...       
+    307506          ash loans
+    307507          ash loans
+    307508          ash loans
+    307509          ash loans
+    307510          ash loans
+    Name: NAME_CONTRACT_TYPE, Length: 307511, dtype: object
+
+
+```python
+#import modin.pandas as pd
+import pandas as pd
+abc=pd.read_csv("/home/work/credit-card/application_data.csv")
+
+```
+
+```python
+#기존 pandas 기반
+%%time
+abc.NAME_CONTRACT_TYPE.str.replace('^C', "")
+```
+
+    CPU times: user 179 ms, sys: 22.3 ms, total: 201 ms
+    Wall time: 194 ms
+
+    0               ash loans
+    1               ash loans
+    2         Revolving loans
+    3               ash loans
+    4               ash loans
+                   ...       
+    307506          ash loans
+    307507          ash loans
+    307508          ash loans
+    307509          ash loans
+    307510          ash loans
+    Name: NAME_CONTRACT_TYPE, Length: 307511, dtype: object
+
+
+
+- modin.pandas를 이용하는 경우, 속도가 훨씬 빠른 것으로 알 수 있다. 파이썬에서 전처리를 할 때, 데이터프레임 폼을 유지하면서 하기가 쉽지 않았는데 지금은 물론 완벽하지 않겠지만 앞으로 더 나아질 것으로 기대한다.
+
+
