@@ -1,5 +1,6 @@
 ---
-title: "Data PSYentist"
+title: " "
+#Data PSYentist
 site: distill::distill_website
 listing: posts
 ---
