@@ -2172,402 +2172,402 @@ document.addEventListener('DOMContentLoaded', function() {
 <ul>
 <li>사실 지금은 쓰고 있지 않기도 하고, 중간중고 알고리즘이 바뀌었었다. jose는 반드시 필요한 패키지였던 것으로 기억하며 케라스도 사실 실패했어서 불러들일 필요는 없다. 수정전이든 수정후이든 패키지를 따로 빼지는 않았기 때문에 일단 다시 되돌아보고 정리하진 않았고 그당시에 설치했던 패키지를 그대로 놔두었다.</li>
 </ul>
-<pre><code>options(scipen = 100)
-
-
-model &lt;- keras_model_sequential()
-datalags = 10
-batch.size = 50
-model %&gt;%
-  layer_lstm(units = 100,
-             input_shape = c(datalags, 2),
-             batch_size = batch.size,
-             return_sequences = TRUE,
-             stateful = TRUE) %&gt;%
-  layer_dropout(rate = 0.5) %&gt;%
-  layer_lstm(units = 50,
-             return_sequences = FALSE,
-             stateful = TRUE) %&gt;%
-  layer_dropout(rate = 0.5) %&gt;%
-  layer_dense(units = 1)
-
-model %&gt;%
-  compile(loss = &#39;mae&#39;, optimizer = &#39;adam&#39;)
-
-model
-
-model = load_model_hdf5(&#39;/home/LSTM_연습6번.h5&#39;)
-load_model_weights_hdf5(model, &quot;/home/LSTM_연습6번_weights.h5&quot;)
-
-
-bot &lt;- Bot(token = &#39;99999:EFLJFESLII#ilgiwlejewil&#39;)
-
-print(bot$getMe())
-
-#메시지 상황
-
-Updater &lt;- bot$getUpdates()
-
-K = setDT(Updater$message$chat)
-
-CHAT_ID = &quot;99999&quot;
-
-
-aa.list = GET(&#39;https://api.binance.com/api/v1/exchangeInfo&#39;)
-
-dd = fromJSON(html_text(read_html(aa.list)))
-
-symbollist = dd$symbols$symbol
-
-dl = dd$symbols$filters
-
-i = 1
-
-DLS = NULL
-
-for(i in 1:length(dl)){
-  DLS[[i]] = data.frame(symbollist = symbollist[i], LOT_SIZE = dl[[i]][dl[[i]]$filterType==&quot;LOT_SIZE&quot;,]$stepSize)
-}
-DLS = bind_rows(DLS)
-
-symbollist = symbollist[grepl(&quot;(ETHUSDT$)&quot;, symbollist)]
-symbollist
-t = 1
-L = 1
-
-ID = &quot;******&quot;
-PASSWORD = &quot;******&quot;
-
-KAL = readLines(&quot;KAL.txt&quot;)
-KAL = KAL[KAL %in% symbollist]
-
-bot &lt;- Bot(token = &#39;******&#39;)
-print(bot$getMe())
-CHAT_ID =  &quot;******&quot;
-bot$sendMessage(chat_id =  &quot;******&quot;, text = &quot;CHAT BOT SERVICE BOOTED&quot;)
-BUY_MAX_PRICE = 100000000
-SELL_MIN_PRICE = 1000
-aa = GET(&#39;https://api.upbit.com/v1/candles/minutes/15?market=KRW-BTC&amp;count=500&#39;)
-KL = fromJSON(html_text(read_html(aa)))
-KL = data.frame(KL)
-KL = na.omit(KL)
-KL = KL %&gt;% arrange(candle_date_time_kst)
-ncol(KL)
-KL = mutate_if(KL, is.factor, as.character.factor)
-KL = mutate_if(KL, is.character, as.numeric)
-setDT(KL)
-options(scipen=1000)
-# KL$CUMSUM = ((KL$High/KL$Open)-1)+((KL$Low/KL$Open)-1)
-# KL$CUMSUM = cumsum(KL$CUMSUM)
-KL$DATE = as.Date(1:nrow(KL), origin = &quot;1900-01-01&quot;)
-KL = KL %&gt;% tail(50)
-BUY_FIRST_RATIO = round(mean(sd(KL$trade_price)/KL$trade_price)/2,3)
-BUY_FIRST_RATIO = ifelse(BUY_FIRST_RATIO&lt;0.02, 0.02, ifelse(
-  BUY_FIRST_RATIO&gt;0.9, 0.1, BUY_FIRST_RATIO
-))
-SELL_FIRST_RATIO = round(mean(sd(KL$trade_price)/KL$trade_price)/2,3)
-SELL_FIRST_RATIO = ifelse(SELL_FIRST_RATIO&lt;0.02, 0.02, ifelse(
-  SELL_FIRST_RATIO&gt;0.9, 0.1, SELL_FIRST_RATIO
-))
-
-KAL = &#39;KRW-BTC&#39;
-
-
-budget = 1000000
-btc_budget = 0
-btc_volume = 0
-BUY_MAX_PRICE2 = 0
-SELL_MIN_PRICE2 = 0
-
-while(2&lt;3){
-  gc()
-  message(Sys.time())
-  #KAL = readLines(&quot;KAL.txt&quot;)
-  gc()
-  if(!&quot;KRW-BTC&quot; %in% KAL) KAL = c(KAL, &quot;KRW-BTC&quot;)
-  Updater &lt;- bot$getUpdates()
-  Updater$message$text
-  TUSD_OPTION = &quot;BUY&quot;
-  symbollist = &quot;KRW-BTC&quot;
-  LIST_AUCTION = NULL
-  time_sleep = Sys.time()
-  
-  RPST = 0
-  ROSES = NULL
-  FLOWER = 1
-  
-  for(t in 1:length(symbollist)){
-    apikey = ID
-    apisecret = PASSWORD
-    nonce = uuid::UUIDgenerate()
-    
-    #자산 체크
-    query = list(
-      market=&#39;BTC&#39;,
-      side=&#39;bid&#39;,
-      volume=&#39;1&#39;,
-      price=&#39;100&#39;,
-      ord_type=&#39;price&#39;
-    )
-    wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, 
-                                       nonce = uuid::UUIDgenerate(),
-                                       query=paste(names(query), query, sep=&#39;=&#39;,collapse = &#39;&amp;&#39;)),
-                             secret = apisecret, 
-                             size=512)
-    
-    aa=GET(&#39;https://api.upbit.com/v1/accounts&#39;,
-           add_headers(&quot;Authorization&quot;=paste0(&quot;Bearer &quot;, wt_key)),
-           query=query)
-    ROS = fromJSON(html_text(read_html(aa)))
-    setDT(ROS)
-    ROS[currency==&#39;KRW&#39;]$balance = budget
-    #화폐가 없다면 가상으로 생성
-    if(nrow(ROS[currency==&#39;BTC&#39;])==0) {
-      ROS = bind_rows(ROS, data.table(currency=&#39;BTC&#39;, balance = &quot;0&quot;))
-    }
-    if(nrow(ROS[currency==&#39;KRW&#39;])==0) {
-      ROS = bind_rows(ROS, data.table(currency=&#39;KRW&#39;, balance = &quot;0&quot;))
-    }
-    ROS[currency==&#39;KRW&#39;]$balance = budget
-    ROS[currency==&#39;BTC&#39;]$balance = btc_volume
-    ROS[currency==&#39;BTC&#39;]$avg_buy_price = btc_budget/btc_volume
-    message(t, &quot;/&quot;, length(symbollist))
-    message(symbollist[t])
-    
-    aa = GET(&#39;https://api.upbit.com/v1/candles/days?market=KRW-BTC&amp;count=500&#39;)
-    #aa = GET(&#39;https://api.upbit.com/v1/candles/minutes/1?market=KRW-ETH&amp;count=500&#39;)
-    KL = fromJSON(html_text(read_html(aa)))
-    KL = data.frame(KL)
-    KL = na.omit(KL)
-    KL = KL %&gt;% arrange(candle_date_time_kst)
-    ncol(KL)
-    KL = mutate_if(KL, is.factor, as.character.factor)
-    KL = mutate_if(KL, is.character, as.numeric)
-    setDT(KL)
-    options(scipen=1000)
-    KL$DATE = as.Date(1:nrow(KL), origin = &quot;1900-01-01&quot;)
-    samsung = KL[candle_acc_trade_volume!=0]
-    myts = data.frame(index = samsung$DATE, price = samsung$trade_price, vol = samsung$candle_acc_trade_volume, open_shift=shift(samsung$opening_price,-1))
-    myts = na.omit(myts)
-    if(nrow(myts)&lt;100){
-      next()
-    }
-    myts$index = seq(nrow(myts))
-    #myts$price = as.character.factor(myts$price) %&gt;% as.numeric()
-    #myts$vol = as.character.factor(myts$vol) %&gt;% as.numeric()
-    result1 = loess(myts$price~myts$index, span = 0.2)$fitted
-    result2 = loess(myts$vol~myts$index, span = 0.2)$fitted
-    myts$price2 = myts$price/result1
-    myts$vol2 = myts$vol/result2
-    myts$price2 = rescale(myts$price2, range(0,100), range(myts$price2))
-    myts2 = data.table(myts) %&gt;% tail(max((1:nrow(myts))[((1:nrow(myts))%%50)==0]))
-    myts2 = tail(myts2,3000)
-    test_data = array(data = cbind(myts2$price2, myts2$vol2), dim = c(nrow(myts2), 10, 2))
-    pred_out &lt;- model %&gt;% predict(test_data, batch_size = 50) %&gt;% .[,1]  
-    quantile_list = quantile(pred_out, c(0.33, 0.66))
-    pred_out = ifelse(pred_out&lt;quantile_list[1], 0, ifelse(
-      pred_out&gt;quantile_list[2],2,1
-    ))
-    OPTION = &#39;NEUTRAL&#39;
-    
-    if((pred_out %&gt;% tail(1))==0){
-      OPTION = &#39;BUY&#39;
-    }
-    if((pred_out %&gt;% tail(1))==2){
-      OPTION = &#39;SELL&#39;
-    }
-    print(OPTION)
-    if(OPTION == &#39;NEUTRAL&#39;){
-      TIME_SLEEP = 60*60*24
-    }
-    BUY_PRICE = ((as.numeric(ROS[currency==&#39;KRW&#39;]$balance)+as.numeric(ROS[currency==&#39;BTC&#39;]$balance)*tail(KL$trade_price,1))/10)
-    if(length(BUY_PRICE)==0){
-      BUY_PRICE = 0
-    }
-    if(BUY_PRICE&lt;1000) {
-      BUY_PRICE = 1000
-    }
-    if(OPTION==&quot;BUY&quot;){
-      TIME_SLEEP = 60*60*24
-      UT = &quot;적극매수&quot;
-      #RPST = 100
-      if(as.numeric(ROS[currency==&#39;KRW&#39;]$balance)&lt;((as.numeric(ROS[currency==&#39;KRW&#39;]$balance)+as.numeric(ROS[currency==&#39;BTC&#39;]$balance)*tail(KL$trade_price,1))/10)){
-        Sys.sleep(TIME_SLEEP)
-        next()
-      }
-      BUY_PRICE = ((as.numeric(ROS[currency==&#39;KRW&#39;]$balance)+as.numeric(ROS[currency==&#39;BTC&#39;]$balance)*tail(KL$trade_price,1))/10)
-      if(BUY_PRICE&lt;((as.numeric(ROS[currency==&#39;KRW&#39;]$balance)+as.numeric(ROS[currency==&#39;BTC&#39;]$balance)*tail(KL$trade_price,1))/10)) {
-        BUY_PRICE = as.numeric(ROS[currency==&#39;KRW&#39;]$balance)
-      }
-      BUY_PRICE = BUY_PRICE/tail(KL$high_price,1)
-      message(symbollist[t],&quot;  적극매수&quot;)
-      message_R = paste0(&quot;추천항목은 &quot;, symbollist[t], &quot;입니다.\n&quot;,
-                         tail(KL$high_price,1), &quot;가격으로\n&quot;,
-                         BUY_PRICE, &quot;개 매수&quot;)
-      bot$sendMessage(chat_id = CHAT_ID, text = message_R)
-      KAL = &#39;KRW-BTC&#39;
-      write(KAL, &quot;c:/work/KAL.txt&quot;)
-      BUY_PRICE = BUY_PRICE
-      BUY_PRICE = floor(BUY_PRICE*100000000)/100000000
-      AMOUNT = BUY_PRICE
-      
-      query = list(
-        market=&#39;KRW-BTC&#39;,
-        side=&#39;bid&#39;,
-        volume=as.character(AMOUNT),
-        price=as.character(tail(KL$high_price,1)),
-        ord_type=&#39;limit&#39;
-      )
-      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, 
-                                         nonce = uuid::UUIDgenerate(),
-                                         query=paste(names(query), query, sep=&#39;=&#39;,collapse = &#39;&amp;&#39;)),
-                               secret = apisecret, 
-                               size=512)
-      #if(2&gt;3){
-      aa=POST(&#39;https://api.upbit.com/v1/orders&#39;,
-              add_headers(&quot;Authorization&quot;=paste0(&quot;Bearer &quot;, wt_key)),
-              query=query)
-      #}
-      
-      Sys.sleep(3)
-      budget = budget-tail(KL$trade_price,1)*1.003*AMOUNT
-      btc_budget = btc_budget + tail(KL$trade_price,1)*1.003*AMOUNT
-      btc_volume = btc_volume + AMOUNT
-      nonce = uuid::UUIDgenerate()
-      query = list(
-        market=&#39;BTC&#39;,
-        side=&#39;bid&#39;,
-        volume=&quot;1&quot;,
-        price=&#39;100&#39;,
-        ord_type=&#39;price&#39;
-      )
-      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, 
-                                         nonce = uuid::UUIDgenerate(),
-                                         query=paste(names(query), query, sep=&#39;=&#39;,collapse = &#39;&amp;&#39;)),
-                               secret = apisecret, 
-                               size=512)
-      
-      aa=GET(&#39;https://api.upbit.com/v1/accounts&#39;,
-             add_headers(&quot;Authorization&quot;=paste0(&quot;Bearer &quot;, wt_key)),
-             query=query)
-      
-      ROS = fromJSON(html_text(read_html(aa)))
-      setDT(ROS)
-      if(nrow(ROS[currency==&#39;BTC&#39;])==0) {
-        ROS = bind_rows(ROS, data.table(currency=&#39;BTC&#39;, balance = &quot;0&quot;))
-      }
-      if(nrow(ROS[currency==&#39;KRW&#39;])==0) {
-        ROS = bind_rows(ROS, data.table(currency=&#39;KRW&#39;, balance = &quot;0&quot;))
-      }
-      ROS[currency==&#39;KRW&#39;]$balance = budget
-      ROS[currency==&#39;BTC&#39;]$balance = btc_volume
-      ROS[currency==&#39;BTC&#39;]$avg_buy_price = btc_budget/btc_volume
-      #budget = budget-tail(KL$trade_price,1)*1.003
-      
-      #print(fromJSON(html_text(read_html(aa))))
-      Sys.sleep(5)
-    }
-    
-    if(OPTION==&quot;SELL&quot;){
-      TIME_SLEEP = 60 * 60 * 24
-      UT = &quot;적극매도&quot;
-      BUY_PRICE = ((as.numeric(ROS[currency==&#39;KRW&#39;]$balance)+as.numeric(ROS[currency==&#39;BTC&#39;]$balance)*tail(KL$trade_price,1))/10)
-      if(length(BUY_PRICE)==0){
-        BUY_PRICE = 0
-      }
-      if(as.numeric(ROS[currency==&#39;BTC&#39;]$balance)*tail(KL$low_price,1)&lt;((as.numeric(ROS[currency==&#39;KRW&#39;]$balance)+as.numeric(ROS[currency==&#39;BTC&#39;]$balance)*tail(KL$trade_price,1))/10)) {
-        if(BUY_PRICE!=0){
-          BUY_PRICE = as.numeric(ROS[currency==&#39;BTC&#39;]$balance)
-        }
-      }else{
-        BUY_PRICE = as.numeric(BUY_PRICE)
-        BUY_PRICE = BUY_PRICE/tail(KL$high_price,1)
-      }
-      BUY_PRICE = floor(BUY_PRICE*100000000)/100000000
-      AMOUNT = BUY_PRICE
-      query = list(
-        market=&#39;KRW-BTC&#39;,
-        side=&#39;ask&#39;,
-        volume=AMOUNT,
-        price=tail(KL$low_price,1),
-        ord_type=&#39;limit&#39;
-      )
-      
-      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, 
-                                         nonce = uuid::UUIDgenerate(),
-                                         query=paste(names(query), query, sep=&#39;=&#39;,collapse = &#39;&amp;&#39;)),
-                               secret = apisecret, 
-                               size=512)
-      #if(2&gt;3){
-      aa=POST(&#39;https://api.upbit.com/v1/orders&#39;,
-              add_headers(&quot;Authorization&quot;=paste0(&quot;Bearer &quot;, wt_key)),
-              query=query)
-      #}
-      Sys.sleep(3)
-      budget = budget+tail(KL$trade_price,1)*1.003*AMOUNT
-      btc_budget = btc_budget - tail(KL$trade_price,1)*1.003*AMOUNT
-      btc_volume = btc_volume - AMOUNT
-      nonce = uuid::UUIDgenerate()
-      query = list(
-        market=&#39;BTC&#39;,
-        side=&#39;bid&#39;,
-        volume=&#39;1&#39;,
-        price=&#39;100&#39;,
-        ord_type=&#39;price&#39;
-      )
-      wt_key = jwt_encode_hmac(jwt_claim(access_key = ID, 
-                                         nonce = uuid::UUIDgenerate(),
-                                         query=paste(names(query), query, sep=&#39;=&#39;,collapse = &#39;&amp;&#39;)),
-                               secret = apisecret, 
-                               size=512)
-      
-      aa=GET(&#39;https://api.upbit.com/v1/accounts&#39;,
-             add_headers(&quot;Authorization&quot;=paste0(&quot;Bearer &quot;, wt_key)),
-             query=query)
-      ROS = fromJSON(html_text(read_html(aa)))
-      setDT(ROS)
-      if(nrow(ROS[currency==&#39;BTC&#39;])==0) {
-        ROS = bind_rows(ROS, data.table(currency=&#39;BTC&#39;, balance = &quot;0&quot;))
-      }
-      if(nrow(ROS[currency==&#39;KRW&#39;])==0) {
-        ROS = bind_rows(ROS, data.table(currency=&#39;KRW&#39;, balance = &quot;0&quot;))
-      }
-      ROS[currency==&#39;KRW&#39;]$balance = budget
-      ROS[currency==&#39;BTC&#39;]$balance = btc_volume
-      ROS[currency==&#39;BTC&#39;]$avg_buy_price = btc_budget/btc_volume
-      
-      message_R = paste0(symbollist[t], &quot;의 가격이 추세를 넘어섰습니다.\n\n&quot;,
-                         tail(KL$low_price,1), &quot;가격으로\n&quot;,
-                         AMOUNT, &quot; 개를 매도합니다.&quot;)
-      bot$sendMessage(chat_id = CHAT_ID, text = message_R)
-      
-      if(aa$status_code!=400){
-        KAL = KAL[!KAL %in% symbollist[t]]
-      }
-      
-      write(KAL, &quot;KAL.txt&quot;)
-    }
-    
-    print(paste0(&#39;현재 가격은 &#39;, tail(KL$trade_price,1), &#39; 입니다&#39;))
-    
-    if(symbollist[t]==&quot;KRW-BTC&quot;){
-      RPST = 15
-    }
-  }
-  Total_PRICE = as.numeric(ROS[currency==&#39;KRW&#39;]$balance) + as.numeric(ROS[currency==&#39;BTC&#39;]$balance) * tail(samsung$trade_price,1)
-  #as.numeric(ROS[currency==&#39;KRW&#39;]$balance)
-  LAST_PRICE = NULL
-  BETA_SIZE = Total_PRICE
-  #최소 USDT 단위 보유량
-  minimum_price = floor((Total_PRICE/10)/tail(KL$high_price,1)*100000000)/100000000
-  message(Total_PRICE)
-  message(minimum_price)
-  print(&quot;cycle ended&quot;)
-  KAL = &#39;KRW-BTC&#39;
-  write(KAL, &quot;KAL.txt&quot;)
-  #K = Sys.time()-time_sleep
-  Sys.sleep(60*60*24)
-}</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">100</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>datalags <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>batch.size <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">100</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">input_shape =</span> <span class="fu">c</span>(datalags, <span class="dv">2</span>),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">batch_size =</span> batch.size,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">return_sequences =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">stateful =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(<span class="at">rate =</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">50</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">return_sequences =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">stateful =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(<span class="at">rate =</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">1</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">loss =</span> <span class="st">&#39;mae&#39;</span>, <span class="at">optimizer =</span> <span class="st">&#39;adam&#39;</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>model</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>model <span class="ot">=</span> <span class="fu">load_model_hdf5</span>(<span class="st">&#39;/home/LSTM_연습6번.h5&#39;</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">load_model_weights_hdf5</span>(model, <span class="st">&quot;/home/LSTM_연습6번_weights.h5&quot;</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>bot <span class="ot">&lt;-</span> <span class="fu">Bot</span>(<span class="at">token =</span> <span class="st">&#39;99999:EFLJFESLII#ilgiwlejewil&#39;</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bot<span class="sc">$</span><span class="fu">getMe</span>())</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#메시지 상황</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>Updater <span class="ot">&lt;-</span> bot<span class="sc">$</span><span class="fu">getUpdates</span>()</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>K <span class="ot">=</span> <span class="fu">setDT</span>(Updater<span class="sc">$</span>message<span class="sc">$</span>chat)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>CHAT_ID <span class="ot">=</span> <span class="st">&quot;99999&quot;</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>aa.list <span class="ot">=</span> <span class="fu">GET</span>(<span class="st">&#39;https://api.binance.com/api/v1/exchangeInfo&#39;</span>)</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">=</span> <span class="fu">fromJSON</span>(<span class="fu">html_text</span>(<span class="fu">read_html</span>(aa.list)))</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>symbollist <span class="ot">=</span> dd<span class="sc">$</span>symbols<span class="sc">$</span>symbol</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>dl <span class="ot">=</span> dd<span class="sc">$</span>symbols<span class="sc">$</span>filters</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>DLS <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(dl)){</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  DLS[[i]] <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">symbollist =</span> symbollist[i], <span class="at">LOT_SIZE =</span> dl[[i]][dl[[i]]<span class="sc">$</span>filterType<span class="sc">==</span><span class="st">&quot;LOT_SIZE&quot;</span>,]<span class="sc">$</span>stepSize)</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>DLS <span class="ot">=</span> <span class="fu">bind_rows</span>(DLS)</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>symbollist <span class="ot">=</span> symbollist[<span class="fu">grepl</span>(<span class="st">&quot;(ETHUSDT$)&quot;</span>, symbollist)]</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>symbollist</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>L <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>ID <span class="ot">=</span> <span class="st">&quot;******&quot;</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>PASSWORD <span class="ot">=</span> <span class="st">&quot;******&quot;</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>KAL <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">&quot;KAL.txt&quot;</span>)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>KAL <span class="ot">=</span> KAL[KAL <span class="sc">%in%</span> symbollist]</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>bot <span class="ot">&lt;-</span> <span class="fu">Bot</span>(<span class="at">token =</span> <span class="st">&#39;******&#39;</span>)</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bot<span class="sc">$</span><span class="fu">getMe</span>())</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>CHAT_ID <span class="ot">=</span>  <span class="st">&quot;******&quot;</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>bot<span class="sc">$</span><span class="fu">sendMessage</span>(<span class="at">chat_id =</span>  <span class="st">&quot;******&quot;</span>, <span class="at">text =</span> <span class="st">&quot;CHAT BOT SERVICE BOOTED&quot;</span>)</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>BUY_MAX_PRICE <span class="ot">=</span> <span class="dv">100000000</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>SELL_MIN_PRICE <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>aa <span class="ot">=</span> <span class="fu">GET</span>(<span class="st">&#39;https://api.upbit.com/v1/candles/minutes/15?market=KRW-BTC&amp;count=500&#39;</span>)</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>KL <span class="ot">=</span> <span class="fu">fromJSON</span>(<span class="fu">html_text</span>(<span class="fu">read_html</span>(aa)))</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>KL <span class="ot">=</span> <span class="fu">data.frame</span>(KL)</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>KL <span class="ot">=</span> <span class="fu">na.omit</span>(KL)</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>KL <span class="ot">=</span> KL <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(candle_date_time_kst)</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(KL)</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>KL <span class="ot">=</span> <span class="fu">mutate_if</span>(KL, is.factor, as.character.factor)</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>KL <span class="ot">=</span> <span class="fu">mutate_if</span>(KL, is.character, as.numeric)</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(KL)</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">1000</span>)</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="co"># KL$CUMSUM = ((KL$High/KL$Open)-1)+((KL$Low/KL$Open)-1)</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="co"># KL$CUMSUM = cumsum(KL$CUMSUM)</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>KL<span class="sc">$</span>DATE <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(KL), <span class="at">origin =</span> <span class="st">&quot;1900-01-01&quot;</span>)</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>KL <span class="ot">=</span> KL <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">50</span>)</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>BUY_FIRST_RATIO <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(<span class="fu">sd</span>(KL<span class="sc">$</span>trade_price)<span class="sc">/</span>KL<span class="sc">$</span>trade_price)<span class="sc">/</span><span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>BUY_FIRST_RATIO <span class="ot">=</span> <span class="fu">ifelse</span>(BUY_FIRST_RATIO<span class="sc">&lt;</span><span class="fl">0.02</span>, <span class="fl">0.02</span>, <span class="fu">ifelse</span>(</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>  BUY_FIRST_RATIO<span class="sc">&gt;</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, BUY_FIRST_RATIO</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>SELL_FIRST_RATIO <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(<span class="fu">sd</span>(KL<span class="sc">$</span>trade_price)<span class="sc">/</span>KL<span class="sc">$</span>trade_price)<span class="sc">/</span><span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>SELL_FIRST_RATIO <span class="ot">=</span> <span class="fu">ifelse</span>(SELL_FIRST_RATIO<span class="sc">&lt;</span><span class="fl">0.02</span>, <span class="fl">0.02</span>, <span class="fu">ifelse</span>(</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>  SELL_FIRST_RATIO<span class="sc">&gt;</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, SELL_FIRST_RATIO</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>KAL <span class="ot">=</span> <span class="st">&#39;KRW-BTC&#39;</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>budget <span class="ot">=</span> <span class="dv">1000000</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>btc_budget <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>btc_volume <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>BUY_MAX_PRICE2 <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>SELL_MIN_PRICE2 <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="dv">2</span><span class="sc">&lt;</span><span class="dv">3</span>){</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gc</span>()</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="fu">Sys.time</span>())</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>  <span class="co">#KAL = readLines(&quot;KAL.txt&quot;)</span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gc</span>()</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="st">&quot;KRW-BTC&quot;</span> <span class="sc">%in%</span> KAL) KAL <span class="ot">=</span> <span class="fu">c</span>(KAL, <span class="st">&quot;KRW-BTC&quot;</span>)</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>  Updater <span class="ot">&lt;-</span> bot<span class="sc">$</span><span class="fu">getUpdates</span>()</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>  Updater<span class="sc">$</span>message<span class="sc">$</span>text</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>  TUSD_OPTION <span class="ot">=</span> <span class="st">&quot;BUY&quot;</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>  symbollist <span class="ot">=</span> <span class="st">&quot;KRW-BTC&quot;</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>  LIST_AUCTION <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>  time_sleep <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>  RPST <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>  ROSES <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>  FLOWER <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(symbollist)){</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>    apikey <span class="ot">=</span> ID</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>    apisecret <span class="ot">=</span> PASSWORD</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>    nonce <span class="ot">=</span> uuid<span class="sc">::</span><span class="fu">UUIDgenerate</span>()</span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>    <span class="co">#자산 체크</span></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>    query <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>      <span class="at">market=</span><span class="st">&#39;BTC&#39;</span>,</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>      <span class="at">side=</span><span class="st">&#39;bid&#39;</span>,</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>      <span class="at">volume=</span><span class="st">&#39;1&#39;</span>,</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>      <span class="at">price=</span><span class="st">&#39;100&#39;</span>,</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>      <span class="at">ord_type=</span><span class="st">&#39;price&#39;</span></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>    wt_key <span class="ot">=</span> <span class="fu">jwt_encode_hmac</span>(<span class="fu">jwt_claim</span>(<span class="at">access_key =</span> ID, </span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">nonce =</span> uuid<span class="sc">::</span><span class="fu">UUIDgenerate</span>(),</span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">query=</span><span class="fu">paste</span>(<span class="fu">names</span>(query), query, <span class="at">sep=</span><span class="st">&#39;=&#39;</span>,<span class="at">collapse =</span> <span class="st">&#39;&amp;&#39;</span>)),</span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>                             <span class="at">secret =</span> apisecret, </span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>                             <span class="at">size=</span><span class="dv">512</span>)</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>    aa<span class="ot">=</span><span class="fu">GET</span>(<span class="st">&#39;https://api.upbit.com/v1/accounts&#39;</span>,</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>           <span class="fu">add_headers</span>(<span class="st">&quot;Authorization&quot;</span><span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;Bearer &quot;</span>, wt_key)),</span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>           <span class="at">query=</span>query)</span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>    ROS <span class="ot">=</span> <span class="fu">fromJSON</span>(<span class="fu">html_text</span>(<span class="fu">read_html</span>(aa)))</span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setDT</span>(ROS)</span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>    ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance <span class="ot">=</span> budget</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>    <span class="co">#화폐가 없다면 가상으로 생성</span></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">nrow</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>])<span class="sc">==</span><span class="dv">0</span>) {</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>      ROS <span class="ot">=</span> <span class="fu">bind_rows</span>(ROS, <span class="fu">data.table</span>(<span class="at">currency=</span><span class="st">&#39;BTC&#39;</span>, <span class="at">balance =</span> <span class="st">&quot;0&quot;</span>))</span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">nrow</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>])<span class="sc">==</span><span class="dv">0</span>) {</span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>      ROS <span class="ot">=</span> <span class="fu">bind_rows</span>(ROS, <span class="fu">data.table</span>(<span class="at">currency=</span><span class="st">&#39;KRW&#39;</span>, <span class="at">balance =</span> <span class="st">&quot;0&quot;</span>))</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>    ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance <span class="ot">=</span> budget</span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>    ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance <span class="ot">=</span> btc_volume</span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>    ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>avg_buy_price <span class="ot">=</span> btc_budget<span class="sc">/</span>btc_volume</span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(t, <span class="st">&quot;/&quot;</span>, <span class="fu">length</span>(symbollist))</span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(symbollist[t])</span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>    aa <span class="ot">=</span> <span class="fu">GET</span>(<span class="st">&#39;https://api.upbit.com/v1/candles/days?market=KRW-BTC&amp;count=500&#39;</span>)</span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a>    <span class="co">#aa = GET(&#39;https://api.upbit.com/v1/candles/minutes/1?market=KRW-ETH&amp;count=500&#39;)</span></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>    KL <span class="ot">=</span> <span class="fu">fromJSON</span>(<span class="fu">html_text</span>(<span class="fu">read_html</span>(aa)))</span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a>    KL <span class="ot">=</span> <span class="fu">data.frame</span>(KL)</span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>    KL <span class="ot">=</span> <span class="fu">na.omit</span>(KL)</span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>    KL <span class="ot">=</span> KL <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(candle_date_time_kst)</span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ncol</span>(KL)</span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a>    KL <span class="ot">=</span> <span class="fu">mutate_if</span>(KL, is.factor, as.character.factor)</span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>    KL <span class="ot">=</span> <span class="fu">mutate_if</span>(KL, is.character, as.numeric)</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setDT</span>(KL)</span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>    <span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">1000</span>)</span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>    KL<span class="sc">$</span>DATE <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(KL), <span class="at">origin =</span> <span class="st">&quot;1900-01-01&quot;</span>)</span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a>    samsung <span class="ot">=</span> KL[candle_acc_trade_volume<span class="sc">!=</span><span class="dv">0</span>]</span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>    myts <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">index =</span> samsung<span class="sc">$</span>DATE, <span class="at">price =</span> samsung<span class="sc">$</span>trade_price, <span class="at">vol =</span> samsung<span class="sc">$</span>candle_acc_trade_volume, <span class="at">open_shift=</span><span class="fu">shift</span>(samsung<span class="sc">$</span>opening_price,<span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>    myts <span class="ot">=</span> <span class="fu">na.omit</span>(myts)</span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">nrow</span>(myts)<span class="sc">&lt;</span><span class="dv">100</span>){</span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>      <span class="cf">next</span>()</span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>    myts<span class="sc">$</span>index <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">nrow</span>(myts))</span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a>    <span class="co">#myts$price = as.character.factor(myts$price) %&gt;% as.numeric()</span></span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>    <span class="co">#myts$vol = as.character.factor(myts$vol) %&gt;% as.numeric()</span></span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>    result1 <span class="ot">=</span> <span class="fu">loess</span>(myts<span class="sc">$</span>price<span class="sc">~</span>myts<span class="sc">$</span>index, <span class="at">span =</span> <span class="fl">0.2</span>)<span class="sc">$</span>fitted</span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a>    result2 <span class="ot">=</span> <span class="fu">loess</span>(myts<span class="sc">$</span>vol<span class="sc">~</span>myts<span class="sc">$</span>index, <span class="at">span =</span> <span class="fl">0.2</span>)<span class="sc">$</span>fitted</span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a>    myts<span class="sc">$</span>price2 <span class="ot">=</span> myts<span class="sc">$</span>price<span class="sc">/</span>result1</span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a>    myts<span class="sc">$</span>vol2 <span class="ot">=</span> myts<span class="sc">$</span>vol<span class="sc">/</span>result2</span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a>    myts<span class="sc">$</span>price2 <span class="ot">=</span> <span class="fu">rescale</span>(myts<span class="sc">$</span>price2, <span class="fu">range</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="fu">range</span>(myts<span class="sc">$</span>price2))</span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a>    myts2 <span class="ot">=</span> <span class="fu">data.table</span>(myts) <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="fu">max</span>((<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(myts))[((<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(myts))<span class="sc">%%</span><span class="dv">50</span>)<span class="sc">==</span><span class="dv">0</span>]))</span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a>    myts2 <span class="ot">=</span> <span class="fu">tail</span>(myts2,<span class="dv">3000</span>)</span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a>    test_data <span class="ot">=</span> <span class="fu">array</span>(<span class="at">data =</span> <span class="fu">cbind</span>(myts2<span class="sc">$</span>price2, myts2<span class="sc">$</span>vol2), <span class="at">dim =</span> <span class="fu">c</span>(<span class="fu">nrow</span>(myts2), <span class="dv">10</span>, <span class="dv">2</span>))</span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a>    pred_out <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">predict</span>(test_data, <span class="at">batch_size =</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span> .[,<span class="dv">1</span>]  </span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a>    quantile_list <span class="ot">=</span> <span class="fu">quantile</span>(pred_out, <span class="fu">c</span>(<span class="fl">0.33</span>, <span class="fl">0.66</span>))</span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a>    pred_out <span class="ot">=</span> <span class="fu">ifelse</span>(pred_out<span class="sc">&lt;</span>quantile_list[<span class="dv">1</span>], <span class="dv">0</span>, <span class="fu">ifelse</span>(</span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a>      pred_out<span class="sc">&gt;</span>quantile_list[<span class="dv">2</span>],<span class="dv">2</span>,<span class="dv">1</span></span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a>    OPTION <span class="ot">=</span> <span class="st">&#39;NEUTRAL&#39;</span></span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>((pred_out <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">1</span>))<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a>      OPTION <span class="ot">=</span> <span class="st">&#39;BUY&#39;</span></span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>((pred_out <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">1</span>))<span class="sc">==</span><span class="dv">2</span>){</span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a>      OPTION <span class="ot">=</span> <span class="st">&#39;SELL&#39;</span></span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(OPTION)</span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(OPTION <span class="sc">==</span> <span class="st">&#39;NEUTRAL&#39;</span>){</span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a>      TIME_SLEEP <span class="ot">=</span> <span class="dv">60</span><span class="sc">*</span><span class="dv">60</span><span class="sc">*</span><span class="dv">24</span></span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a>    BUY_PRICE <span class="ot">=</span> ((<span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance)<span class="sc">+</span><span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance)<span class="sc">*</span><span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>))<span class="sc">/</span><span class="dv">10</span>)</span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">length</span>(BUY_PRICE)<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a>      BUY_PRICE <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(BUY_PRICE<span class="sc">&lt;</span><span class="dv">1000</span>) {</span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a>      BUY_PRICE <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(OPTION<span class="sc">==</span><span class="st">&quot;BUY&quot;</span>){</span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a>      TIME_SLEEP <span class="ot">=</span> <span class="dv">60</span><span class="sc">*</span><span class="dv">60</span><span class="sc">*</span><span class="dv">24</span></span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a>      UT <span class="ot">=</span> <span class="st">&quot;적극매수&quot;</span></span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a>      <span class="co">#RPST = 100</span></span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance)<span class="sc">&lt;</span>((<span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance)<span class="sc">+</span><span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance)<span class="sc">*</span><span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>))<span class="sc">/</span><span class="dv">10</span>)){</span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a>        <span class="fu">Sys.sleep</span>(TIME_SLEEP)</span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a>        <span class="cf">next</span>()</span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a>      BUY_PRICE <span class="ot">=</span> ((<span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance)<span class="sc">+</span><span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance)<span class="sc">*</span><span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>))<span class="sc">/</span><span class="dv">10</span>)</span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(BUY_PRICE<span class="sc">&lt;</span>((<span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance)<span class="sc">+</span><span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance)<span class="sc">*</span><span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>))<span class="sc">/</span><span class="dv">10</span>)) {</span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a>        BUY_PRICE <span class="ot">=</span> <span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance)</span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a>      BUY_PRICE <span class="ot">=</span> BUY_PRICE<span class="sc">/</span><span class="fu">tail</span>(KL<span class="sc">$</span>high_price,<span class="dv">1</span>)</span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(symbollist[t],<span class="st">&quot;  적극매수&quot;</span>)</span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a>      message_R <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&quot;추천항목은 &quot;</span>, symbollist[t], <span class="st">&quot;입니다.</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">tail</span>(KL<span class="sc">$</span>high_price,<span class="dv">1</span>), <span class="st">&quot;가격으로</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a>                         BUY_PRICE, <span class="st">&quot;개 매수&quot;</span>)</span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>      bot<span class="sc">$</span><span class="fu">sendMessage</span>(<span class="at">chat_id =</span> CHAT_ID, <span class="at">text =</span> message_R)</span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a>      KAL <span class="ot">=</span> <span class="st">&#39;KRW-BTC&#39;</span></span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>      <span class="fu">write</span>(KAL, <span class="st">&quot;c:/work/KAL.txt&quot;</span>)</span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a>      BUY_PRICE <span class="ot">=</span> BUY_PRICE</span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a>      BUY_PRICE <span class="ot">=</span> <span class="fu">floor</span>(BUY_PRICE<span class="sc">*</span><span class="dv">100000000</span>)<span class="sc">/</span><span class="dv">100000000</span></span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a>      AMOUNT <span class="ot">=</span> BUY_PRICE</span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a>      query <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a>        <span class="at">market=</span><span class="st">&#39;KRW-BTC&#39;</span>,</span>
+<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a>        <span class="at">side=</span><span class="st">&#39;bid&#39;</span>,</span>
+<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a>        <span class="at">volume=</span><span class="fu">as.character</span>(AMOUNT),</span>
+<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a>        <span class="at">price=</span><span class="fu">as.character</span>(<span class="fu">tail</span>(KL<span class="sc">$</span>high_price,<span class="dv">1</span>)),</span>
+<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a>        <span class="at">ord_type=</span><span class="st">&#39;limit&#39;</span></span>
+<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a>      wt_key <span class="ot">=</span> <span class="fu">jwt_encode_hmac</span>(<span class="fu">jwt_claim</span>(<span class="at">access_key =</span> ID, </span>
+<span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">nonce =</span> uuid<span class="sc">::</span><span class="fu">UUIDgenerate</span>(),</span>
+<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">query=</span><span class="fu">paste</span>(<span class="fu">names</span>(query), query, <span class="at">sep=</span><span class="st">&#39;=&#39;</span>,<span class="at">collapse =</span> <span class="st">&#39;&amp;&#39;</span>)),</span>
+<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a>                               <span class="at">secret =</span> apisecret, </span>
+<span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a>                               <span class="at">size=</span><span class="dv">512</span>)</span>
+<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a>      <span class="co">#if(2&gt;3){</span></span>
+<span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a>      aa<span class="ot">=</span><span class="fu">POST</span>(<span class="st">&#39;https://api.upbit.com/v1/orders&#39;</span>,</span>
+<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a>              <span class="fu">add_headers</span>(<span class="st">&quot;Authorization&quot;</span><span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;Bearer &quot;</span>, wt_key)),</span>
+<span id="cb3-255"><a href="#cb3-255" aria-hidden="true" tabindex="-1"></a>              <span class="at">query=</span>query)</span>
+<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a>      <span class="co">#}</span></span>
+<span id="cb3-257"><a href="#cb3-257" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-258"><a href="#cb3-258" aria-hidden="true" tabindex="-1"></a>      <span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
+<span id="cb3-259"><a href="#cb3-259" aria-hidden="true" tabindex="-1"></a>      budget <span class="ot">=</span> budget<span class="sc">-</span><span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>)<span class="sc">*</span><span class="fl">1.003</span><span class="sc">*</span>AMOUNT</span>
+<span id="cb3-260"><a href="#cb3-260" aria-hidden="true" tabindex="-1"></a>      btc_budget <span class="ot">=</span> btc_budget <span class="sc">+</span> <span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>)<span class="sc">*</span><span class="fl">1.003</span><span class="sc">*</span>AMOUNT</span>
+<span id="cb3-261"><a href="#cb3-261" aria-hidden="true" tabindex="-1"></a>      btc_volume <span class="ot">=</span> btc_volume <span class="sc">+</span> AMOUNT</span>
+<span id="cb3-262"><a href="#cb3-262" aria-hidden="true" tabindex="-1"></a>      nonce <span class="ot">=</span> uuid<span class="sc">::</span><span class="fu">UUIDgenerate</span>()</span>
+<span id="cb3-263"><a href="#cb3-263" aria-hidden="true" tabindex="-1"></a>      query <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb3-264"><a href="#cb3-264" aria-hidden="true" tabindex="-1"></a>        <span class="at">market=</span><span class="st">&#39;BTC&#39;</span>,</span>
+<span id="cb3-265"><a href="#cb3-265" aria-hidden="true" tabindex="-1"></a>        <span class="at">side=</span><span class="st">&#39;bid&#39;</span>,</span>
+<span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a>        <span class="at">volume=</span><span class="st">&quot;1&quot;</span>,</span>
+<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a>        <span class="at">price=</span><span class="st">&#39;100&#39;</span>,</span>
+<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a>        <span class="at">ord_type=</span><span class="st">&#39;price&#39;</span></span>
+<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a>      wt_key <span class="ot">=</span> <span class="fu">jwt_encode_hmac</span>(<span class="fu">jwt_claim</span>(<span class="at">access_key =</span> ID, </span>
+<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">nonce =</span> uuid<span class="sc">::</span><span class="fu">UUIDgenerate</span>(),</span>
+<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">query=</span><span class="fu">paste</span>(<span class="fu">names</span>(query), query, <span class="at">sep=</span><span class="st">&#39;=&#39;</span>,<span class="at">collapse =</span> <span class="st">&#39;&amp;&#39;</span>)),</span>
+<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a>                               <span class="at">secret =</span> apisecret, </span>
+<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a>                               <span class="at">size=</span><span class="dv">512</span>)</span>
+<span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a>      aa<span class="ot">=</span><span class="fu">GET</span>(<span class="st">&#39;https://api.upbit.com/v1/accounts&#39;</span>,</span>
+<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a>             <span class="fu">add_headers</span>(<span class="st">&quot;Authorization&quot;</span><span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;Bearer &quot;</span>, wt_key)),</span>
+<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a>             <span class="at">query=</span>query)</span>
+<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a>      ROS <span class="ot">=</span> <span class="fu">fromJSON</span>(<span class="fu">html_text</span>(<span class="fu">read_html</span>(aa)))</span>
+<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a>      <span class="fu">setDT</span>(ROS)</span>
+<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">nrow</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>])<span class="sc">==</span><span class="dv">0</span>) {</span>
+<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a>        ROS <span class="ot">=</span> <span class="fu">bind_rows</span>(ROS, <span class="fu">data.table</span>(<span class="at">currency=</span><span class="st">&#39;BTC&#39;</span>, <span class="at">balance =</span> <span class="st">&quot;0&quot;</span>))</span>
+<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">nrow</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>])<span class="sc">==</span><span class="dv">0</span>) {</span>
+<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a>        ROS <span class="ot">=</span> <span class="fu">bind_rows</span>(ROS, <span class="fu">data.table</span>(<span class="at">currency=</span><span class="st">&#39;KRW&#39;</span>, <span class="at">balance =</span> <span class="st">&quot;0&quot;</span>))</span>
+<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a>      ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance <span class="ot">=</span> budget</span>
+<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a>      ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance <span class="ot">=</span> btc_volume</span>
+<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a>      ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>avg_buy_price <span class="ot">=</span> btc_budget<span class="sc">/</span>btc_volume</span>
+<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a>      <span class="co">#budget = budget-tail(KL$trade_price,1)*1.003</span></span>
+<span id="cb3-292"><a href="#cb3-292" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-293"><a href="#cb3-293" aria-hidden="true" tabindex="-1"></a>      <span class="co">#print(fromJSON(html_text(read_html(aa))))</span></span>
+<span id="cb3-294"><a href="#cb3-294" aria-hidden="true" tabindex="-1"></a>      <span class="fu">Sys.sleep</span>(<span class="dv">5</span>)</span>
+<span id="cb3-295"><a href="#cb3-295" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-296"><a href="#cb3-296" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-297"><a href="#cb3-297" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(OPTION<span class="sc">==</span><span class="st">&quot;SELL&quot;</span>){</span>
+<span id="cb3-298"><a href="#cb3-298" aria-hidden="true" tabindex="-1"></a>      TIME_SLEEP <span class="ot">=</span> <span class="dv">60</span> <span class="sc">*</span> <span class="dv">60</span> <span class="sc">*</span> <span class="dv">24</span></span>
+<span id="cb3-299"><a href="#cb3-299" aria-hidden="true" tabindex="-1"></a>      UT <span class="ot">=</span> <span class="st">&quot;적극매도&quot;</span></span>
+<span id="cb3-300"><a href="#cb3-300" aria-hidden="true" tabindex="-1"></a>      BUY_PRICE <span class="ot">=</span> ((<span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance)<span class="sc">+</span><span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance)<span class="sc">*</span><span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>))<span class="sc">/</span><span class="dv">10</span>)</span>
+<span id="cb3-301"><a href="#cb3-301" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">length</span>(BUY_PRICE)<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb3-302"><a href="#cb3-302" aria-hidden="true" tabindex="-1"></a>        BUY_PRICE <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb3-303"><a href="#cb3-303" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-304"><a href="#cb3-304" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance)<span class="sc">*</span><span class="fu">tail</span>(KL<span class="sc">$</span>low_price,<span class="dv">1</span>)<span class="sc">&lt;</span>((<span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance)<span class="sc">+</span><span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance)<span class="sc">*</span><span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>))<span class="sc">/</span><span class="dv">10</span>)) {</span>
+<span id="cb3-305"><a href="#cb3-305" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(BUY_PRICE<span class="sc">!=</span><span class="dv">0</span>){</span>
+<span id="cb3-306"><a href="#cb3-306" aria-hidden="true" tabindex="-1"></a>          BUY_PRICE <span class="ot">=</span> <span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance)</span>
+<span id="cb3-307"><a href="#cb3-307" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-308"><a href="#cb3-308" aria-hidden="true" tabindex="-1"></a>      }<span class="cf">else</span>{</span>
+<span id="cb3-309"><a href="#cb3-309" aria-hidden="true" tabindex="-1"></a>        BUY_PRICE <span class="ot">=</span> <span class="fu">as.numeric</span>(BUY_PRICE)</span>
+<span id="cb3-310"><a href="#cb3-310" aria-hidden="true" tabindex="-1"></a>        BUY_PRICE <span class="ot">=</span> BUY_PRICE<span class="sc">/</span><span class="fu">tail</span>(KL<span class="sc">$</span>high_price,<span class="dv">1</span>)</span>
+<span id="cb3-311"><a href="#cb3-311" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-312"><a href="#cb3-312" aria-hidden="true" tabindex="-1"></a>      BUY_PRICE <span class="ot">=</span> <span class="fu">floor</span>(BUY_PRICE<span class="sc">*</span><span class="dv">100000000</span>)<span class="sc">/</span><span class="dv">100000000</span></span>
+<span id="cb3-313"><a href="#cb3-313" aria-hidden="true" tabindex="-1"></a>      AMOUNT <span class="ot">=</span> BUY_PRICE</span>
+<span id="cb3-314"><a href="#cb3-314" aria-hidden="true" tabindex="-1"></a>      query <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb3-315"><a href="#cb3-315" aria-hidden="true" tabindex="-1"></a>        <span class="at">market=</span><span class="st">&#39;KRW-BTC&#39;</span>,</span>
+<span id="cb3-316"><a href="#cb3-316" aria-hidden="true" tabindex="-1"></a>        <span class="at">side=</span><span class="st">&#39;ask&#39;</span>,</span>
+<span id="cb3-317"><a href="#cb3-317" aria-hidden="true" tabindex="-1"></a>        <span class="at">volume=</span>AMOUNT,</span>
+<span id="cb3-318"><a href="#cb3-318" aria-hidden="true" tabindex="-1"></a>        <span class="at">price=</span><span class="fu">tail</span>(KL<span class="sc">$</span>low_price,<span class="dv">1</span>),</span>
+<span id="cb3-319"><a href="#cb3-319" aria-hidden="true" tabindex="-1"></a>        <span class="at">ord_type=</span><span class="st">&#39;limit&#39;</span></span>
+<span id="cb3-320"><a href="#cb3-320" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-321"><a href="#cb3-321" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-322"><a href="#cb3-322" aria-hidden="true" tabindex="-1"></a>      wt_key <span class="ot">=</span> <span class="fu">jwt_encode_hmac</span>(<span class="fu">jwt_claim</span>(<span class="at">access_key =</span> ID, </span>
+<span id="cb3-323"><a href="#cb3-323" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">nonce =</span> uuid<span class="sc">::</span><span class="fu">UUIDgenerate</span>(),</span>
+<span id="cb3-324"><a href="#cb3-324" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">query=</span><span class="fu">paste</span>(<span class="fu">names</span>(query), query, <span class="at">sep=</span><span class="st">&#39;=&#39;</span>,<span class="at">collapse =</span> <span class="st">&#39;&amp;&#39;</span>)),</span>
+<span id="cb3-325"><a href="#cb3-325" aria-hidden="true" tabindex="-1"></a>                               <span class="at">secret =</span> apisecret, </span>
+<span id="cb3-326"><a href="#cb3-326" aria-hidden="true" tabindex="-1"></a>                               <span class="at">size=</span><span class="dv">512</span>)</span>
+<span id="cb3-327"><a href="#cb3-327" aria-hidden="true" tabindex="-1"></a>      <span class="co">#if(2&gt;3){</span></span>
+<span id="cb3-328"><a href="#cb3-328" aria-hidden="true" tabindex="-1"></a>      aa<span class="ot">=</span><span class="fu">POST</span>(<span class="st">&#39;https://api.upbit.com/v1/orders&#39;</span>,</span>
+<span id="cb3-329"><a href="#cb3-329" aria-hidden="true" tabindex="-1"></a>              <span class="fu">add_headers</span>(<span class="st">&quot;Authorization&quot;</span><span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;Bearer &quot;</span>, wt_key)),</span>
+<span id="cb3-330"><a href="#cb3-330" aria-hidden="true" tabindex="-1"></a>              <span class="at">query=</span>query)</span>
+<span id="cb3-331"><a href="#cb3-331" aria-hidden="true" tabindex="-1"></a>      <span class="co">#}</span></span>
+<span id="cb3-332"><a href="#cb3-332" aria-hidden="true" tabindex="-1"></a>      <span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
+<span id="cb3-333"><a href="#cb3-333" aria-hidden="true" tabindex="-1"></a>      budget <span class="ot">=</span> budget<span class="sc">+</span><span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>)<span class="sc">*</span><span class="fl">1.003</span><span class="sc">*</span>AMOUNT</span>
+<span id="cb3-334"><a href="#cb3-334" aria-hidden="true" tabindex="-1"></a>      btc_budget <span class="ot">=</span> btc_budget <span class="sc">-</span> <span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>)<span class="sc">*</span><span class="fl">1.003</span><span class="sc">*</span>AMOUNT</span>
+<span id="cb3-335"><a href="#cb3-335" aria-hidden="true" tabindex="-1"></a>      btc_volume <span class="ot">=</span> btc_volume <span class="sc">-</span> AMOUNT</span>
+<span id="cb3-336"><a href="#cb3-336" aria-hidden="true" tabindex="-1"></a>      nonce <span class="ot">=</span> uuid<span class="sc">::</span><span class="fu">UUIDgenerate</span>()</span>
+<span id="cb3-337"><a href="#cb3-337" aria-hidden="true" tabindex="-1"></a>      query <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb3-338"><a href="#cb3-338" aria-hidden="true" tabindex="-1"></a>        <span class="at">market=</span><span class="st">&#39;BTC&#39;</span>,</span>
+<span id="cb3-339"><a href="#cb3-339" aria-hidden="true" tabindex="-1"></a>        <span class="at">side=</span><span class="st">&#39;bid&#39;</span>,</span>
+<span id="cb3-340"><a href="#cb3-340" aria-hidden="true" tabindex="-1"></a>        <span class="at">volume=</span><span class="st">&#39;1&#39;</span>,</span>
+<span id="cb3-341"><a href="#cb3-341" aria-hidden="true" tabindex="-1"></a>        <span class="at">price=</span><span class="st">&#39;100&#39;</span>,</span>
+<span id="cb3-342"><a href="#cb3-342" aria-hidden="true" tabindex="-1"></a>        <span class="at">ord_type=</span><span class="st">&#39;price&#39;</span></span>
+<span id="cb3-343"><a href="#cb3-343" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-344"><a href="#cb3-344" aria-hidden="true" tabindex="-1"></a>      wt_key <span class="ot">=</span> <span class="fu">jwt_encode_hmac</span>(<span class="fu">jwt_claim</span>(<span class="at">access_key =</span> ID, </span>
+<span id="cb3-345"><a href="#cb3-345" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">nonce =</span> uuid<span class="sc">::</span><span class="fu">UUIDgenerate</span>(),</span>
+<span id="cb3-346"><a href="#cb3-346" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">query=</span><span class="fu">paste</span>(<span class="fu">names</span>(query), query, <span class="at">sep=</span><span class="st">&#39;=&#39;</span>,<span class="at">collapse =</span> <span class="st">&#39;&amp;&#39;</span>)),</span>
+<span id="cb3-347"><a href="#cb3-347" aria-hidden="true" tabindex="-1"></a>                               <span class="at">secret =</span> apisecret, </span>
+<span id="cb3-348"><a href="#cb3-348" aria-hidden="true" tabindex="-1"></a>                               <span class="at">size=</span><span class="dv">512</span>)</span>
+<span id="cb3-349"><a href="#cb3-349" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-350"><a href="#cb3-350" aria-hidden="true" tabindex="-1"></a>      aa<span class="ot">=</span><span class="fu">GET</span>(<span class="st">&#39;https://api.upbit.com/v1/accounts&#39;</span>,</span>
+<span id="cb3-351"><a href="#cb3-351" aria-hidden="true" tabindex="-1"></a>             <span class="fu">add_headers</span>(<span class="st">&quot;Authorization&quot;</span><span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;Bearer &quot;</span>, wt_key)),</span>
+<span id="cb3-352"><a href="#cb3-352" aria-hidden="true" tabindex="-1"></a>             <span class="at">query=</span>query)</span>
+<span id="cb3-353"><a href="#cb3-353" aria-hidden="true" tabindex="-1"></a>      ROS <span class="ot">=</span> <span class="fu">fromJSON</span>(<span class="fu">html_text</span>(<span class="fu">read_html</span>(aa)))</span>
+<span id="cb3-354"><a href="#cb3-354" aria-hidden="true" tabindex="-1"></a>      <span class="fu">setDT</span>(ROS)</span>
+<span id="cb3-355"><a href="#cb3-355" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">nrow</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>])<span class="sc">==</span><span class="dv">0</span>) {</span>
+<span id="cb3-356"><a href="#cb3-356" aria-hidden="true" tabindex="-1"></a>        ROS <span class="ot">=</span> <span class="fu">bind_rows</span>(ROS, <span class="fu">data.table</span>(<span class="at">currency=</span><span class="st">&#39;BTC&#39;</span>, <span class="at">balance =</span> <span class="st">&quot;0&quot;</span>))</span>
+<span id="cb3-357"><a href="#cb3-357" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-358"><a href="#cb3-358" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">nrow</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>])<span class="sc">==</span><span class="dv">0</span>) {</span>
+<span id="cb3-359"><a href="#cb3-359" aria-hidden="true" tabindex="-1"></a>        ROS <span class="ot">=</span> <span class="fu">bind_rows</span>(ROS, <span class="fu">data.table</span>(<span class="at">currency=</span><span class="st">&#39;KRW&#39;</span>, <span class="at">balance =</span> <span class="st">&quot;0&quot;</span>))</span>
+<span id="cb3-360"><a href="#cb3-360" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-361"><a href="#cb3-361" aria-hidden="true" tabindex="-1"></a>      ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance <span class="ot">=</span> budget</span>
+<span id="cb3-362"><a href="#cb3-362" aria-hidden="true" tabindex="-1"></a>      ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance <span class="ot">=</span> btc_volume</span>
+<span id="cb3-363"><a href="#cb3-363" aria-hidden="true" tabindex="-1"></a>      ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>avg_buy_price <span class="ot">=</span> btc_budget<span class="sc">/</span>btc_volume</span>
+<span id="cb3-364"><a href="#cb3-364" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-365"><a href="#cb3-365" aria-hidden="true" tabindex="-1"></a>      message_R <span class="ot">=</span> <span class="fu">paste0</span>(symbollist[t], <span class="st">&quot;의 가격이 추세를 넘어섰습니다.</span><span class="sc">\n\n</span><span class="st">&quot;</span>,</span>
+<span id="cb3-366"><a href="#cb3-366" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">tail</span>(KL<span class="sc">$</span>low_price,<span class="dv">1</span>), <span class="st">&quot;가격으로</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb3-367"><a href="#cb3-367" aria-hidden="true" tabindex="-1"></a>                         AMOUNT, <span class="st">&quot; 개를 매도합니다.&quot;</span>)</span>
+<span id="cb3-368"><a href="#cb3-368" aria-hidden="true" tabindex="-1"></a>      bot<span class="sc">$</span><span class="fu">sendMessage</span>(<span class="at">chat_id =</span> CHAT_ID, <span class="at">text =</span> message_R)</span>
+<span id="cb3-369"><a href="#cb3-369" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-370"><a href="#cb3-370" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(aa<span class="sc">$</span>status_code<span class="sc">!=</span><span class="dv">400</span>){</span>
+<span id="cb3-371"><a href="#cb3-371" aria-hidden="true" tabindex="-1"></a>        KAL <span class="ot">=</span> KAL[<span class="sc">!</span>KAL <span class="sc">%in%</span> symbollist[t]]</span>
+<span id="cb3-372"><a href="#cb3-372" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-373"><a href="#cb3-373" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-374"><a href="#cb3-374" aria-hidden="true" tabindex="-1"></a>      <span class="fu">write</span>(KAL, <span class="st">&quot;KAL.txt&quot;</span>)</span>
+<span id="cb3-375"><a href="#cb3-375" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-376"><a href="#cb3-376" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-377"><a href="#cb3-377" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&#39;현재 가격은 &#39;</span>, <span class="fu">tail</span>(KL<span class="sc">$</span>trade_price,<span class="dv">1</span>), <span class="st">&#39; 입니다&#39;</span>))</span>
+<span id="cb3-378"><a href="#cb3-378" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-379"><a href="#cb3-379" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(symbollist[t]<span class="sc">==</span><span class="st">&quot;KRW-BTC&quot;</span>){</span>
+<span id="cb3-380"><a href="#cb3-380" aria-hidden="true" tabindex="-1"></a>      RPST <span class="ot">=</span> <span class="dv">15</span></span>
+<span id="cb3-381"><a href="#cb3-381" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-382"><a href="#cb3-382" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-383"><a href="#cb3-383" aria-hidden="true" tabindex="-1"></a>  Total_PRICE <span class="ot">=</span> <span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;KRW&#39;</span>]<span class="sc">$</span>balance) <span class="sc">+</span> <span class="fu">as.numeric</span>(ROS[currency<span class="sc">==</span><span class="st">&#39;BTC&#39;</span>]<span class="sc">$</span>balance) <span class="sc">*</span> <span class="fu">tail</span>(samsung<span class="sc">$</span>trade_price,<span class="dv">1</span>)</span>
+<span id="cb3-384"><a href="#cb3-384" aria-hidden="true" tabindex="-1"></a>  <span class="co">#as.numeric(ROS[currency==&#39;KRW&#39;]$balance)</span></span>
+<span id="cb3-385"><a href="#cb3-385" aria-hidden="true" tabindex="-1"></a>  LAST_PRICE <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb3-386"><a href="#cb3-386" aria-hidden="true" tabindex="-1"></a>  BETA_SIZE <span class="ot">=</span> Total_PRICE</span>
+<span id="cb3-387"><a href="#cb3-387" aria-hidden="true" tabindex="-1"></a>  <span class="co">#최소 USDT 단위 보유량</span></span>
+<span id="cb3-388"><a href="#cb3-388" aria-hidden="true" tabindex="-1"></a>  minimum_price <span class="ot">=</span> <span class="fu">floor</span>((Total_PRICE<span class="sc">/</span><span class="dv">10</span>)<span class="sc">/</span><span class="fu">tail</span>(KL<span class="sc">$</span>high_price,<span class="dv">1</span>)<span class="sc">*</span><span class="dv">100000000</span>)<span class="sc">/</span><span class="dv">100000000</span></span>
+<span id="cb3-389"><a href="#cb3-389" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(Total_PRICE)</span>
+<span id="cb3-390"><a href="#cb3-390" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(minimum_price)</span>
+<span id="cb3-391"><a href="#cb3-391" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;cycle ended&quot;</span>)</span>
+<span id="cb3-392"><a href="#cb3-392" aria-hidden="true" tabindex="-1"></a>  KAL <span class="ot">=</span> <span class="st">&#39;KRW-BTC&#39;</span></span>
+<span id="cb3-393"><a href="#cb3-393" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write</span>(KAL, <span class="st">&quot;KAL.txt&quot;</span>)</span>
+<span id="cb3-394"><a href="#cb3-394" aria-hidden="true" tabindex="-1"></a>  <span class="co">#K = Sys.time()-time_sleep</span></span>
+<span id="cb3-395"><a href="#cb3-395" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">60</span><span class="sc">*</span><span class="dv">60</span><span class="sc">*</span><span class="dv">24</span>)</span>
+<span id="cb3-396"><a href="#cb3-396" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">
