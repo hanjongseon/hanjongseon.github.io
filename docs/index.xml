@@ -7,7 +7,7 @@
     <description>My Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>pandas를 병렬처리로</title>
       <dc:creator>Jongseon, Han</dc:creator>
@@ -17,7 +17,7 @@
       <category>python</category>
       <category>modin</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-10-modinpackage</guid>
-      <pubDate>Tue, 09 Mar 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 10 Mar 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>리눅스나 맥에서 kaggle json 등록하기</title>
