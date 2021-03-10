@@ -2154,23 +2154,18 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class='op'>}</span>
 
 <span class='co'>#확률리스트 생성</span>
-<span class='va'>p_list</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,by<span class='op'>=</span><span class='fl'>0.01</span><span class='op'>)</span>
+<span class='va'>p_list</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>,<span class='fl'>1</span>,by<span class='op'>=</span><span class='fl'>0.01</span><span class='op'>)</span>
 <span class='va'>p_df</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>p_list</span><span class='op'>)</span>
-<span class='va'>p_df</span><span class='op'>$</span><span class='va'>W_P</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span><span class='op'>(</span><span class='va'>w_p</span>, <span class='va'>p_list</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>p_df</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>  p_list        W_P
-1   0.00 0.00000000
-2   0.01 0.04693333
-3   0.02 0.07132103
-4   0.03 0.09057428
-5   0.04 0.10699114
-6   0.05 0.12152793</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='va'>p_df</span><span class='op'>$</span><span class='va'>W_P</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span><span class='op'>(</span><span class='va'>w_p</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>p_list</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p_df</span><span class='op'>$</span><span class='va'>VALUE_F</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span><span class='op'>(</span><span class='va'>w_p</span>, <span class='va'>p_list</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p_df</span><span class='op'>$</span><span class='va'>FELL_VALUE</span> <span class='op'>=</span> <span class='va'>p_df</span><span class='op'>$</span><span class='va'>W_P</span><span class='op'>*</span><span class='va'>p_df</span><span class='op'>$</span><span class='va'>VALUE_F</span>
+<span class='co'>#head(p_df)</span>
+
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>p_df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>p_df</span><span class='op'>)</span>, y<span class='op'>=</span><span class='va'>p_list</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>'blue'</span><span class='op'>)</span><span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>p_df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>p_df</span><span class='op'>)</span>, y<span class='op'>=</span><span class='va'>W_P</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>'red'</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='co'>#geom_point(data=p_df, aes(x=1:nrow(p_df), y=W_P), col='red')+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>p_df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>p_df</span><span class='op'>)</span>, y<span class='op'>=</span><span class='va'>VALUE_F</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>'green'</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>p_df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>p_df</span><span class='op'>)</span>, y<span class='op'>=</span><span class='va'>FELL_VALUE</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>'grey'</span><span class='op'>)</span><span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>'real prob(%)'</span><span class='op'>)</span><span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>'Probability of feeling'</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
@@ -2179,7 +2174,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 <p>Distill is a publication format for scientific and technical writing, native to the web.</p>
 <p>Learn more about using Distill at <a href="https://rstudio.github.io/distill" class="uri">https://rstudio.github.io/distill</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">
   <p class="social_footer">
