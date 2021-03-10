@@ -74,63 +74,9 @@ ggplot() + geom_point(data=p_df_reform, aes(x=p_list, y=value, group=TYPE, col=T
 
 
 ```
-```{r}
-library(data.table)
-sample_data = fread("/home/hanjongseon/distill/STOCK_000020.txt")
-head(sample_data)
-sample_data$W_P = unlist(Map(w_p,abs(sample_data$changed)))
-sample_data$VALUE_F = unlist(Map(value_f,sample_data$changed))
-sample_data$FELL_VALUE = sample_data$W_P*sample_data$VALUE_F
-sample_data %>% head()
-sample_data2 = sample_data %>% dplyr::select(Close, changed, W_P, VALUE_F, FELL_VALUE)
-sample_data2$ABS_DIFF = sample_data2$FELL_VALUE-sample_data2$changed
-sample_data2 = sample_data2 %>% tail(200)
-p_df_reform = tidyr::gather(sample_data2, key="TYPE",value='value',-changed) %>% filter(TYPE!='W_P')
-library(ggplot2)
-ggplot() + 
-  geom_point(data=sample_data2, aes(x=1:nrow(sample_data2), y=changed), col='grey')+
-  geom_point(data=sample_data2, aes(x=1:nrow(sample_data2), y=VALUE_F), col='red')+
-  geom_point(data=sample_data2, aes(x=1:nrow(sample_data2), y=FELL_VALUE), col='blue')+
-  geom_point(data=sample_data2, aes(x=1:nrow(sample_data2), y=Close/(max(Close))*20, col=ABS_DIFF), alpha=0.5)+
-  scale_color_gradient(low="blue", high="red")+
-  xlab('real prob(%)')+
-  ylab('Probability of feeling') + theme_bw()
 
-ggplot() + 
-  geom_smooth(data=sample_data2, aes(x=1:nrow(sample_data2), y=CLOSE1), col='red', span=0.05)+
-  geom_smooth(data=sample_data2, aes(x=1:nrow(sample_data2), y=CLOSE2), col='blue', span=0.05)
-  scale_color_gradient(low="blue", high="red")+
-  xlab('real prob(%)')+
-  ylab('Probability of feeling') + theme_bw()
-```
-
-<<<<<<< HEAD
-sample_data2 = 
-  sample_data2 %>% 
-  mutate(
-    PRICE_1 = Close*(1-changed),
-    PRICE_2 = Close*(1-FELL_VALUE)
-  )
-
-sample_data2$CLOSE1_SMA = SMA(sample_data2$CLOSE1,5)
-sample_data2$CLOSE2_SMA = SMA(sample_data2$CLOSE2,5)
-
-ggplot() + 
-  geom_line(data=sample_data2[1:20], aes(x=1:nrow(sample_data2[1:20]), y=CLOSE1_SMA), col='red')+
-  geom_line(data=sample_data2[1:20], aes(x=1:nrow(sample_data2[1:20]), y=CLOSE2_SMA), col='blue')
-  
+---
 
 
+- 실제 확률에 대해서 체감하는 확률에 대한 그래프이다. 사회현상에 대하여 이것을 알고리즘이나 휴리스틱으로 연구하는 코드를 보고 싶은데 아직은 보지 못했다. 이런 것들을 활용하는 연구들을 많이 확인하고 싶다.
 
-ggplot() + 
-  geom_smooth(data=sample_data2, aes(x=1:nrow(sample_data2), y=CLOSE1), col='red', span=0.05)+
-  geom_smooth(data=sample_data2, aes(x=1:nrow(sample_data2), y=CLOSE2), col='blue', span=0.05)
-
-Distill is a publication format for scientific and technical writing, native to the web.
-
-Learn more about using Distill at <https://rstudio.github.io/distill>.
-
-
-=======
-- 간단한 그래프이다. 실제 확률에 대해서 체감하는 확률이다. 사회현상에 대하여 이것을 알고리즘이나 휴리스틱으로 연구하는 코드를 보고 싶은데 아직은 보지 못했다. 내가 할 수 있다면(이것이 효용이 있다는 것이 증명되면) 한번 나중에 그 내용을 올려보고자 한다.
->>>>>>> 69eec3ac01e912f19d7cd0dd473791df2688b303
