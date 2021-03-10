@@ -18,6 +18,7 @@
       <category>modin</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-10-modinpackage</guid>
       <pubDate>Wed, 10 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://user-images.githubusercontent.com/24967549/110568576-8caa9880-8196-11eb-9dab-4c4c09c3d5dd.png" medium="image" type="image/png"/>
     </item>
     <item>
       <title>리눅스나 맥에서 kaggle json 등록하기</title>
@@ -29,6 +30,7 @@
       <category>R</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-07-kaggleinstall</guid>
       <pubDate>Sun, 07 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://user-images.githubusercontent.com/24967549/110569270-a5677e00-8197-11eb-9fc7-d54e4ae197db.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
       <title>확률 가중 함수와 가치함수</title>
@@ -55,6 +57,7 @@
       <category>jsonlite</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-04-test</guid>
       <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://user-images.githubusercontent.com/24967549/110570668-a26d8d00-8199-11eb-9079-43390b9ee0c0.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
       <title>g2r</title>
@@ -65,6 +68,7 @@
       <category>Visualization</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-04-usefulnewpack</guid>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://user-images.githubusercontent.com/24967549/110570815-e3fe3800-8199-11eb-93d3-19673f277702.PNG" medium="image" type="image/png"/>
     </item>
     <item>
       <title>업비트 자동거래 코드 만들기(R 버전)</title>
@@ -78,6 +82,7 @@
       <category>SYSTEM TRADE</category>
       <guid>https://hanjongseon.github.io/posts/2020-06-01-upbitautotrade</guid>
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://user-images.githubusercontent.com/24967549/110568730-d2fff780-8196-11eb-88b9-a30d6518bac2.jpg" medium="image" type="image/jpeg"/>
     </item>
   </channel>
 </rss>

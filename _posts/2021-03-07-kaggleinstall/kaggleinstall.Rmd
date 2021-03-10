@@ -4,6 +4,7 @@ categories:
   - kaggle
   - python
   - R
+preview: https://user-images.githubusercontent.com/24967549/110569270-a5677e00-8197-11eb-9fc7-d54e4ae197db.jpg
 description: |
   R,python에 kaggle 연동하는 과정에서...
 author:

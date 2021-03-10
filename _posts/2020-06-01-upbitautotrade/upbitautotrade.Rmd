@@ -6,6 +6,7 @@ categories:
   - BITCOIN
   - R
   - SYSTEM TRADE
+preview: https://user-images.githubusercontent.com/24967549/110568730-d2fff780-8196-11eb-88b9-a30d6518bac2.jpg
 description: |
   파이썬으로는 어차피 많을테니 R로 업비트 자동거래 코드 만들기
 author:
