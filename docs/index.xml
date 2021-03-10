@@ -24,7 +24,7 @@
       <title>리눅스나 맥에서 kaggle json 등록하기</title>
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2021-03-07-kaggleinstall</link>
-      <description>R,python에 kaggle 연동하는 과정에서...</description>
+      <description>In the process of kaggle linking to R,python…</description>
       <category>kaggle</category>
       <category>python</category>
       <category>R</category>
@@ -74,7 +74,7 @@
       <title>업비트 자동거래 코드 만들기(R 버전)</title>
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2020-06-01-upbitautotrade</link>
-      <description>파이썬으로는 어차피 많을테니 R로 업비트 자동거래 코드 만들기</description>
+      <description>Python's gonna be a lot, so R's gonna be the code for the upbeat auto-transaction.</description>
       <category>UPBIT</category>
       <category>CRYPTO</category>
       <category>BITCOIN</category>

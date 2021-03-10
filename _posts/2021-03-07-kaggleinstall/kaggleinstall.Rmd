@@ -6,7 +6,7 @@ categories:
   - R
 preview: https://user-images.githubusercontent.com/24967549/110569270-a5677e00-8197-11eb-9fc7-d54e4ae197db.jpg
 description: |
-  R,python에 kaggle 연동하는 과정에서...
+  In the process of kaggle linking to R,python…
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io
@@ -22,7 +22,6 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-![machine-learning-5290464_640](https://user-images.githubusercontent.com/24967549/110569270-a5677e00-8197-11eb-9fc7-d54e4ae197db.jpg)
 - 개인적으로 kaggle 데이터셋이 워낙 깨끗하니 그걸로 연습하는 것을 좋아하는데, 사이트에서 집접 코드를 만지다보니 생각보다 불편한 경우가 많이 생긴다.
 - Kaggle과 내 컴퓨터의 R이나 파이썬을 연동해주려고 하면 생각보다 어려움을 겪게 되는 부분이 생긴다. 윈도우에서는 어려움이 없는데 WSL이나 MAC을 쓸데 골치 아프다. 일단 kaggle을 pip로 설치하면 된다.
 

@@ -2115,7 +2115,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 <div class="d-article">
-<p><img src="https://user-images.githubusercontent.com/24967549/110570668-a26d8d00-8199-11eb-9079-43390b9ee0c0.jpg" alt="linux-4259595_640" /> - 아래 패키지들이 상황에 따라서는 정확한 설치대상은 아닐 수 있다. 굉장히 경험적인 이유로 선정한 설치대상들이기 때문이다. 다만, 윈도우즈의 R 또는 RSTUDIO가 개인적으로 너무 문제가 많다고 생각했고, 그것을 리눅스 기반으로 설치하면서 지속적으로 경험한 것들이니, 미리 문제를 예방할 수 있을 것이다. - jsonlite, httr, rvest, mongolite 등 네트워크 사용이 필요한 경우, 꼭 한번에 설치가 되는 경우가 없다. 사전에 패키지가 설치되어야 하거나 터미널에서 다른 것을 먼저 설치해줘야 하는 몇가지 것들이 있다. 아래 내용들은 그 과정에서 설치해주면 보통 해결이 된다.</p>
+<ul>
+<li>아래 패키지들이 상황에 따라서는 정확한 설치대상은 아닐 수 있다. 굉장히 경험적인 이유로 선정한 설치대상들이기 때문이다. 다만, 윈도우즈의 R 또는 RSTUDIO가 개인적으로 너무 문제가 많다고 생각했고, 그것을 리눅스 기반으로 설치하면서 지속적으로 경험한 것들이니, 미리 문제를 예방할 수 있을 것이다.</li>
+<li>jsonlite, httr, rvest, mongolite 등 네트워크 사용이 필요한 경우, 꼭 한번에 설치가 되는 경우가 없다. 사전에 패키지가 설치되어야 하거나 터미널에서 다른 것을 먼저 설치해줘야 하는 몇가지 것들이 있다. 아래 내용들은 그 과정에서 설치해주면 보통 해결이 된다.</li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> libssl-dev</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install libxml2-dev</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev</span>
