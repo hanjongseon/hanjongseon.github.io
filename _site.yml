@@ -13,7 +13,7 @@ navbar:
     - search: true
 output: 
   distill::distill_article:
-    highlight: kate
+    highlight: zenburn
 base_url: https://hanjongseon.github.io
 collections:
   posts:
