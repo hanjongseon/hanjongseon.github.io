@@ -11,7 +11,9 @@ navbar:
     - text: "About"
       href: about.html
     - search: true
-output: distill::distill_article
+output: 
+  distill::distill_article:
+    highlight: kate
 base_url: https://hanjongseon.github.io
 collections:
   posts:

@@ -7,7 +7,17 @@
     <description>My Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 10 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 18 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>[R] disk.frame</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-03-19-trapoflocal</link>
+      <description>about disk.frame</description>
+      <category>R</category>
+      <category>parallel</category>
+      <guid>https://hanjongseon.github.io/posts/2021-03-19-trapoflocal</guid>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>pandas를 병렬처리로</title>
       <dc:creator>Jongseon, Han</dc:creator>
