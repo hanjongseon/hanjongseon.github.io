@@ -46,13 +46,3 @@ install.packages('Rcpp')
 install.packages('lattice')
 ```
 
-- **TEST**
-```{r, include=TRUE}
-library(g2r)
-g2(beaver1, asp(time, temp)) %>% 
-  fig_line() %>% 
-  fig_point(asp(shape = "circle"))
-
-```
-
-
