@@ -7,7 +7,16 @@
     <description>My Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 10 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 May 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>AI가 만능이 아닌 이유</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-05-27-dynamoicprogramming</link>
+      <description>AI가 사회과학 분야에서 역할을 할 수 있을까?</description>
+      <category>AI</category>
+      <guid>https://hanjongseon.github.io/posts/2021-05-27-dynamoicprogramming</guid>
+      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>pandas를 병렬처리로</title>
       <dc:creator>Jongseon, Han</dc:creator>
