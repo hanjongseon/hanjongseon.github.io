@@ -6,7 +6,6 @@ categories:
   - BITCOIN
   - R
   - SYSTEM TRADE
-preview: https://user-images.githubusercontent.com/24967549/110568730-d2fff780-8196-11eb-88b9-a30d6518bac2.jpg
 description: |
   Python's gonna be a lot, so R's gonna be the code for the upbeat auto-transaction.
 author:

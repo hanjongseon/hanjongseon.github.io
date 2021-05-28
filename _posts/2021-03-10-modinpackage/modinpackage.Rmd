@@ -6,7 +6,6 @@ categories:
   - pandas
   - python
   - modin
-preview: https://user-images.githubusercontent.com/24967549/110568576-8caa9880-8196-11eb-9dab-4c4c09c3d5dd.png
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io

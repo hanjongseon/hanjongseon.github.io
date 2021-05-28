@@ -4,11 +4,10 @@ categories:
   - ubuntu
   - R
 description: |
-  우분투에서 R 초기 패키지 설치 전에 만지게 되는 것들<br/>
-  기본적인 패키지 설치 전에 먼저 설정해주면 좋음
+  우분투에서 R 초기 패키지 설치 전에 만지게 되는 것들
 author:
   - name: Jongseon, Han
-    url: https://hanjongseon.github.io/blog
+    url: https://hanjongseon.github.io
     orcid_id: 0000-0002-4148-9290
 date: 03-03-2021
 output:

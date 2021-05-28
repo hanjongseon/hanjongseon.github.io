@@ -5,7 +5,6 @@ description: |
 categories:
   - R
   - Visualization
-preview: https://user-images.githubusercontent.com/24967549/110570815-e3fe3800-8199-11eb-93d3-19673f277702.PNG
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io
