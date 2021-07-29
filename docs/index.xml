@@ -1,33 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>해떨어지면 자빠져 자</title>
+    <title>UNDERDOG</title>
     <link>https://hanjongseon.github.io</link>
     <atom:link href="https://hanjongseon.github.io/index.xml" rel="self" type="application/rss+xml"/>
     <description>My Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 27 May 2021 00:00:00 +0000</lastBuildDate>
-    <item>
-      <title>AI가 만능이 아닌 이유</title>
-      <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/posts/2021-05-27-dynamoicprogramming</link>
-      <description>AI가 사회과학 분야에서 역할을 할 수 있을까?</description>
-      <category>AI</category>
-      <guid>https://hanjongseon.github.io/posts/2021-05-27-dynamoicprogramming</guid>
-      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>pandas를 병렬처리로</title>
-      <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/posts/2021-03-10-modinpackage</link>
-      <description>Let's use Pandas as a multicore from single-core.</description>
-      <category>pandas</category>
-      <category>python</category>
-      <category>modin</category>
-      <guid>https://hanjongseon.github.io/posts/2021-03-10-modinpackage</guid>
-      <pubDate>Wed, 10 Mar 2021 00:00:00 +0000</pubDate>
-    </item>
+    <lastBuildDate>Sun, 07 Mar 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>리눅스나 맥에서 kaggle json 등록하기</title>
       <dc:creator>Jongseon, Han</dc:creator>
@@ -71,19 +51,6 @@
       <category>Visualization</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-04-usefulnewpack</guid>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>업비트 자동거래 코드 만들기(R 버전)</title>
-      <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/posts/2020-06-01-upbitautotrade</link>
-      <description>Python's gonna be a lot, so R's gonna be the code for the upbeat auto-transaction.</description>
-      <category>UPBIT</category>
-      <category>CRYPTO</category>
-      <category>BITCOIN</category>
-      <category>R</category>
-      <category>SYSTEM TRADE</category>
-      <guid>https://hanjongseon.github.io/posts/2020-06-01-upbitautotrade</guid>
-      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>
