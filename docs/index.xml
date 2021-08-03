@@ -7,7 +7,24 @@
     <description>My Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 07 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 03 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>왜 정치를 정의의 기준으로 바라보는가?</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-08-03-politic</link>
+      <description>Why view politics as a standard of justice?</description>
+      <category>내가지금생각하는 것</category>
+      <guid>https://hanjongseon.github.io/posts/2021-08-03-politic</guid>
+      <pubDate>Tue, 03 Aug 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>test</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-08-03-test</link>
+      <description>A short description of the post.</description>
+      <guid>https://hanjongseon.github.io/posts/2021-08-03-test</guid>
+      <pubDate>Tue, 03 Aug 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>리눅스나 맥에서 kaggle json 등록하기</title>
       <dc:creator>Jongseon, Han</dc:creator>
