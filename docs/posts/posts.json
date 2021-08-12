@@ -1,22 +1,5 @@
 [
   {
-    "path": "posts/2021-08-04-test/",
-    "title": "test",
-    "description": "A short description of the post.",
-    "author": [
-      {
-        "name": "Jongseon, Han",
-        "url": "https://hanjongseon.github.io"
-      }
-    ],
-    "date": "2021-08-04",
-    "categories": [],
-    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\n\nCheck: One data Learn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n\n",
-    "preview": {},
-    "last_modified": "2021-08-04T15:54:04+09:00",
-    "input_file": {}
-  },
-  {
     "path": "posts/2021-03-07-kaggleinstall/",
     "title": "리눅스나 맥에서 kaggle json 등록하기",
     "description": "In the process of kaggle linking to R,python…",
@@ -34,7 +17,7 @@
     ],
     "contents": "\nWSL(+linux), MAC 에서 home/kaggle 세팅 방법\npip install kaggle\n이 다음이 문제가 됨. .kaggle 폴더가 보이지 않음. 억지로 폴더로 만들어서 하다보면 또 형식이 맞지 않는다면서 문제가 생기는 경우가 생김. 기타 json파일을 복사하려고 하면 권한 문제든 뭐든 제대로 안되는 경우가 자꾸 생김.\n이 경우에 아래 방식으로 진행하면 처리가 가능\n#kaggle 패키지 설치\n1.pip install kaggle\n# 자기 홈디렉토리의 .kaggle로 이동\n# ~/과 ./를 볼수 있는데 ~인 경우는 기본적인 홈디렉토리를 의미하고 .의 경우는 현디렉토리를 의미한다.\n2.cd ~/.kaggle\n#홈페이지에가서 key를 받고..\n3.homepage www.kaggle.com -> Your Account -> Create New API token\n#다운받은 json 파일을 옮긴다.당연히 mv는 이동을 하고자 할떄 쓰는 명령어이다.\n#패키지 설치할 떄 종종 쓰이니 알아두면 괜찮다.\n4.mv ~/Downloads/kaggle.json ./\n#이후 권한을 설정해준다. chmod는 권한설정 명령어이다. \n5.chmod 600 ./kaggle.json\n이렇게 기본적인 세팅을 해주고 파이썬에서\nimport kaggle #카글을 import\nkaggle.api.authenticate() #권한 확인\n\n#kaggle.api.dataset_download_files('zynicide/wine-reviews/wines', path='g:/내 드라이브/work/wines', unzip=True)\n#위는 ㅅ매플로, 원하는 데이터셋을 원하는 경로에 압축을 풀어주는 기능이다.\n#카글 데이터셋을 연습할때, 사이트 자체에서 하기가 불편한 경우가 더러 생기는데, \n#개인적으로 연습하기도, 화면상으로 참조하기도 훨씬 편하다.\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-08-12T09:19:09+09:00",
+    "last_modified": "2021-08-12T09:26:01+09:00",
     "input_file": {}
   },
   {
