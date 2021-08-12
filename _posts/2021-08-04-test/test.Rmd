@@ -1,0 +1,24 @@
+---
+title: "test"
+description: |
+  A short description of the post.
+author:
+  - name: Jongseon, Han
+    url: https://hanjongseon.github.io
+date: 08-04-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Distill is a publication format for scientific and technical writing, native to the web.
+
+> <font color='#ccaa33'>Check:</font> **`One data`**
+Learn more about using Distill at <https://rstudio.github.io/distill>.
+
+

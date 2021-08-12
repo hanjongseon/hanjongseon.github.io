@@ -7,7 +7,15 @@
     <description>My Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 07 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>test</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-08-04-test</link>
+      <description>A short description of the post.</description>
+      <guid>https://hanjongseon.github.io/posts/2021-08-04-test</guid>
+      <pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>리눅스나 맥에서 kaggle json 등록하기</title>
       <dc:creator>Jongseon, Han</dc:creator>
