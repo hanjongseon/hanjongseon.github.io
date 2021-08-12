@@ -1,0 +1,27 @@
+---
+title: "윈도우즈 timestamp 조정하기"
+description: |
+  Match timestamp in Binance
+categories:
+  - binance
+  - bash
+author:
+  - name: Jongseon, Han
+    url: https://hanjongseon.github.io
+date: 08-12-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```bash
+net stop w32time
+
+w32tm /unregister
+w32tm /register
+
+net start w32time
+
+##w32tm /resync 이건 굳이 안해도 되는듯
+```
+

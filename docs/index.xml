@@ -7,7 +7,17 @@
     <description>My Blog
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 07 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 12 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>윈도우즈 timestamp 조정하기</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-08-12-timestampsink</link>
+      <description>Match timestamp in Binance</description>
+      <category>binance</category>
+      <category>bash</category>
+      <guid>https://hanjongseon.github.io/posts/2021-08-12-timestampsink</guid>
+      <pubDate>Thu, 12 Aug 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>리눅스나 맥에서 kaggle json 등록하기</title>
       <dc:creator>Jongseon, Han</dc:creator>

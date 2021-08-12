@@ -1,5 +1,25 @@
 [
   {
+    "path": "posts/2021-08-12-timestampsink/",
+    "title": "윈도우즈 timestamp 조정하기",
+    "description": "Match timestamp in Binance",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io"
+      }
+    ],
+    "date": "2021-08-12",
+    "categories": [
+      "binance",
+      "bash"
+    ],
+    "contents": "\nnet stop w32time\n\nw32tm /unregister\nw32tm /register\n\nnet start w32time\n\n##w32tm /resync 이건 굳이 안해도 되는듯\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-08-12T14:45:36+09:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-03-07-kaggleinstall/",
     "title": "리눅스나 맥에서 kaggle json 등록하기",
     "description": "In the process of kaggle linking to R,python…",
