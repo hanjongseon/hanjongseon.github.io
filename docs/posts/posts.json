@@ -14,9 +14,9 @@
       "binance",
       "bash"
     ],
-    "contents": "\nnet stop w32time\n\nw32tm /unregister\nw32tm /register\n\nnet start w32time\n\nw32tm /resync ##명확하진 않으나, 해야할때가 있고 해도 안먹힐때가 있음. 결과적으로는 둘다 작동.\n\n\n\n",
+    "contents": "\nnet stop w32time\n\nw32tm /unregister\nw32tm /register\n\nnet start w32time\n\nw32tm /resync ##명확하진 않으나, 해야할때가 있고 해도 안먹힐때가 있음. 결과적으로는 둘다 작동.\n\nsdffsdfds\n\n네이버 포스팅 참조.\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-09-08T11:52:41+09:00",
+    "last_modified": "2021-09-08T12:57:42+09:00",
     "input_file": {}
   },
   {
