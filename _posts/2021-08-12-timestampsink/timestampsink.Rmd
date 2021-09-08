@@ -22,6 +22,6 @@ w32tm /register
 
 net start w32time
 
-##w32tm /resync 이건 굳이 안해도 되는듯
+w32tm /resync ##명확하진 않으나, 해야할때가 있고 해도 안먹힐때가 있음. 결과적으로는 둘다 작동.
 ```
 
