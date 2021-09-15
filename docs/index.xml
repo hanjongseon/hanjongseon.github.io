@@ -6,6 +6,11 @@
     <atom:link href="https://hanjongseon.github.io/index.xml" rel="self" type="application/rss+xml"/>
     <description>My Blog
 </description>
+    <image>
+      <title>UNDERDOG</title>
+      <url>https://hanjongseon.github.io/images/logo.png</url>
+      <link>https://hanjongseon.github.io</link>
+    </image>
     <generator>Distill</generator>
     <lastBuildDate>Thu, 12 Aug 2021 00:00:00 +0000</lastBuildDate>
     <item>

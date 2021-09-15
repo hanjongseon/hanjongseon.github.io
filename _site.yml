@@ -3,6 +3,8 @@ title: "UNDERDOG"
 description: |
   My Blog
 output_dir: "docs"
+theme: theme.css
+favicon: images/logo.png
 navbar:
 #  logo: https://user-images.githubusercontent.com/24967549/109924593-dcefa980-7d03-11eb-848b-3343322842c0.png
   right:
