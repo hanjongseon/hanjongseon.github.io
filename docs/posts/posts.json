@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-09-16-wslport/",
+    "title": "WSL_포트 포워딩 및 리눅스 네트워크 드라이브 마운팅",
+    "description": "WSL port forwading in windows.",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io"
+      }
+    ],
+    "date": "2021-09-16",
+    "categories": [],
+    "contents": "\n\n포트포워딩\n\n\n#포트 추가\nnetsh interface portproxy add v4tov4 listenport=33306 listenaddress=0.0.0.0 connectport=3306 connectaddress=192.168.51.142\n\n#현재 포워딩 리스트 확인\nnetsh interface portproxy show v4tov4\n\n#기존에 있던 포워딩 포트 삭제\nnetsh interface portproxy delete v4tov4 listenport=9000 listenaddress=0.0.0.0\n\n#드라이브 마운트\n sudo mount -t drvfs G: /mnt/g\n \n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-09-16T10:53:46+09:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-08-12-timestampsink/",
     "title": "윈도우즈 timestamp 조정하기",
     "description": "Match timestamp in Binance",

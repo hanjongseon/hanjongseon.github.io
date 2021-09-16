@@ -12,7 +12,15 @@
       <link>https://hanjongseon.github.io</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 12 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 16 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>WSL_포트 포워딩 및 리눅스 네트워크 드라이브 마운팅</title>
+      <dc:creator>Jongseon, Han</dc:creator>
+      <link>https://hanjongseon.github.io/posts/2021-09-16-wslport</link>
+      <description>WSL port forwading in windows.</description>
+      <guid>https://hanjongseon.github.io/posts/2021-09-16-wslport</guid>
+      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>윈도우즈 timestamp 조정하기</title>
       <dc:creator>Jongseon, Han</dc:creator>
