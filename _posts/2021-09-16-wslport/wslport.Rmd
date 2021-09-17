@@ -19,7 +19,7 @@ output:
 ```bash
 
 #포트 추가
-netsh interface portproxy add v4tov4 listenport=33306 listenaddress=0.0.0.0 connectport=3306 connectaddress=192.168.51.142
+netsh interface portproxy add v4tov4 listenport=33306 listenaddress=0.0.0.0 connectport=3306 connectaddress=110.110.110.110
 
 #현재 포워딩 리스트 확인
 netsh interface portproxy show v4tov4
@@ -33,3 +33,7 @@ netsh interface portproxy delete v4tov4 listenport=9000 listenaddress=0.0.0.0
 ```
 
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3735692789004532"
+     crossorigin="anonymous"></script>
+     
+     
