@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>R 네트워크 관련 패키지 설치(ubuntu)</title>
@@ -1263,7 +1264,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1434,8 +1438,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="2021-03-03-rinubuntu_files/header-attrs-2.8/header-attrs.js"></script>
-  <script src="2021-03-03-rinubuntu_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="2021-03-03-rinubuntu_files/header-attrs-2.14/header-attrs.js"></script>
+  <script src="2021-03-03-rinubuntu_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="2021-03-03-rinubuntu_files/popper-2.6.0/popper.min.js"></script>
   <link href="2021-03-03-rinubuntu_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="2021-03-03-rinubuntu_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -1476,7 +1480,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-byline">
-  Jongseon, Han <a href="https://hanjongseon.github.io" class="uri">https://hanjongseon.github.io</a> 
+  Jongseon, Han <a href="https://hanjongseon.github.io"
+class="uri">https://hanjongseon.github.io</a> 
   
 <br/>03-03-2021
 </div>
@@ -1484,16 +1489,19 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <ul>
 <li>아래 패키지들이 정확한 설치대상은 아닐 수 있음</li>
-<li>jsonlite, httr, rvest, mongolite 등 네트워크 사용이 필요한 경우 설치가 꼭 제대로 안되는데 아래 내용들 먼저 설치해주면 보통 해결됨</li>
+<li>jsonlite, httr, rvest, mongolite 등 네트워크 사용이 필요한 경우
+설치가 꼭 제대로 안되는데 아래 내용들 먼저 설치해주면 보통 해결됨</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> libssl-dev</span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> libssl-dev</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install libxml2-dev</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install libsasl2-dev</span></code></pre></div>
 <p><br/></p>
 <ul>
 <li>추가내용</li>
-<li>항상 그러지는 않는 것으로 보이나 다른 패키지 설치 전에 에러가 나서 먼저 설치해줘야 할 것들</li>
+<li>항상 그러지는 않는 것으로 보이나 다른 패키지 설치 전에 에러가 나서
+먼저 설치해줘야 할 것들</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#rcpp 설치시 에러가 나는 경우</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;codetools&#39;</span>)</span>
@@ -1501,7 +1509,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#distill 관련</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;lattice&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
