@@ -5,7 +5,7 @@ description: |
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io
-date: 09-16-2021
+date: 06-28-2022
 output:
   distill::distill_article:
     self_contained: false
@@ -16,7 +16,10 @@ output:
 <h2> 파이썬 오라클 연결 </h2>
 
 
-```python
+<script src="https://gist.github.com/hanjongseon/10c19c8a3a104c8822ad56332f5d136b.js"></script>
+
+
+```{python eval=FALSE, include=FALSE}
 
 import cx_Oracle
 import os
