@@ -1,0 +1,90 @@
+---
+title: "polars, pandas SQL 오라클 연결"
+description: |
+  SQL CONNECTING.
+author:
+  - name: Jongseon, Han
+    url: https://hanjongseon.github.io
+date: 09-16-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+
+<h2> 파이썬 오라클 연결 </h2>
+
+
+```python
+
+import cx_Oracle
+import os
+from sqlalchemy import create_engine
+import pandas as pd
+import gc
+
+# 클라이언트 경로 세팅 먼저 해줘야 함.
+LOCATION = r"G:/내 드라이브/instantclient_21_6"
+os.environ['PATH'] = LOCATION + ';' + os.environ['PATH']
+engine = create_engine("oracle+cx_oracle://TEST_ID:TEST_PASSWORD@999.999.999.999:1521/ORCL")
+
+#engine = create_engine("oracle://TEST_ID:TEST_PASSWORD@999.999.999.999:1521/ORCL")
+connection = cx_Oracle.connect("TEST_ID", "TEST_PASSWORD", "999.999.999.999:1521/ORCL")
+
+test_row = pd.read_sql("SELECT * FROM POP_DATA.POP_LIST_DATA OFFSET 1 ROWS FETCH NEXT 1 ROWS ONLY", con=connection)
+test_row = pd.read_sql("SELECT * FROM POP_DATA.POP_LIST_DATA OFFSET 1 ROWS FETCH NEXT 1 ROWS ONLY", con=engine)
+
+import polars as pl
+
+
+test_row = pd.read_sql("SELECT NUM,POP_TYPE,SPNU,RESI_AREA,SUM_AREA AS POP_SUM_AREA, ASSESS, DANJI_CODE2 FROM POP_DATA.POP_LIST_DATA OFFSET 0 ROWS FETCH NEXT 1000000 ROWS ONLY", con=engine)
+
+test_row
+
+test_now2 = pl.read_sql("SELECT NUM,POP_TYPE,SPNU,RESI_AREA,SUM_AREA AS POP_SUM_AREA, ASSESS, DANJI_CODE2 FROM POP_DATA.POP_LIST_DATA OFFSET 0 ROWS FETCH NEXT 1000000 ROWS ONLY", "oracle://TEST_ID:TEST_PASSWORD@999.999.999.999:1521/ORCL")
+
+test_now2
+
+POP = pd.read_sql("SELECT * FROM POP_DATA.POP_LIST_DATA OFFSET 1 ROWS FETCH NEXT 1 ROWS ONLY", con=engine)
+
+steps = 0
+count = 1000000
+
+
+full_list = []
+
+while len(POP) != 0 :
+    gc.collect()
+    sqlState = "SELECT NUM,POP_TYPE,SPNU,RESI_AREA,SUM_AREA AS POP_SUM_AREA, ASSESS, DANJI_CODE2 FROM POP_DATA.POP_LIST_DATA OFFSET "+str(steps)+" ROWS FETCH NEXT "+str(count)+" ROWS ONLY"
+    steps = steps + count
+    POP = pl.read_sql(sqlState, "oracle://TEST_ID:TEST_PASSWORD@999.999.999.999:1521/ORCL")
+    print(len(POP))
+    full_list.append(POP)
+
+POP = pl.concat(full_list)
+
+len(POP)
+
+
+
+
+
+test_row.to_sql(if_exists="append", chunksize=5000, name="POP_LIST_TESTDATA", con=engine, index=False)
+
+test_row.to_sql
+
+
+
+
+
+
+
+ 
+```
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3735692789004532"
+     crossorigin="anonymous"></script>
+     
+     

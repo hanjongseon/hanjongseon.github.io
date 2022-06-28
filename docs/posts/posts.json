@@ -17,6 +17,23 @@
     "input_file": {}
   },
   {
+    "path": "posts/2022-06-27-sqlconnect/",
+    "title": "polars, pandas SQL 오라클 연결",
+    "description": "SQL CONNECTING.",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io"
+      }
+    ],
+    "date": "2021-09-16",
+    "categories": [],
+    "contents": "\n\n파이썬 오라클 연결\n\n\nimport cx_Oracle\nimport os\nfrom sqlalchemy import create_engine\nimport pandas as pd\nimport gc\n\n# 클라이언트 경로 세팅 먼저 해줘야 함.\nLOCATION = r\"G:/내 드라이브/instantclient_21_6\"\nos.environ['PATH'] = LOCATION + ';' + os.environ['PATH']\nengine = create_engine(\"oracle+cx_oracle://TEST_ID:TEST_PASSWORD@999.999.999.999:1521/ORCL\")\n\n#engine = create_engine(\"oracle://TEST_ID:TEST_PASSWORD@999.999.999.999:1521/ORCL\")\nconnection = cx_Oracle.connect(\"TEST_ID\", \"TEST_PASSWORD\", \"999.999.999.999:1521/ORCL\")\n\ntest_row = pd.read_sql(\"SELECT * FROM POP_DATA.POP_LIST_DATA OFFSET 1 ROWS FETCH NEXT 1 ROWS ONLY\", con=connection)\ntest_row = pd.read_sql(\"SELECT * FROM POP_DATA.POP_LIST_DATA OFFSET 1 ROWS FETCH NEXT 1 ROWS ONLY\", con=engine)\n\nimport polars as pl\n\n\ntest_row = pd.read_sql(\"SELECT NUM,POP_TYPE,SPNU,RESI_AREA,SUM_AREA AS POP_SUM_AREA, ASSESS, DANJI_CODE2 FROM POP_DATA.POP_LIST_DATA OFFSET 0 ROWS FETCH NEXT 1000000 ROWS ONLY\", con=engine)\n\ntest_row\n\ntest_now2 = pl.read_sql(\"SELECT NUM,POP_TYPE,SPNU,RESI_AREA,SUM_AREA AS POP_SUM_AREA, ASSESS, DANJI_CODE2 FROM POP_DATA.POP_LIST_DATA OFFSET 0 ROWS FETCH NEXT 1000000 ROWS ONLY\", \"oracle://TEST_ID:TEST_PASSWORD@999.999.999.999:1521/ORCL\")\n\ntest_now2\n\nPOP = pd.read_sql(\"SELECT * FROM POP_DATA.POP_LIST_DATA OFFSET 1 ROWS FETCH NEXT 1 ROWS ONLY\", con=engine)\n\nsteps = 0\ncount = 1000000\n\n\nfull_list = []\n\nwhile len(POP) != 0 :\n    gc.collect()\n    sqlState = \"SELECT NUM,POP_TYPE,SPNU,RESI_AREA,SUM_AREA AS POP_SUM_AREA, ASSESS, DANJI_CODE2 FROM POP_DATA.POP_LIST_DATA OFFSET \"+str(steps)+\" ROWS FETCH NEXT \"+str(count)+\" ROWS ONLY\"\n    steps = steps + count\n    POP = pl.read_sql(sqlState, \"oracle://TEST_ID:TEST_PASSWORD@999.999.999.999:1521/ORCL\")\n    print(len(POP))\n    full_list.append(POP)\n\nPOP = pl.concat(full_list)\n\nlen(POP)\n\n\n\n\n\ntest_row.to_sql(if_exists=\"append\", chunksize=5000, name=\"POP_LIST_TESTDATA\", con=engine, index=False)\n\ntest_row.to_sql\n\n\n\n\n\n\n\n \n\n\n\n",
+    "preview": {},
+    "last_modified": "2022-06-27T17:27:24+09:00",
+    "input_file": "sqlconnect.knit.md"
+  },
+  {
     "path": "posts/2021-08-12-timestampsink/",
     "title": "윈도우즈 timestamp 조정하기",
     "description": "Match timestamp in Binance",
