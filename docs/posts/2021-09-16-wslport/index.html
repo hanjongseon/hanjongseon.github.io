@@ -473,7 +473,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1045,10 +1045,6 @@ figure img.external {
   position: relative;
   margin-bottom: 2.5em;
   margin-top: 1.5em;
-}
-
-.figure img {
-  width: 100%;
 }
 
 .figure .caption {
@@ -1880,7 +1876,16 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+      if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+        var fn = $(this).children()[0]
+        $(this).html(fn.shadowRoot.querySelector("sup"))
+        $(this).id = fn.id
+        fn.remove()
+      }
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -1891,6 +1896,31 @@ function init_distill() {
         placement: 'bottom-start'
       });
     });
+
+    // fix footnotes in tables (#411)
+    // replacing broken distill.pub feature
+    $('table d-footnote').each(function() {
+      // we replace internal showAtNode methode which is triggered when hovering a footnote
+      this.hoverBox.showAtNode = function(node) {
+        // ported from https://github.com/distillpub/template/pull/105/files
+        calcOffset = function(elem) {
+            let x = elem.offsetLeft;
+            let y = elem.offsetTop;
+            // Traverse upwards until an `absolute` element is found or `elem`
+            // becomes null.
+            while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                x += elem.offsetLeft;
+                y += elem.offsetTop;
+            }
+
+            return { left: x, top: y };
+        }
+        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+        const bbox = node.getBoundingClientRect();
+        const offset = calcOffset(node);
+        this.show([offset.left + bbox.width, offset.top + bbox.height]);
+      }
+    })
 
     // clear polling timer
     clearInterval(tid);
@@ -1990,6 +2020,8 @@ function init_common() {
   // mark non-body figures created by knitr chunks as 100% width
   $('.layout-chunk').each(function(i, val) {
     var figures = $(this).find('img, .html-widget');
+    // ignore leaflet img layers (#106)
+    figures = figures.filter(':not(img[class*="leaflet"])')
     if ($(this).attr('data-layout') !== "l-body") {
       figures.css('width', '100%');
     } else {
@@ -2012,7 +2044,7 @@ function init_common() {
   // get rid of index.html references in header
   if (window.location.protocol !== "file:") {
     $('.distill-site-header a[href]').each(function(i,val) {
-      $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
     });
   }
 
@@ -2398,7 +2430,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"WSL_포트 포워딩 및 리눅스 네트워크 드라이브 마운팅","description":"WSL port forwading in windows.","authors":[{"author":"Jongseon, Han","authorURL":"https://hanjongseon.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-09-16T00:00:00.000+00:00","citationText":"Han, 2021"}
+{"title":"WSL_포트 포워딩 및 리눅스 네트워크 드라이브 마운팅","description":"WSL port forwading in windows.","authors":[{"author":"Jongseon, Han","authorURL":"https://hanjongseon.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-09-16T00:00:00.000+09:00","citationText":"Han, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2464,14 +2496,14 @@ d-appendix d-footnote-list a.footnote-backlink {
     </span>
     <span class="article-sharing">
       Share: &nbsp;
-      <a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-09-16-wslport%2F">
-        <i class="fab fa-facebook"></i>
+      <a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-09-16-wslport%2F" aria-label="share on facebook">
+        <i class="fab fa-facebook" aria-hidden="true"></i>
       </a>
-      <a href="https://twitter.com/share?text=WSL_%ED%8F%AC%ED%8A%B8%20%ED%8F%AC%EC%9B%8C%EB%94%A9%20%EB%B0%8F%20%EB%A6%AC%EB%88%85%EC%8A%A4%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C%20%EB%A7%88%EC%9A%B4%ED%8C%85&amp;url=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-09-16-wslport%2F">
-        <i class="fab fa-twitter"></i>
+      <a href="https://twitter.com/share?text=WSL_%ED%8F%AC%ED%8A%B8%20%ED%8F%AC%EC%9B%8C%EB%94%A9%20%EB%B0%8F%20%EB%A6%AC%EB%88%85%EC%8A%A4%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C%20%EB%A7%88%EC%9A%B4%ED%8C%85&amp;url=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-09-16-wslport%2F" aria-label="share on twitter">
+        <i class="fab fa-twitter" aria-hidden="true"></i>
       </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-09-16-wslport%2F&amp;title=WSL_%ED%8F%AC%ED%8A%B8%20%ED%8F%AC%EC%9B%8C%EB%94%A9%20%EB%B0%8F%20%EB%A6%AC%EB%88%85%EC%8A%A4%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C%20%EB%A7%88%EC%9A%B4%ED%8C%85">
-        <i class="fab fa-linkedin"></i>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-09-16-wslport%2F&amp;title=WSL_%ED%8F%AC%ED%8A%B8%20%ED%8F%AC%EC%9B%8C%EB%94%A9%20%EB%B0%8F%20%EB%A6%AC%EB%88%85%EC%8A%A4%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C%20%EB%A7%88%EC%9A%B4%ED%8C%85" aria-label="share on linkedin">
+        <i class="fab fa-linkedin" aria-hidden="true"></i>
       </a>
     </span>
   </p>

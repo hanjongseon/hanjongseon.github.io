@@ -473,7 +473,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1045,10 +1045,6 @@ figure img.external {
   position: relative;
   margin-bottom: 2.5em;
   margin-top: 1.5em;
-}
-
-.figure img {
-  width: 100%;
 }
 
 .figure .caption {
@@ -1880,7 +1876,16 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+      if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+        var fn = $(this).children()[0]
+        $(this).html(fn.shadowRoot.querySelector("sup"))
+        $(this).id = fn.id
+        fn.remove()
+      }
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -1891,6 +1896,31 @@ function init_distill() {
         placement: 'bottom-start'
       });
     });
+
+    // fix footnotes in tables (#411)
+    // replacing broken distill.pub feature
+    $('table d-footnote').each(function() {
+      // we replace internal showAtNode methode which is triggered when hovering a footnote
+      this.hoverBox.showAtNode = function(node) {
+        // ported from https://github.com/distillpub/template/pull/105/files
+        calcOffset = function(elem) {
+            let x = elem.offsetLeft;
+            let y = elem.offsetTop;
+            // Traverse upwards until an `absolute` element is found or `elem`
+            // becomes null.
+            while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                x += elem.offsetLeft;
+                y += elem.offsetTop;
+            }
+
+            return { left: x, top: y };
+        }
+        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+        const bbox = node.getBoundingClientRect();
+        const offset = calcOffset(node);
+        this.show([offset.left + bbox.width, offset.top + bbox.height]);
+      }
+    })
 
     // clear polling timer
     clearInterval(tid);
@@ -1990,6 +2020,8 @@ function init_common() {
   // mark non-body figures created by knitr chunks as 100% width
   $('.layout-chunk').each(function(i, val) {
     var figures = $(this).find('img, .html-widget');
+    // ignore leaflet img layers (#106)
+    figures = figures.filter(':not(img[class*="leaflet"])')
     if ($(this).attr('data-layout') !== "l-body") {
       figures.css('width', '100%');
     } else {
@@ -2012,7 +2044,7 @@ function init_common() {
   // get rid of index.html references in header
   if (window.location.protocol !== "file:") {
     $('.distill-site-header a[href]').each(function(i,val) {
-      $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
     });
   }
 
@@ -2402,7 +2434,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"g2r","description":"New and useful visualization packages","authors":[{"author":"Jongseon, Han","authorURL":"https://hanjongseon.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":"0000-0002-4148-9290"}],"publishedDate":"2021-03-03T00:00:00.000+00:00","citationText":"Han, 2021"}
+{"title":"g2r","description":"New and useful visualization packages","authors":[{"author":"Jongseon, Han","authorURL":"https://hanjongseon.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":"0000-0002-4148-9290"}],"publishedDate":"2021-03-03T00:00:00.000+09:00","citationText":"Han, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2482,14 +2514,14 @@ d-appendix d-footnote-list a.footnote-backlink {
     </span>
     <span class="article-sharing">
       Share: &nbsp;
-      <a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-03-04-usefulnewpack%2F">
-        <i class="fab fa-facebook"></i>
+      <a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-03-04-usefulnewpack%2F" aria-label="share on facebook">
+        <i class="fab fa-facebook" aria-hidden="true"></i>
       </a>
-      <a href="https://twitter.com/share?text=g2r&amp;url=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-03-04-usefulnewpack%2F">
-        <i class="fab fa-twitter"></i>
+      <a href="https://twitter.com/share?text=g2r&amp;url=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-03-04-usefulnewpack%2F" aria-label="share on twitter">
+        <i class="fab fa-twitter" aria-hidden="true"></i>
       </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-03-04-usefulnewpack%2F&amp;title=g2r">
-        <i class="fab fa-linkedin"></i>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fhanjongseon.github.io%2Fposts%2F2021-03-04-usefulnewpack%2F&amp;title=g2r" aria-label="share on linkedin">
+        <i class="fab fa-linkedin" aria-hidden="true"></i>
       </a>
     </span>
   </p>
