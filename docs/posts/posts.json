@@ -69,9 +69,9 @@
       "python",
       "R"
     ],
-    "contents": "\nWSL(+linux), MAC 에서 home/kaggle 세팅 방법\npip install kaggle\n이 다음이 문제가 됨. .kaggle 폴더가 보이지 않음. 억지로 폴더로 만들어서 하다보면 또 형식이 맞지 않는다면서 문제가 생기는 경우가 생김. 기타 json파일을 복사하려고 하면 권한 문제든 뭐든 제대로 안되는 경우가 자꾸 생김.\n이 경우에 아래 방식으로 진행하면 처리가 가능\n#kaggle 패키지 설치\n1.pip install kaggle\n# 자기 홈디렉토리의 .kaggle로 이동\n# ~/과 ./를 볼수 있는데 ~인 경우는 기본적인 홈디렉토리를 의미하고 .의 경우는 현디렉토리를 의미한다.\n2.cd ~/.kaggle\n#홈페이지에가서 key를 받고..\n3.homepage www.kaggle.com -> Your Account -> Create New API token\n#다운받은 json 파일을 옮긴다.당연히 mv는 이동을 하고자 할떄 쓰는 명령어이다.\n#패키지 설치할 떄 종종 쓰이니 알아두면 괜찮다.\n4.mv ~/Downloads/kaggle.json ./\n#이후 권한을 설정해준다. chmod는 권한설정 명령어이다. \n5.chmod 600 ./kaggle.json\n이렇게 기본적인 세팅을 해주고 파이썬에서\nimport kaggle #카글을 import\nkaggle.api.authenticate() #권한 확인\n\n#kaggle.api.dataset_download_files('zynicide/wine-reviews/wines', path='g:/내 드라이브/work/wines', unzip=True)\n#위는 ㅅ매플로, 원하는 데이터셋을 원하는 경로에 압축을 풀어주는 기능이다.\n#카글 데이터셋을 연습할때, 사이트 자체에서 하기가 불편한 경우가 더러 생기는데, \n#개인적으로 연습하기도, 화면상으로 참조하기도 훨씬 편하다.\n\n\n\n",
+    "contents": "\r\nWSL(+linux), MAC 에서 home/kaggle 세팅 방법\r\npip install kaggle\r\n이 다음이 문제가 됨. .kaggle 폴더가 보이지\r\n않음. 억지로 폴더로 만들어서 하다보면 또 형식이 맞지 않는다면서\r\n문제가 생기는 경우가 생김. 기타 json파일을 복사하려고 하면 권한 문제든\r\n뭐든 제대로 안되는 경우가 자꾸 생김.\r\n이 경우에 아래 방식으로 진행하면 처리가 가능\r\n#kaggle 패키지 설치\r\n1.pip install kaggle\r\n# 자기 홈디렉토리의 .kaggle로 이동\r\n# ~/과 ./를 볼수 있는데 ~인 경우는 기본적인 홈디렉토리를 의미하고 .의 경우는 현디렉토리를 의미한다.\r\n2.cd ~/.kaggle\r\n#홈페이지에가서 key를 받고..\r\n3.homepage www.kaggle.com -> Your Account -> Create New API token\r\n#다운받은 json 파일을 옮긴다.당연히 mv는 이동을 하고자 할떄 쓰는 명령어이다.\r\n#패키지 설치할 떄 종종 쓰이니 알아두면 괜찮다.\r\n4.mv ~/Downloads/kaggle.json ./\r\n#이후 권한을 설정해준다. chmod는 권한설정 명령어이다. \r\n5.chmod 600 ./kaggle.json\r\n이렇게 기본적인 세팅을 해주고 파이썬에서\r\nimport kaggle #카글을 import\r\nkaggle.api.authenticate() #권한 확인\r\n\r\n#kaggle.api.dataset_download_files('zynicide/wine-reviews/wines', path='g:/내 드라이브/work/wines', unzip=True)\r\n#원하는 데이터셋을 원하는 경로에 압축을 풀어주는 기능이다.\r\n\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2021-08-12T09:26:40+09:00",
+    "last_modified": "2022-06-28T13:53:45+09:00",
     "input_file": {}
   },
   {
@@ -93,7 +93,7 @@
     ],
     "contents": "\r\n\r\n확률가중함수확률에 대해 사람들이\r\n가중치를 두어 생각한다는 것을 보여주는 함수가치함수사람의 손실회피 성향을 보여주는\r\n것으로, 손실에 대해서 더 많은 가치 부여를 보이는 경향을 보임\r\n\r\n\r\n\r\nlibrary(dplyr)\r\n#확률 가중 함수\r\nw_p = function(p,r=0.65){\r\n  if(p<0){\r\n    k = p * (-1)\r\n    return((k**r)/((k**r)+(1-k)**r)**(1/r)*(-1) * 2.25)\r\n  }\r\n  if(p>0){\r\n    return((p**r)/((p**r)+(1-p)**r)**(1/r))\r\n  }\r\n  if(p==0){\r\n    return(0)\r\n  }\r\n}\r\n\r\n# 가치 함수\r\nvalue_f = function(x){\r\n    if(x>=0){\r\n        y = x**0.88\r\n    }\r\n    if(x<0){\r\n        y = -2.25*(-x)**0.88\r\n    }\r\n    return(y)\r\n}\r\n\r\n#확률리스트 생성\r\np_list = seq(-1,1,by=0.01)\r\np_df = data.frame(p_list)\r\np_df$W_P = unlist(Map(w_p, abs(p_list)))\r\np_df$VALUE_F = unlist(Map(value_f, p_list))\r\np_df$FELL_VALUE = p_df$W_P*p_df$VALUE_F\r\n#head(p_df)\r\np_df_reform = tidyr::gather(p_df, key=\"TYPE\",value='value',-p_list) %>% filter(TYPE!='W_P')\r\n\r\nlibrary(ggplot2)\r\nggplot() + geom_point(data=p_df_reform, aes(x=p_list, y=value, group=TYPE, col=TYPE))+\r\n  geom_point(data=p_df_reform, aes(x=p_list, y=p_list), col='grey')+\r\n  xlab('real prob(%)')+\r\n  ylab('Probability of feeling') + theme_bw()\r\n\r\n\r\n\r\n실제 적용시 제대로 작동안됨.\r\n\r\n\r\n\r\n",
     "preview": "posts/2021-03-05-wtvaluef/wtvaluef_files/figure-html5/unnamed-chunk-1-1.png",
-    "last_modified": "2022-06-28T13:42:52+09:00",
+    "last_modified": "2022-06-28T13:53:34+09:00",
     "input_file": {},
     "preview_width": 1248,
     "preview_height": 768
@@ -120,7 +120,7 @@
   },
   {
     "path": "posts/2021-03-04-usefulnewpack/",
-    "title": "g2r",
+    "title": "g2r 패키지",
     "description": "New and useful visualization packages",
     "author": [
       {
@@ -133,9 +133,9 @@
       "R",
       "Visualization"
     ],
-    "contents": "\ninteractive plot 패키지로 g2r이 나왔다. 아직 완성도가 있다고 보기는 어렵지만 plotly에 비하면 훨씬 직관적이고 이해하기 좋다. ggplot에서 그 방향성은 유지된 것으로 보인다. 방법적인 측면에서 거의 유지가 되었기 때문에 ggplot을 사용하던 사람들의 입장에서 보면 일단 배우기가 쉽다고 보면 된다.\n아래는 해당 패키지의 공개 예제이다.\n# install.packages(\"remotes\")\nremotes::install_github(\"devOpifex/g2r\")\n\n\nlibrary(g2r)\njson <- jsonlite::fromJSON(\n  \"https://gw.alipayobjects.com/os/antvdemo/assets/data/baby-names.json\"\n)\n\njson %>%\n  dplyr::group_by(name, year) %>%\n  dplyr::summarise(n = sum(n)) %>%  \n  g2(asp(year, n, color = name, shape = \"smooth\")) %>% \n  fig_area(\n    adjust(\"stack\"), adjust(\"symmetric\"),\n    fillOpacity = .85\n  ) %>% \n  gauge_x_linear(tickInterval = 20) %>% \n  legend_color(position = \"right\")\n\n\n\n\n\n\n\n",
+    "contents": "\r\ninteractive plot 패키지. plotlyr에 비해 사용하기가 편하긴한데\r\n지원안하는 기능이 많음(해당시점)\r\n아래는 해당 패키지의 공개 예제이다.\r\n# install.packages(\"remotes\")\r\nremotes::install_github(\"devOpifex/g2r\")\r\n\r\n\r\nlibrary(g2r)\r\njson <- jsonlite::fromJSON(\r\n  \"https://gw.alipayobjects.com/os/antvdemo/assets/data/baby-names.json\"\r\n)\r\n\r\njson %>%\r\n  dplyr::group_by(name, year) %>%\r\n  dplyr::summarise(n = sum(n)) %>%  \r\n  g2(asp(year, n, color = name, shape = \"smooth\")) %>% \r\n  fig_area(\r\n    adjust(\"stack\"), adjust(\"symmetric\"),\r\n    fillOpacity = .85\r\n  ) %>% \r\n  gauge_x_linear(tickInterval = 20) %>% \r\n  legend_color(position = \"right\")\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2021-08-03T22:21:02+09:00",
+    "last_modified": "2022-06-28T13:56:16+09:00",
     "input_file": {}
   }
 ]
