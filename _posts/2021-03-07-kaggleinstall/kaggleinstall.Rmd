@@ -32,7 +32,7 @@ pip install kaggle
 
 - 이 경우에 아래 방식으로 진행하면 처리가 가능
 
-```bash
+```python
 #kaggle 패키지 설치
 1.pip install kaggle
 # 자기 홈디렉토리의 .kaggle로 이동
@@ -54,9 +54,8 @@ import kaggle #카글을 import
 kaggle.api.authenticate() #권한 확인
 
 #kaggle.api.dataset_download_files('zynicide/wine-reviews/wines', path='g:/내 드라이브/work/wines', unzip=True)
-#위는 ㅅ매플로, 원하는 데이터셋을 원하는 경로에 압축을 풀어주는 기능이다.
-#카글 데이터셋을 연습할때, 사이트 자체에서 하기가 불편한 경우가 더러 생기는데, 
-#개인적으로 연습하기도, 화면상으로 참조하기도 훨씬 편하다.
+#원하는 데이터셋을 원하는 경로에 압축을 풀어주는 기능이다.
+
 
 ```
 

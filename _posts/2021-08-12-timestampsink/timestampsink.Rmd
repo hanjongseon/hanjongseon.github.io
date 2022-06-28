@@ -25,8 +25,5 @@ net start w32time
 w32tm /resync ##명확하진 않으나, 해야할때가 있고 해도 안먹힐때가 있음. 결과적으로는 둘다 작동.
 ```
 
-<p><span style="background-color: rgb(172, 172, 172); font-size: 18pt; color: rgb(255, 255, 255);"><b>sdffsdfds</b></span></p>
-
-네이버 포스팅 참조.
-
+<p><span style="background-color: rgb(172, 172, 172); font-size: 18pt; color: rgb(255, 255, 255);"><b>MARKDOWN TEST</b></span></p>
 
