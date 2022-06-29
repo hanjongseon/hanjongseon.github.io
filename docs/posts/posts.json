@@ -1,5 +1,26 @@
 [
   {
+    "path": "posts/2022-06-29-batchschedule/",
+    "title": "파이썬 R, 스케줄러 등록",
+    "description": "scheduler assign.",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io"
+      }
+    ],
+    "date": "2022-06-29",
+    "categories": [
+      "bat, 스케줄러",
+      "python",
+      "R"
+    ],
+    "contents": "\r\n배치파일 생성과정\r\n  #메모장 같은 것으로 오픈\r\n  call echo off # 선택사항\r\n  call conda activate\r\n  call python \"test.py\"\r\n  call conda deactivate\r\n  \r\n스케줄러 상에서는 권리자 권한으로 실행\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2022-06-29T10:29:01+09:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2022-06-27-sqlconnect/",
     "title": "polars, pandas SQL 오라클 연결",
     "description": "SQL CONNECTING.",
