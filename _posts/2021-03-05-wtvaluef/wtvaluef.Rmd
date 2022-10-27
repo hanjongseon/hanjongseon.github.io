@@ -3,9 +3,7 @@ title: "확률 가중 함수와 가치함수"
 description: |
   Behavioral economics:Probability-weighted and value functions
 categories:
-  - Probability Weighted Function
-  - Value function
-  - Behavioral economics
+  - Theory and Algorithms
   - R
 author:
   - name: Jongseon, Han

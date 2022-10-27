@@ -1,5 +1,9 @@
 ---
 title: "polars, pandas SQL 오라클 연결"
+categories:
+  - useful TIP
+  - python
+  - etc
 description: |
   SQL CONNECTING.
 author:

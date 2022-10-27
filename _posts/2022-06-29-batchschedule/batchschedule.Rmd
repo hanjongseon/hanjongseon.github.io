@@ -1,9 +1,10 @@
 ---
 title: "파이썬 R, 스케줄러 등록"
 categories:
-  - bat, 스케줄러
+  - useful TIP
   - python
   - R
+  - etc
 description: |
   scheduler assign.
 author:

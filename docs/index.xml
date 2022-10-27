@@ -18,9 +18,10 @@
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2022-06-29-batchschedule</link>
       <description>scheduler assign.</description>
-      <category>bat, 스케줄러</category>
+      <category>useful TIP</category>
       <category>python</category>
       <category>R</category>
+      <category>etc</category>
       <guid>https://hanjongseon.github.io/posts/2022-06-29-batchschedule</guid>
       <pubDate>Wed, 29 Jun 2022 00:00:00 +0000</pubDate>
     </item>
@@ -29,6 +30,9 @@
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2022-06-27-sqlconnect</link>
       <description>SQL CONNECTING.</description>
+      <category>useful TIP</category>
+      <category>python</category>
+      <category>etc</category>
       <guid>https://hanjongseon.github.io/posts/2022-06-27-sqlconnect</guid>
       <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
     </item>
@@ -45,8 +49,8 @@
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2021-08-12-timestampsink</link>
       <description>Match timestamp in Binance</description>
-      <category>binance</category>
-      <category>bash</category>
+      <category>useful TIP</category>
+      <category>etc</category>
       <guid>https://hanjongseon.github.io/posts/2021-08-12-timestampsink</guid>
       <pubDate>Thu, 12 Aug 2021 00:00:00 +0000</pubDate>
     </item>
@@ -58,6 +62,8 @@
       <category>kaggle</category>
       <category>python</category>
       <category>R</category>
+      <category>etc</category>
+      <category>useful TIP</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-07-kaggleinstall</guid>
       <pubDate>Sun, 07 Mar 2021 00:00:00 +0000</pubDate>
     </item>
@@ -66,9 +72,7 @@
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2021-03-05-wtvaluef</link>
       <description>Behavioral economics:Probability-weighted and value functions</description>
-      <category>Probability Weighted Function</category>
-      <category>Value function</category>
-      <category>Behavioral economics</category>
+      <category>Theory and Algorithms</category>
       <category>R</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-05-wtvaluef</guid>
       <pubDate>Fri, 05 Mar 2021 00:00:00 +0000</pubDate>
@@ -79,8 +83,9 @@
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2021-03-03-2021-03-03-rinubuntu</link>
       <description>우분투에서 R 초기 패키지 설치 전에 만지게 되는 것들</description>
-      <category>ubuntu</category>
+      <category>useful TIP</category>
       <category>R</category>
+      <category>etc</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-03-2021-03-03-rinubuntu</guid>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
     </item>

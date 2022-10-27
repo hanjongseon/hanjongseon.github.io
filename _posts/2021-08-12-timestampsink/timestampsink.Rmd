@@ -3,8 +3,8 @@ title: "윈도우즈 timestamp 조정하기"
 description: |
   Match timestamp in Binance
 categories:
-  - binance
-  - bash
+  - useful TIP
+  - etc
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io

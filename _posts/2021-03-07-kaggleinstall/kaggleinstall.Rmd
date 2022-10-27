@@ -4,6 +4,8 @@ categories:
   - kaggle
   - python
   - R
+  - etc
+  - useful TIP
 description: |
   In the process of kaggle linking to R,python…
 author:
