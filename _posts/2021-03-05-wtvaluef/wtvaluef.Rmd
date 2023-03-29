@@ -63,10 +63,10 @@ p_df$FELL_VALUE = p_df$W_P*p_df$VALUE_F
 p_df_reform = tidyr::gather(p_df, key="TYPE",value='value',-p_list) %>% filter(TYPE!='W_P')
 
 library(ggplot2)
-ggplot() + geom_point(data=p_df_reform, aes(x=p_list, y=value, group=TYPE, col=TYPE))+
-  geom_point(data=p_df_reform, aes(x=p_list, y=p_list), col='grey')+
-  xlab('real prob(%)')+
-  ylab('Probability of feeling') + theme_bw()
+#ggplot() + geom_point(data=p_df_reform, aes(x=p_list, y=value, group=TYPE, col=TYPE))+
+#  geom_point(data=p_df_reform, aes(x=p_list, y=p_list), col='grey')+
+#  xlab('real prob(%)')+
+#  ylab('Probability of feeling') + theme_bw()
 
 
 ```
