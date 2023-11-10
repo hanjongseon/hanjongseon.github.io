@@ -50,17 +50,16 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { color: #00769e; background-color: #f1f3f5; }
+  {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #657422; } /* Attribute */
+code span.at { color: #20794d; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #00769e; } /* ControlFlow */
+code span.cf { color: #007ba5; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -74,18 +73,17 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #00769e; } /* Keyword */
+code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #00769e; } /* Other */
+code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.sc { color: #20794d; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
-
 
   <!--radix_placeholder_meta_tags-->
   <title>확률 가중 함수와 가치함수</title>
@@ -113,12 +111,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","categories","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["확률 가중 함수와 가치함수"]},{"type":"character","attributes":{},"value":["Behavioral economics:Probability-weighted and value functions\n"]},{"type":"character","attributes":{},"value":["Theory and Algorithms","R"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Jongseon, Han"]},{"type":"character","attributes":{},"value":["https://hanjongseon.github.io"]},{"type":"character","attributes":{},"value":["0000-0002-4148-9290"]}]}]},{"type":"character","attributes":{},"value":["03-05-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","categories","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["확률 가중 함수와 가치함수"]},{"type":"character","attributes":{},"value":["Behavioral economics:Probability-weighted and value functions\n"]},{"type":"character","attributes":{},"value":["Probability Weighted Function","Value function","Behavioral economics","R"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Jongseon, Han"]},{"type":"character","attributes":{},"value":["https://hanjongseon.github.io"]},{"type":"character","attributes":{},"value":["0000-0002-4148-9290"]}]}]},{"type":"character","attributes":{},"value":["03-05-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["wtvaluef_files/anchor-4.2.2/anchor.min.js","wtvaluef_files/bowser-1.9.3/bowser.min.js","wtvaluef_files/crosstalk-1.1.1/css/crosstalk.css","wtvaluef_files/crosstalk-1.1.1/js/crosstalk.js","wtvaluef_files/crosstalk-1.1.1/js/crosstalk.js.map","wtvaluef_files/crosstalk-1.1.1/js/crosstalk.min.js","wtvaluef_files/crosstalk-1.1.1/js/crosstalk.min.js.map","wtvaluef_files/datatables-binding-0.17/datatables.js","wtvaluef_files/datatables-css-0.0.0/datatables-crosstalk.css","wtvaluef_files/distill-2.2.21/template.v2.js","wtvaluef_files/dt-core-1.10.20/css/jquery.dataTables.extra.css","wtvaluef_files/dt-core-1.10.20/css/jquery.dataTables.min.css","wtvaluef_files/dt-core-1.10.20/js/jquery.dataTables.min.js","wtvaluef_files/figure-html5/unnamed-chunk-1-1.png","wtvaluef_files/header-attrs-2.14/header-attrs.js","wtvaluef_files/header-attrs-2.7/header-attrs.js","wtvaluef_files/header-attrs-2.8/header-attrs.js","wtvaluef_files/htmlwidgets-1.5.3/htmlwidgets.js","wtvaluef_files/jquery-1.11.3/jquery.min.js","wtvaluef_files/jquery-3.5.1/jquery-AUTHORS.txt","wtvaluef_files/jquery-3.5.1/jquery.js","wtvaluef_files/jquery-3.5.1/jquery.min.js","wtvaluef_files/jquery-3.5.1/jquery.min.map","wtvaluef_files/jquery-3.6.0/jquery-3.6.0.js","wtvaluef_files/jquery-3.6.0/jquery-3.6.0.min.js","wtvaluef_files/jquery-3.6.0/jquery-3.6.0.min.map","wtvaluef_files/popper-2.6.0/popper.min.js","wtvaluef_files/tippy-6.2.7/tippy-bundle.umd.min.js","wtvaluef_files/tippy-6.2.7/tippy-light-border.css","wtvaluef_files/tippy-6.2.7/tippy.css","wtvaluef_files/tippy-6.2.7/tippy.umd.min.js","wtvaluef_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["wtvaluef_files/anchor-4.2.2/anchor.min.js","wtvaluef_files/bowser-1.9.3/bowser.min.js","wtvaluef_files/crosstalk-1.1.1/css/crosstalk.css","wtvaluef_files/crosstalk-1.1.1/js/crosstalk.js","wtvaluef_files/crosstalk-1.1.1/js/crosstalk.js.map","wtvaluef_files/crosstalk-1.1.1/js/crosstalk.min.js","wtvaluef_files/crosstalk-1.1.1/js/crosstalk.min.js.map","wtvaluef_files/datatables-binding-0.17/datatables.js","wtvaluef_files/datatables-css-0.0.0/datatables-crosstalk.css","wtvaluef_files/distill-2.2.21/template.v2.js","wtvaluef_files/dt-core-1.10.20/css/jquery.dataTables.extra.css","wtvaluef_files/dt-core-1.10.20/css/jquery.dataTables.min.css","wtvaluef_files/dt-core-1.10.20/js/jquery.dataTables.min.js","wtvaluef_files/figure-html5/unnamed-chunk-1-1.png","wtvaluef_files/header-attrs-2.7/header-attrs.js","wtvaluef_files/header-attrs-2.8/header-attrs.js","wtvaluef_files/htmlwidgets-1.5.3/htmlwidgets.js","wtvaluef_files/jquery-1.11.3/jquery.min.js","wtvaluef_files/jquery-3.5.1/jquery-AUTHORS.txt","wtvaluef_files/jquery-3.5.1/jquery.js","wtvaluef_files/jquery-3.5.1/jquery.min.js","wtvaluef_files/jquery-3.5.1/jquery.min.map","wtvaluef_files/popper-2.6.0/popper.min.js","wtvaluef_files/tippy-6.2.7/tippy-bundle.umd.min.js","wtvaluef_files/tippy-6.2.7/tippy-light-border.css","wtvaluef_files/tippy-6.2.7/tippy.css","wtvaluef_files/tippy-6.2.7/tippy.umd.min.js","wtvaluef_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -430,6 +428,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
   }
 
   .figure .caption {
@@ -1261,16 +1263,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
-          $(this).html(fn.shadowRoot.querySelector("sup"))
-          $(this).id = fn.id
-          fn.remove()
-        }
-        var refs = $(this).attr('data-cites').split(" ");
-        var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
-        }).join("\n");
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1281,31 +1274,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
-
-      // fix footnotes in tables (#411)
-      // replacing broken distill.pub feature
-      $('table d-footnote').each(function() {
-        // we replace internal showAtNode methode which is triggered when hovering a footnote
-        this.hoverBox.showAtNode = function(node) {
-          // ported from https://github.com/distillpub/template/pull/105/files
-          calcOffset = function(elem) {
-              let x = elem.offsetLeft;
-              let y = elem.offsetTop;
-              // Traverse upwards until an `absolute` element is found or `elem`
-              // becomes null.
-              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
-                  x += elem.offsetLeft;
-                  y += elem.offsetTop;
-              }
-
-              return { left: x, top: y };
-          }
-          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
-          const bbox = node.getBoundingClientRect();
-          const offset = calcOffset(node);
-          this.show([offset.left + bbox.width, offset.top + bbox.height]);
-        }
-      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1405,8 +1373,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
-      // ignore leaflet img layers (#106)
-      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1429,7 +1395,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
       });
     }
 
@@ -1468,8 +1434,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="wtvaluef_files/header-attrs-2.14/header-attrs.js"></script>
-  <script src="wtvaluef_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="wtvaluef_files/header-attrs-2.8/header-attrs.js"></script>
+  <script src="wtvaluef_files/jquery-1.11.3/jquery.min.js"></script>
   <script src="wtvaluef_files/popper-2.6.0/popper.min.js"></script>
   <link href="wtvaluef_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="wtvaluef_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -1489,7 +1455,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"확률 가중 함수와 가치함수","description":"Behavioral economics:Probability-weighted and value functions","authors":[{"author":"Jongseon, Han","authorURL":"https://hanjongseon.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":"0000-0002-4148-9290"}],"publishedDate":"2021-03-05T00:00:00.000+09:00","citationText":"Han, 2021"}
+{"title":"확률 가중 함수와 가치함수","description":"Behavioral economics:Probability-weighted and value functions","authors":[{"author":"Jongseon, Han","authorURL":"https://hanjongseon.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":"0000-0002-4148-9290"}],"publishedDate":"2021-03-05T00:00:00.000+00:00","citationText":"Han, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1502,78 +1468,76 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1>확률 가중 함수와 가치함수</h1>
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
-<div class="dt-tag">Theory and Algorithms</div>
-<div class="dt-tag">R</div>
+<div class="dt=tag">Probability Weighted Function</div>
+<div class="dt=tag">Value function</div>
+<div class="dt=tag">Behavioral economics</div>
+<div class="dt=tag">R</div>
 </div>
 <!--/radix_placeholder_categories-->
-<p><p>Behavioral economics:Probability-weighted and value
-functions</p></p>
+<p><p>Behavioral economics:Probability-weighted and value functions</p></p>
 </div>
 
 <div class="d-byline">
-  Jongseon, Han <a href="https://hanjongseon.github.io"
-class="uri">https://hanjongseon.github.io</a> 
+  Jongseon, Han <a href="https://hanjongseon.github.io" class="uri">https://hanjongseon.github.io</a> 
   
 <br/>03-05-2021
 </div>
 
 <div class="d-article">
+<ul>
+<li>행동 경제학에는 확률가중함수와 가치함수라는 것이 존재한다.<br/> 자세한 내용들은 서적이나 검색을 통해 알 수 있겠지만, 간단히 설명하면 아래와 같다.</li>
+</ul>
 <blockquote>
-<p><u><strong>확률가중함수</strong></u><br/>확률에 대해 사람들이
-가중치를 두어 생각한다는 것을 보여주는 함수<br/>
-<u><strong>가치함수</strong></u><br/>사람의 손실회피 성향을 보여주는
-것으로, 손실에 대해서 더 많은 가치 부여를 보이는 경향을 보임</p>
+<p><u><strong>확률가중함수</strong></u><br/>확률에 대해 사람들이 가중치를 두어 생각한다는 것을 보여주는 함수<br/> <u><strong>가치함수</strong></u><br/>사람의 손실회피 성향을 보여주는 것으로, 손실에 대해서 더 많은 가치 부여를 보이는 경향을 보임</p>
 </blockquote>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
-<span><span class='co'>#확률 가중 함수</span></span>
-<span><span class='va'>w_p</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>p</span>,<span class='va'>r</span><span class='op'>=</span><span class='fl'>0.65</span><span class='op'>)</span><span class='op'>{</span></span>
-<span>  <span class='kw'>if</span><span class='op'>(</span><span class='va'>p</span><span class='op'>&lt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span></span>
-<span>    <span class='va'>k</span> <span class='op'>=</span> <span class='va'>p</span> <span class='op'>*</span> <span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span></span>
-<span>    <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>k</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='op'>(</span><span class='va'>k</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='va'>k</span><span class='op'>)</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>**</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='va'>r</span><span class='op'>)</span><span class='op'>*</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>2.25</span><span class='op'>)</span></span>
-<span>  <span class='op'>}</span></span>
-<span>  <span class='kw'>if</span><span class='op'>(</span><span class='va'>p</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span></span>
-<span>    <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>p</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='op'>(</span><span class='va'>p</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='va'>p</span><span class='op'>)</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>**</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='va'>r</span><span class='op'>)</span><span class='op'>)</span></span>
-<span>  <span class='op'>}</span></span>
-<span>  <span class='kw'>if</span><span class='op'>(</span><span class='va'>p</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span></span>
-<span>    <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span></span>
-<span>  <span class='op'>}</span></span>
-<span><span class='op'>}</span></span>
-<span></span>
-<span><span class='co'># 가치 함수</span></span>
-<span><span class='va'>value_f</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>{</span></span>
-<span>    <span class='kw'>if</span><span class='op'>(</span><span class='va'>x</span><span class='op'>&gt;=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span></span>
-<span>        <span class='va'>y</span> <span class='op'>=</span> <span class='va'>x</span><span class='op'>**</span><span class='fl'>0.88</span></span>
-<span>    <span class='op'>}</span></span>
-<span>    <span class='kw'>if</span><span class='op'>(</span><span class='va'>x</span><span class='op'>&lt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span></span>
-<span>        <span class='va'>y</span> <span class='op'>=</span> <span class='op'>-</span><span class='fl'>2.25</span><span class='op'>*</span><span class='op'>(</span><span class='op'>-</span><span class='va'>x</span><span class='op'>)</span><span class='op'>**</span><span class='fl'>0.88</span></span>
-<span>    <span class='op'>}</span></span>
-<span>    <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span></span>
-<span><span class='op'>}</span></span>
-<span></span>
-<span><span class='co'>#확률리스트 생성</span></span>
-<span><span class='va'>p_list</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>,<span class='fl'>1</span>,by<span class='op'>=</span><span class='fl'>0.01</span><span class='op'>)</span></span>
-<span><span class='va'>p_df</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>p_list</span><span class='op'>)</span></span>
-<span><span class='va'>p_df</span><span class='op'>$</span><span class='va'>W_P</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span><span class='op'>(</span><span class='va'>w_p</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>p_list</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
-<span><span class='va'>p_df</span><span class='op'>$</span><span class='va'>VALUE_F</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span><span class='op'>(</span><span class='va'>value_f</span>, <span class='va'>p_list</span><span class='op'>)</span><span class='op'>)</span></span>
-<span><span class='va'>p_df</span><span class='op'>$</span><span class='va'>FELL_VALUE</span> <span class='op'>=</span> <span class='va'>p_df</span><span class='op'>$</span><span class='va'>W_P</span><span class='op'>*</span><span class='va'>p_df</span><span class='op'>$</span><span class='va'>VALUE_F</span></span>
-<span><span class='co'>#head(p_df)</span></span>
-<span><span class='va'>p_df_reform</span> <span class='op'>=</span> <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span><span class='op'>(</span><span class='va'>p_df</span>, key<span class='op'>=</span><span class='st'>"TYPE"</span>,value<span class='op'>=</span><span class='st'>'value'</span>,<span class='op'>-</span><span class='va'>p_list</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>TYPE</span><span class='op'>!=</span><span class='st'>'W_P'</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
-<span><span class='co'>#ggplot() + geom_point(data=p_df_reform, aes(x=p_list, y=value, group=TYPE, col=TYPE))+</span></span>
-<span><span class='co'>#  geom_point(data=p_df_reform, aes(x=p_list, y=p_list), col='grey')+</span></span>
-<span><span class='co'>#  xlab('real prob(%)')+</span></span>
-<span><span class='co'>#  ylab('Probability of feeling') + theme_bw()</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='co'>#확률 가중 함수</span>
+<span class='va'>w_p</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>p</span>,<span class='va'>r</span><span class='op'>=</span><span class='fl'>0.65</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='kw'>if</span><span class='op'>(</span><span class='va'>p</span><span class='op'>&lt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>k</span> <span class='op'>=</span> <span class='va'>p</span> <span class='op'>*</span> <span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>
+    <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>k</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='op'>(</span><span class='va'>k</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='va'>k</span><span class='op'>)</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>**</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='va'>r</span><span class='op'>)</span><span class='op'>*</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>2.25</span><span class='op'>)</span>
+  <span class='op'>}</span>
+  <span class='kw'>if</span><span class='op'>(</span><span class='va'>p</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>p</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='op'>(</span><span class='va'>p</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='va'>p</span><span class='op'>)</span><span class='op'>**</span><span class='va'>r</span><span class='op'>)</span><span class='op'>**</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='va'>r</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>}</span>
+  <span class='kw'>if</span><span class='op'>(</span><span class='va'>p</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>
+  <span class='op'>}</span>
+<span class='op'>}</span>
+
+<span class='co'># 가치 함수</span>
+<span class='va'>value_f</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='kw'>if</span><span class='op'>(</span><span class='va'>x</span><span class='op'>&gt;=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+        <span class='va'>y</span> <span class='op'>=</span> <span class='va'>x</span><span class='op'>**</span><span class='fl'>0.88</span>
+    <span class='op'>}</span>
+    <span class='kw'>if</span><span class='op'>(</span><span class='va'>x</span><span class='op'>&lt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+        <span class='va'>y</span> <span class='op'>=</span> <span class='op'>-</span><span class='fl'>2.25</span><span class='op'>*</span><span class='op'>(</span><span class='op'>-</span><span class='va'>x</span><span class='op'>)</span><span class='op'>**</span><span class='fl'>0.88</span>
+    <span class='op'>}</span>
+    <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='co'>#확률리스트 생성</span>
+<span class='va'>p_list</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>,<span class='fl'>1</span>,by<span class='op'>=</span><span class='fl'>0.01</span><span class='op'>)</span>
+<span class='va'>p_df</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>p_list</span><span class='op'>)</span>
+<span class='va'>p_df</span><span class='op'>$</span><span class='va'>W_P</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span><span class='op'>(</span><span class='va'>w_p</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>p_list</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p_df</span><span class='op'>$</span><span class='va'>VALUE_F</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span><span class='op'>(</span><span class='va'>value_f</span>, <span class='va'>p_list</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p_df</span><span class='op'>$</span><span class='va'>FELL_VALUE</span> <span class='op'>=</span> <span class='va'>p_df</span><span class='op'>$</span><span class='va'>W_P</span><span class='op'>*</span><span class='va'>p_df</span><span class='op'>$</span><span class='va'>VALUE_F</span>
+<span class='co'>#head(p_df)</span>
+<span class='va'>p_df_reform</span> <span class='op'>=</span> <span class='fu'>tidyr</span><span class='fu'>::</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span><span class='op'>(</span><span class='va'>p_df</span>, key<span class='op'>=</span><span class='st'>"TYPE"</span>,value<span class='op'>=</span><span class='st'>'value'</span>,<span class='op'>-</span><span class='va'>p_list</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>TYPE</span><span class='op'>!=</span><span class='st'>'W_P'</span><span class='op'>)</span>
+
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>p_df_reform</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>p_list</span>, y<span class='op'>=</span><span class='va'>value</span>, group<span class='op'>=</span><span class='va'>TYPE</span>, col<span class='op'>=</span><span class='va'>TYPE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>p_df_reform</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>p_list</span>, y<span class='op'>=</span><span class='va'>p_list</span><span class='op'>)</span>, col<span class='op'>=</span><span class='st'>'grey'</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>'real prob(%)'</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>'Probability of feeling'</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
 </div>
+<p><img src="wtvaluef_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
-<ul>
-<li>실제 적용시 제대로 작동안됨.</li>
-</ul>
 <hr />
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

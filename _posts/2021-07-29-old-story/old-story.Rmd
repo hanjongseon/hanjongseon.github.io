@@ -1,0 +1,21 @@
+---
+title: "내가 R에서 파이썬을 완전히 넘어갈 생각을 하게 된 이유"
+description: |
+  R에서 경험한 몇가지 치명적인 문제점
+categories:
+  - life story
+author:
+  - name: Jongseon, Han
+    url: https://hanjongseon.github.io
+date: 07-29-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+- 난 기본적으로 R 베이스 기반으로 데이터를 다룬다. 

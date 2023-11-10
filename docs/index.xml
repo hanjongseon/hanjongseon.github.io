@@ -1,58 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>BOOLEAN</title>
+    <title>Jongseon Han</title>
     <link>https://hanjongseon.github.io</link>
     <atom:link href="https://hanjongseon.github.io/index.xml" rel="self" type="application/rss+xml"/>
     <description>My Blog
 </description>
-    <image>
-      <title>BOOLEAN</title>
-      <url>https://hanjongseon.github.io/images/logo.png</url>
-      <link>https://hanjongseon.github.io</link>
-    </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 29 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 29 Jul 2021 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>파이썬 R, 스케줄러 등록</title>
+      <title>내가 R에서 파이썬을 완전히 넘어갈 생각을 하게 된 이유</title>
       <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/posts/2022-06-29-batchschedule</link>
-      <description>scheduler assign.</description>
-      <category>useful TIP</category>
-      <category>python</category>
-      <category>R</category>
-      <category>etc</category>
-      <guid>https://hanjongseon.github.io/posts/2022-06-29-batchschedule</guid>
-      <pubDate>Wed, 29 Jun 2022 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>polars, pandas SQL 오라클 연결</title>
-      <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/posts/2022-06-27-sqlconnect</link>
-      <description>SQL CONNECTING.</description>
-      <category>useful TIP</category>
-      <category>python</category>
-      <category>etc</category>
-      <guid>https://hanjongseon.github.io/posts/2022-06-27-sqlconnect</guid>
-      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>WSL_포트 포워딩 및 리눅스 네트워크 드라이브 마운팅</title>
-      <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/posts/2021-09-16-wslport</link>
-      <description>WSL port forwading in windows.</description>
-      <guid>https://hanjongseon.github.io/posts/2021-09-16-wslport</guid>
-      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>윈도우즈 timestamp 조정하기</title>
-      <dc:creator>Jongseon, Han</dc:creator>
-      <link>https://hanjongseon.github.io/posts/2021-08-12-timestampsink</link>
-      <description>Match timestamp in Binance</description>
-      <category>useful TIP</category>
-      <category>etc</category>
-      <guid>https://hanjongseon.github.io/posts/2021-08-12-timestampsink</guid>
-      <pubDate>Thu, 12 Aug 2021 00:00:00 +0000</pubDate>
+      <link>https://hanjongseon.github.io/posts/2021-07-29-old-story</link>
+      <description>R에서 경험한 몇가지 치명적인 문제점</description>
+      <category>life story</category>
+      <guid>https://hanjongseon.github.io/posts/2021-07-29-old-story</guid>
+      <pubDate>Thu, 29 Jul 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>리눅스나 맥에서 kaggle json 등록하기</title>
@@ -62,8 +25,6 @@
       <category>kaggle</category>
       <category>python</category>
       <category>R</category>
-      <category>etc</category>
-      <category>useful TIP</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-07-kaggleinstall</guid>
       <pubDate>Sun, 07 Mar 2021 00:00:00 +0000</pubDate>
     </item>
@@ -72,24 +33,26 @@
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2021-03-05-wtvaluef</link>
       <description>Behavioral economics:Probability-weighted and value functions</description>
-      <category>Theory and Algorithms</category>
+      <category>Probability Weighted Function</category>
+      <category>Value function</category>
+      <category>Behavioral economics</category>
       <category>R</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-05-wtvaluef</guid>
       <pubDate>Fri, 05 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://hanjongseon.github.io/posts/2021-03-05-wtvaluef/wtvaluef_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>R 네트워크 관련 패키지 설치(ubuntu)</title>
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2021-03-03-2021-03-03-rinubuntu</link>
       <description>우분투에서 R 초기 패키지 설치 전에 만지게 되는 것들</description>
-      <category>useful TIP</category>
+      <category>ubuntu</category>
       <category>R</category>
-      <category>etc</category>
       <guid>https://hanjongseon.github.io/posts/2021-03-03-2021-03-03-rinubuntu</guid>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>g2r 패키지</title>
+      <title>g2r</title>
       <dc:creator>Jongseon, Han</dc:creator>
       <link>https://hanjongseon.github.io/posts/2021-03-04-usefulnewpack</link>
       <description>New and useful visualization packages</description>

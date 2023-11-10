@@ -3,7 +3,9 @@ title: "확률 가중 함수와 가치함수"
 description: |
   Behavioral economics:Probability-weighted and value functions
 categories:
-  - Theory and Algorithms
+  - Probability Weighted Function
+  - Value function
+  - Behavioral economics
   - R
 author:
   - name: Jongseon, Han
@@ -20,6 +22,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+- 행동 경제학에는 확률가중함수와 가치함수라는 것이 존재한다.<br/>
+자세한 내용들은 서적이나 검색을 통해 알 수 있겠지만, 간단히 설명하면 아래와 같다.
 
 ><u>**확률가중함수**</u><br/>확률에 대해 사람들이 가중치를 두어 생각한다는 것을 보여주는 함수<br/>
 ><u>**가치함수**</u><br/>사람의 손실회피 성향을 보여주는 것으로, 손실에 대해서 더 많은 가치 부여를 보이는 경향을 보임
@@ -63,15 +67,13 @@ p_df$FELL_VALUE = p_df$W_P*p_df$VALUE_F
 p_df_reform = tidyr::gather(p_df, key="TYPE",value='value',-p_list) %>% filter(TYPE!='W_P')
 
 library(ggplot2)
-#ggplot() + geom_point(data=p_df_reform, aes(x=p_list, y=value, group=TYPE, col=TYPE))+
-#  geom_point(data=p_df_reform, aes(x=p_list, y=p_list), col='grey')+
-#  xlab('real prob(%)')+
-#  ylab('Probability of feeling') + theme_bw()
+ggplot() + geom_point(data=p_df_reform, aes(x=p_list, y=value, group=TYPE, col=TYPE))+
+  geom_point(data=p_df_reform, aes(x=p_list, y=p_list), col='grey')+
+  xlab('real prob(%)')+
+  ylab('Probability of feeling') + theme_bw()
 
 
 ```
-
-- 실제 적용시 제대로 작동안됨.
 
 ---
 
