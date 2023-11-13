@@ -4,7 +4,7 @@ categories:
   - ubuntu
   - R
 description: |
-  우분투에서 R 초기 패키지 설치 전 설정해놓으면 편리한 것들
+  우분투에서 R 초기 패키지 설치 전 설정해놓으면 편리한 것들 모음
 author:
   - name: Jongseon, Han
     url: https://hanjongseon.github.io
