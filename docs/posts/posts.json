@@ -36,7 +36,7 @@
     ],
     "contents": "\n개인적으로 kaggle 데이터셋이 워낙 깨끗하니 그걸로 연습하는 것을 좋아하는데, 사이트에서 집접 코드를 만지다보니 생각보다 불편한 경우가 많이 생긴다.\nKaggle과 내 컴퓨터의 R이나 파이썬을 연동해주려고 하면 생각보다 어려움을 겪게 되는 부분이 생긴다. 윈도우에서는 어려움이 없는데 WSL이나 MAC을 쓸데 골치 아프다. 일단 kaggle을 pip로 설치하면 된다.\npip install kaggle\n다음이 문제가 되는데, 바로 .kaggle 폴더가 보이지 않는다는 점이다. 억지로 폴더로 만들어서 하다보면 또 형식이 맞지 않는다면서 문제가 생기기도 했다. 어쨋든 json파일을 복사하려고 하면 권한 문제든 뭐든 제대로 안되는 경우가 있다.\n아무래도 나같이 터미널을 그냥 패키지 설치할 때 에러나면 찾아보는 수준으로 쓰거나 아예 써보지 않은 무경험자일 때 생기는 문제일 것 같다. 이 경우에 아래 방식으로 진행하면 된다.\n#kaggle 패키지 설치\n1.pip install kaggle\n# 자기 홈디렉토리의 .kaggle로 이동\n# ~/과 ./를 볼수 있는데 ~인 경우는 기본적인 홈디렉토리를 의미하고 .의 경우는 현디렉토리를 의미한다.\n2.cd ~/.kaggle\n#홈페이지에가서 key를 받고..\n3.homepage www.kaggle.com -> Your Account -> Create New API token\n#다운받은 json 파일을 옮긴다.당연히 mv는 이동을 하고자 할떄 쓰는 명령어이다.\n#패키지 설치할 떄 종종 쓰이니 알아두면 괜찮다.\n4.mv ~/Downloads/kaggle.json ./\n#이후 권한을 설정해준다. chmod는 권한설정 명령어이다. \n5.chmod 600 ./kaggle.json\n\n\n\n",
     "preview": {},
-    "last_modified": "2023-11-11T03:47:01+09:00",
+    "last_modified": "2023-11-13T17:15:02+09:00",
     "input_file": {}
   },
   {
@@ -64,6 +64,26 @@
     "preview_height": 768
   },
   {
+    "path": "posts/2021-03-03-2021-03-03-rinubuntu/",
+    "title": "R 네트워크 관련 패키지 설치(ubuntu)",
+    "description": "우분투에서 R 초기 패키지 설치 전 설정해놓으면 편리한 것들",
+    "author": [
+      {
+        "name": "Jongseon, Han",
+        "url": "https://hanjongseon.github.io"
+      }
+    ],
+    "date": "2021-03-03",
+    "categories": [
+      "ubuntu",
+      "R"
+    ],
+    "contents": "\n아래 패키지들이 정확한 설치대상은 아닐 수 있음\njsonlite, httr, rvest, mongolite 등 네트워크 사용이 필요한 경우 설치가 꼭 제대로 안되는데 아래 내용들 먼저 설치해주면 보통 해결됨\nsudo apt-get install -y libssl-dev\nsudo apt-get install libxml2-dev\nsudo apt-get install libcurl4-openssl-dev\nsudo apt-get install libsasl2-dev\n\n추가내용\n항상 그러지는 않는 것으로 보이나 다른 패키지 설치 전에 에러가 나서 먼저 설치해줘야 할 것들\n#rcpp 설치시 에러가 나는 경우\ninstall.packages('codetools')\ninstall.packages('Rcpp')\n\n#distill 관련\ninstall.packages('lattice')\n\n\n\n",
+    "preview": {},
+    "last_modified": "2023-11-13T17:15:27+09:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-03-04-usefulnewpack/",
     "title": "g2r",
     "description": "New and useful visualization packages",
@@ -82,25 +102,5 @@
     "preview": {},
     "last_modified": "2023-11-11T03:46:52+09:00",
     "input_file": {}
-  },
-  {
-    "path": "posts/2021-03-03-2021-03-03-rinubuntu/",
-    "title": "R 네트워크 관련 패키지 설치(ubuntu)",
-    "description": "우분투에서 R 초기 패키지 설치 전에 만지게 되는 것들",
-    "author": [
-      {
-        "name": "Jongseon, Han",
-        "url": "https://hanjongseon.github.io"
-      }
-    ],
-    "date": "2021-03-03",
-    "categories": [
-      "ubuntu",
-      "R"
-    ],
-    "contents": "\n아래 패키지들이 정확한 설치대상은 아닐 수 있음\njsonlite, httr, rvest, mongolite 등 네트워크 사용이 필요한 경우 설치가 꼭 제대로 안되는데 아래 내용들 먼저 설치해주면 보통 해결됨\nsudo apt-get install -y libssl-dev\nsudo apt-get install libxml2-dev\nsudo apt-get install libcurl4-openssl-dev\nsudo apt-get install libsasl2-dev\n\n추가내용\n항상 그러지는 않는 것으로 보이나 다른 패키지 설치 전에 에러가 나서 먼저 설치해줘야 할 것들\n#rcpp 설치시 에러가 나는 경우\ninstall.packages('codetools')\ninstall.packages('Rcpp')\n\n#distill 관련\ninstall.packages('lattice')\n\n\n\n",
-    "preview": {},
-    "last_modified": "2023-11-11T04:04:47+09:00",
-    "input_file": "2021-03-03-rinubuntu.knit.md"
   }
 ]
